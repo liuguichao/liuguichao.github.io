@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sequential Containers - My study notes</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="liuguichao">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="canonical" href="/c++/2014-07/sequential-containers.html">
+
+  <link rel="stylesheet" href="/assets/css/style.css" media="all">
+
+  <!-- atom & rss feed -->
+  <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="My study notes RSS Feed">
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="My study notes ATOM Feed">
+
+  <!-- fav and touch icons  -->
+  <!-- Update these with your own images
+  <link rel="shortcut icon" href="images/favicon.ico">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+  <meta name="renderer" content="webkit|ie-stand">
+
+  <meta name="baidu-site-verification" content="BvD3CNBzK6" />
+  <meta name="msvalidate.01" content="FE0D1D87A075E1003B82C7446EE360ED" />
+</head>
+
+
+  <body>
+    <div class="container">
+      <!--[if lt IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+  <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <div class="title"><a title="My study notes" href="/">My study notes</a></div>
+  <ul class="nav navbar-nav collapse navbar-collapse bs-navbar-collapse navbar-right">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories" rel="nofollow"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags" rel="nofollow"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/liuguichao" target="_blank" title="Github" rel="nofollow"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS" rel="nofollow"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <article class="wrapper">
+        <div id="search-loader" class="img-wrap">
+          <div class="loading">
+            <img src="/assets/img/loading.png">
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-12">
+<h2 class="title"> Sequential Containers <time class="small">2014.07.11</time></h2>
+<p><strong>The Sequential Containers</strong></p>
+
+<p><img src="http://i.imgur.com/0PEOjIC.jpg" alt=""></p>
+
+<p><strong>Iterator Ranges</strong></p>
+
+<p>An <em>iterator range</em> is denoted by a pair of iterators each of which refers to an element, or to one past the last element,in the same container. These two iterators,
+often referred to as <em>begin</em> and <em>end</em>—or (somewhat misleadingly) as <em>first</em> and <em>last</em>—mark a range of elements from the container.</p>
+
+<p>The name <em>last</em>, although commonly used, is a bit misleading, because the second iterator never refers to the last element of the range. Instead, it refers to a point one past the last element. The elements in the range include the element denoted by <em>first</em> and every element from <em>first</em> up to but not including <em>last</em>.</p>
+
+<p>This element range is called a <strong>left-inclusive interval</strong>. The standard mathematical notation for such a range is<strong>[ begin, end)</strong>.indicating that the range begins with <em>begin</em> and ends with, but does not include,
+<em>end</em>. The iterators begin and end must refer to the same container. The iterator end may be equal to begin but must not refer to an element before the one denoted by begin.</p>
+
+<p><strong>Subscripting and Safe Random Access</strong></p>
+
+<p>If we want to ensure that our index is valid, we can use the <strong>at</strong> member instead.The at member acts like the subscript operator, but if the index is invalid, atthrows
+an out<em>of</em>rangeexception.</p>
+
+<p><strong>capacity and size</strong></p>
+
+<p>It is important to understand the difference between <em>capacity</em> and <em>size</em>. The <em>size</em> of a container is the number of elements it already holds; its <em>capacity</em> is how many elements it can hold before more space must be allocated.</p>
+
+<p><strong>Numeric Conversions</strong></p>
+
+<p><img src="http://i.imgur.com/Cq46gBy.jpg" alt=""></p>
+
+<p><strong>Container Adaptors</strong></p>
+
+<p>In addition to the sequential containers, the library defines three sequential container adaptors: <strong>stack</strong>, <strong>queue</strong>, and <strong>priority_queue</strong>. An adaptor is a general concept in the library. There are container, iterator, and function adaptors. Essentially, an adaptor is a mechanism for making one thing act like another. A container adaptor
+takes an existing container type and makes it act like a different type. For example,the stack adaptor takes a sequential container (other than array or forward<em>list)and makes it operate as if it were a stack.The <strong>stack</strong> type is defined in the stack header.The <strong>queue</strong> and **priority</em>queue** adaptors are defined in the queue header.</p>
+
+<ul class="pager">
+  
+  <li class="previous"><a  href="/c++/2014-07/the-io-library.html" title="The IO Library">&larr; Prev</a></li>
+  
+  
+  <li class="next"><a href="/c++/2014-07/generic-algorithms.html" title="Generic Algorithms">Next &rarr;</a></li>
+  
+</ul>
+
+
+
+</div>
+
+        </div>
+      </article>
+
+      <footer class="footer text-center">
+  <p>&copy; 2015 <a href="" title="">liuguichao</a>. with Help from <a href="//jekyllrb.com/" title="Transform your plain text into static websites and blogs.">Jekyll</a> and <a href="//getbootstrap.com/" title="Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.">Bootstrap</a></p>
+  <p>Articles are licensed under <a href="//creativecommons.org/licenses/by/3.0/" title="CC BY 3.0 License">the CC BY 3.0</a></p>
+</footer>
+
+    </div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/webcore.js"></script>
+
+    
+
+    
+  </body>
+</html>

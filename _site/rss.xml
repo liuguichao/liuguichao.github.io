@@ -1,0 +1,1802 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <channel>
+    <title>My study notes</title>
+    <description></description>
+    <link></link>
+    <lastBuildDate>Fri, 03 Apr 2015 09:01:49 +0800</lastBuildDate>
+    <pubDate>Fri, 03 Apr 2015 09:01:49 +0800</pubDate>
+    <ttl>1800</ttl>
+
+    
+    <item>
+      <title><![CDATA[Templates and Generic Programming]]></title>
+      <description>&lt;h1&gt;1. Two Sum&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://oj.leetcode.com/problems/two-sum/&quot;&gt;https://oj.leetcode.com/problems/two-sum/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Question:&lt;/h2&gt;
+
+&lt;p&gt;Given an array of integers, find two numbers such that they add up to a specific target number.&lt;/p&gt;
+
+&lt;p&gt;The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.&lt;/p&gt;
+
+&lt;p&gt;You may assume that each input would have exactly one solution.&lt;/p&gt;
+
+&lt;h2&gt;Solution:&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;O(n) runtime, O(n) space - Hash table&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c--&quot; data-lang=&quot;c++&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt;      &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;twoSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt;          &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt;          &lt;span class=&quot;n&quot;&gt;unordered_map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt;          &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt;          &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt;              &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt;  
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt;              &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt;              &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt;                  &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt;                  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt;              &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt;              &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt;          &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+      <link>/algorithms/2015-04/TwoSum.html</link>
+      <guid>/algorithms/2015-04/TwoSum</guid>
+      <pubDate>Wed, 01 Apr 2015 00:00:00 +0800</pubDate>
+    </item>
+    
+    <item>
+      <title><![CDATA[Templates and Generic Programming]]></title>
+      <description>&lt;p&gt;Both object-oriented programming (OOP) and generic programming deal with types that are not known at the time the program is written. The distinction between the two is that OOP deals with types that are not known until &lt;strong&gt;run time&lt;/strong&gt;, whereas in generic programming the types become known during &lt;strong&gt;compilation&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Function Templates&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Rather than defining a new function for each type, we can define a function
+template. A function template is a formula from which we can generate type-specific versions of that function. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;template &amp;lt;typename T&amp;gt;
+int compare(const T &amp;amp;v1, const T &amp;amp;v2)
+{
+if (v1 &amp;lt; v2) return -1;
+if (v2 &amp;lt; v1) return 1;
+return 0;
+}
+
+template &amp;lt;typename T&amp;gt; 
+int compare(const T &amp;amp;v1, const T &amp;amp;v2)
+{
+if (less&amp;lt;T&amp;gt;()(v1, v2)) return -1;
+if (less&amp;lt;T&amp;gt;()(v2, v1)) return 1;
+return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;At emplate definition starts with the keyword &lt;strong&gt;template&lt;/strong&gt; followed by a &lt;strong&gt;template parameter list&lt;/strong&gt;, which is a comma-separated list of one or more template parameters bracketed by the less-than (&amp;lt;) and greater-than (&amp;gt;) tokens.&lt;/p&gt;
+
+&lt;p&gt;The compiler uses the deduced template parameter(s) to &lt;strong&gt;instantiate&lt;/strong&gt; a specific version of the function for us. When the compiler instantiates a template, it creates a new “instance” of the template using the actual template argument(s) in place of the corresponding template parameter(s). &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Template Compilation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When the compiler sees the definition of a template, it does not generate code. It generates code only when we instantiate a specific instance of the template. The fact that code is generated only when we use a template (and not when we define it) affects how we organize our source code and when errors are detected.&lt;/p&gt;
+
+&lt;p&gt;Definitions of function templates and member functions of class templates are ordinarily put into header files.Users of the template must include the header for the template and for any types used to instantiate that template.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Template Type Aliases&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Because a template is not a type, we cannot define a typedef that refers to a template. However, the new standard lets us define a type alias for a class template.&lt;/p&gt;
+
+&lt;p&gt;template &lt;typenameT&gt; using twin = pair&lt;T, T&gt;;
+twin&lt;string&gt; authors; // authors is a pair&lt;string, string&gt;&lt;/p&gt;
+
+&lt;p&gt;template &lt;typename T&gt; using partNo = pair&lt;T, unsigned&gt;;
+partNo&lt;string&gt; books;  // books is a pair&lt;string, unsigned&gt;
+partNo&lt;Vehicle&gt; cars;  // cars is a pair&lt;Vehicle, unsigned&gt;
+partNo&lt;Student&gt; kids;  // kids is a pair&lt;Student, unsigned&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Using Class Members That Are Types&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;By default, the language assumes that a name accessed through the scope operator is not a type. As a result, if we want to use a type member of a template type parameter, we must explicitly tell the compiler that the name is a type. We do so by using the keyword &lt;strong&gt;typename&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;template &amp;lt;typename T&amp;gt;
+typename T::value_type top(const T&amp;amp; c)
+{
+if (!c.empty())
+return c.back();
+else
+return typename T::value_type();
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;To be continue……&lt;/strong&gt;&lt;/p&gt;
+</description>
+      <link>/c++/2014-07/templates-and-generic-programming.html</link>
+      <guid>/c++/2014-07/templates-and-generic-programming</guid>
+      <pubDate>Sun, 20 Jul 2014 10:05:00 +0800</pubDate>
+    </item>
+    
+    <item>
+      <title><![CDATA[Object-Oriented Programming]]></title>
+      <description>&lt;p&gt;The key ideas in object-oriented programming are &lt;strong&gt;data abstraction&lt;/strong&gt;, &lt;strong&gt;inheritance&lt;/strong&gt;,and &lt;strong&gt;dynamic binding&lt;/strong&gt;. Using data abstraction, we can define classes that separate interface from implementation. Through inheritance, we can define classes that model the relationships among similar types. Through dynamic binding, we can use objects of these types while ignoring the details of how they differ.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Inheritance&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Classes related by inheritance form a hierarchy. Typically there is a &lt;strong&gt;base class&lt;/strong&gt; at the root of the hierarchy, from which the other classes inherit, directly or indirectly. These inheriting classes are known as &lt;strong&gt;derived classes&lt;/strong&gt;. The base class defines those members that are common to the types in the hierarchy. Each derived class defines those members that are specific to the derived class itself.&lt;/p&gt;
+
+&lt;p&gt;In C++, a base class distinguishes functions that are type dependent from those that it expects its derived classes to inherit without change. The base class defines as &lt;strong&gt;virtual&lt;/strong&gt; those functions it expects its derived classes to define for themselves.&lt;/p&gt;
+
+&lt;p&gt;A derived class must specify the class(es) from which it intends to inherit. It does so in a class derivation list, which is a colon followed by a comma-separated list of base classes each of which may have an optional access specifier.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Quote {
+public:
+std::string isbn() const;
+virtual double net_price(std::size_t n) const;
+};
+
+classBulk_quote : public Quote { // Bulk_quote inherits from Quote
+public:
+double net_price(std::size_t) const override;
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;A derived class must include in its own class body a declaration of all the virtual functions it intends to define for itself. A derived class may include the virtual keyword on these functions but is not required to do so. The new standard lets a derived class explicitly note that it intends a
+member function to override a virtual that it inherits. It does so by specifying &lt;strong&gt;override&lt;/strong&gt; after its parameter list.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Dynamic Binding&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In C++, dynamic binding happens when a virtual function is called through a
+reference (or a pointer) to a base class.&lt;/p&gt;
+
+&lt;p&gt;Through dynamic binding, we can use the same code to process objects of either type Quote or Bulk_quote interchangeably.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// calculate and print the price for the given number of copies, applying any discounts
+double print_total(ostream &amp;amp;os, const Quote &amp;amp;item, size_t n)
+{
+// depending on the type of the object bound to the item parameter
+// calls either Quote::net_price or Bulk_quote::net_price
+double ret = item.net_price(n);
+os &amp;lt;&amp;lt; &amp;quot;ISBN: &amp;quot; &amp;lt;&amp;lt; item.isbn() // calls Quote::isbn
+&amp;lt;&amp;lt; &amp;quot; # sold: &amp;quot; &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &amp;quot; total due: &amp;quot; &amp;lt;&amp;lt; ret &amp;lt;&amp;lt; endl;
+return ret;
+}
+
+// basic has type Quote; bulk has type Bulk_quote
+print_total(cout, basic, 20); //  calls Quote version of net_price
+print_total(cout, bulk, 20);  //  calls Bulk_quote version of net_price
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Because the decision as to which version to run depends on the type of
+the argument, that decision can’t be made until run time. Therefore, dynamic binding is sometimes known as run-time binding.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Defining a Base Class&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Quote {
+public:
+Quote() = default;  // = default see § 7.1.4 (p. 264)
+Quote(const std::string &amp;amp;book, double sales_price):
+bookNo(book), price(sales_price) { }
+std::string isbn() const { return bookNo; }
+// returns the total sales price for the specified number of items
+// derived classes will override and apply different discount algorithms
+virtual double net_price(std::size_t n) const
+{ return n * price; }
+virtual ~Quote() = default; // dynamic binding for the destructor
+private:
+std::string bookNo; // ISBN number of this item
+protected:
+double price = 0.0; // normal, undiscounted price
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Base classes ordinarily should define a virtual destructor. Virtual destructors are needed even if they do no work.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Member Functions and Inheritance&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The base class defines as &lt;strong&gt;virtual&lt;/strong&gt; those functions it expects its derived classes to override. When we call a virtual function through a pointer or reference, the call will be dynamically bound. Depending on the type of the object to which the reference orpointer is bound, the version in the base class or in one of its derived classes will be executed.&lt;/p&gt;
+
+&lt;p&gt;Any nonstatic member function, other than a constructor, may be virtual. The virtual keyword appears only on the declaration inside the class and may not be used on a function definition that appears outside the class body. A function that is declared as virtual in the base class is implicitly virtual in the derived classes as well. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Defining a Derived Class&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Bulk_quote : public Quote { // Bulk_quote inherits from Quote
+Bulk_quote() = default;
+Bulk_quote(const std::string&amp;amp;, double, std::size_t,
+double);
+// overrides the base version in order to implement the bulk purchase discount
+policy
+double net_price(std::size_t) const override;
+private:
+std::size_t min_qty = 0; // minimum purchase for the discount to
+apply
+double discount = 0.0;  // fractional discount to apply
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Derived-Class Constructors&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Althougha derived object contains members that it inherits from its base, it cannot directly initialize those members. Like any other code that creates an object of the base-class type, a derived class must use a base-class constructor to initialize its base-class part.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Bulk_quote(conststd::string&amp;amp; book, double p,
+std::size_t qty, double disc) :
+Quote(book, p), min_qty(qty), discount(disc) { }
+// as before
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;passes its first two parameters (representing the ISBNand price) to the Quote constructor. That Quote constructor initializes the Bulk&lt;em&gt;quote’s base-class part (i.e.,the bookNo and pricemembers). When the (empty) Quote constructor body completes, the base-class part of the object being constructed will have been initialized. Next the direct members, min&lt;/em&gt;qty and discount, are initialized. Finally, the (empty) function body of the Bulk_quoteconstructor is run.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Key Concept: Respecting the Base-Class Interface&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It is essential to understand that each class defines its own interface.
+Interactions with an object of a class-type should use the interface of that class, even if that object is the base-class part of a derived object.&lt;/p&gt;
+
+&lt;p&gt;As a result, derived-class constructors may not directly initialize the
+members of its base class. The constructor body of a derived constructor can assign values to its public or protected base-class members. Although it can assign to those members, it generally should not do so. Like any other user of the base class, a derived class should respect the interface of its base class by using a constructor to initialize its inherited members.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Inheritance and static Members&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If a base class defines a static member, there is only one such member defined for the entire hierarchy. Regardless of the number of classes derived from a base class, there exists a single instance of each static member.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Base {
+public:
+static void statmem();
+};
+class Derived : public Base {
+void f(const Derived&amp;amp;);
+};
+
+void Derived::f(const Derived &amp;amp;derived_obj)
+{
+Base::statmem();  // ok: Base defines statmem
+Derived::statmem(); // ok: Derived inherits statmem
+// ok: derived objects can be used to access static from base
+derived_obj.statmem(); // accessed through a Derived object
+statmem();  // accessed through this object
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Preventing Inheritance&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Sometimes we define a class that we don’t want others to inherit from. Or we might define a class for which we don’t want to think about whether it is appropriate as a base class. Under the new standard, we can prevent a class from being used as a base by following the class name with &lt;strong&gt;final&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class NoDerived final { /*  */ }; // NoDerived can&amp;#39;t be a base class
+class Base { /*  */ };
+// Last is final; we cannot inherit from Last
+class Last final : Base { /*  */ }; // Last can&amp;#39;t be a base class
+class Bad : NoDerived { /*  */ };  // error: NoDerived is final
+class Bad2 : Last { /*  */ };  // error: Last is final
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Static Type and Dynamic Type&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When we use types related by inheritance, we often need to distinguish between the static type of a variable or other expression and the dynamic typeof the object that expression represents. The static type of an expression is always known at compile time—it is the type with which a variable is declared or that an expression yields. The dynamic type is the type of the object in memory that the variable or expression represents. The dynamic type may not be known until run time.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Key Concept: Polymorphism in C++&lt;/strong&gt;
+The key idea behind OOP is polymorphism. Polymorphism is derived from a Greek word meaning “many forms.” We speak of types related by inheritance as polymorphic types, because we can use the “many forms” of these types while ignoring the differences among them. The fact that the static and dynamic types of references and pointers can differ is the cornerstone of how C++ supports polymorphism.&lt;/p&gt;
+
+&lt;p&gt;When we call a function defined in a base class through a reference or pointer to the base class, we do not know the type of the object on which that member is executed. The object can be a base-class object or an object of a derived class. If the function is virtual, then the decision as to which function to run is delayed until run time. The version of the virtual function that is run is the one defined by the type of the object to which the reference is bound or to which the pointer points.&lt;/p&gt;
+
+&lt;p&gt;On the other hand, calls to nonvirtual functions are bound at compile time.
+Similarly, calls to any function (virtual or not) on an object are also bound at compile time. The type of an object is fixed and unvarying—there is nothing we can do to make the dynamic type of an object differ from its static type. Therefore, calls made on an object are bound at compile time to the version defined by the type of the object.&lt;/p&gt;
+
+&lt;p&gt;Virtuals are resolved at run time only if the call is made through a
+&lt;strong&gt;reference&lt;/strong&gt; or &lt;strong&gt;pointer&lt;/strong&gt;. Only in these cases is it possible for an object’s dynamic type to differ from its static type.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Virtual Functions in a Derived Class&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A function that is virtual in a base class is implicitly virtual in its
+derived classes. When a derived class overrides a virtual, the parameters in the base and derived classes must match exactly.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The final and override Specifiers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The compiler will reject a program if a function marked &lt;strong&gt;override&lt;/strong&gt; does not override an existing virtual function:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;struct B {
+virtual void f1(int) const;
+virtual void f2();
+void f3();
+};
+struct D1 : B {
+void f1(int) const override; // ok: f1 matches f1 in the base
+void f2(int) override; // error: B has no f2(int) function
+void f3() override;  // error: f3 not virtual
+void f4() override;  // error: B doesn&amp;#39;t have a function named f4
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We can also designate a function as &lt;strong&gt;final&lt;/strong&gt;. Any attempt to override a function that has been defined as final will be flagged as an error:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;struct D2 : B {
+// inherits f2() and f3() from B and overrides f1(int)
+void f1(int) const final; // subsequent classes can&amp;#39;t override f1
+(int)
+};
+struct D3 : D2 {
+void f2();  // ok: overrides f2 inherited from the indirect base,
+B
+void f1(int) const; // error: D2 declared f2 as final
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Virtual Functions and Default Arguments&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Like any other function, a virtual function can have default arguments. If a call uses a default argument, the value that is used is the one defined by the static type through which the function is called.&lt;/p&gt;
+
+&lt;p&gt;That is, when a call is made through a reference or pointer to base, the default argument(s) will be those defined in the base class. The base-class arguments will be used even when the derived version of the function is run. In this case, the derived function will be passed the default arguments defined for the base-class version of the function. If the derived function relies on being passed different arguments, the
+program will not execute as expected.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Circumventing the Virtual Mechanism&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In some cases, we want to prevent dynamic binding of a call to a virtual function; we want to force the call to use a particular version of that virtual. We can use the scope operator to do so. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;//  calls the version from the base class regardless of the dynamic type of baseP
+double undiscounted = baseP-&amp;gt;Quote::net_price(42);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Ordinarily,only code inside member functions (or friends) should need to use the scope operator to circumvent the virtual mechanism.&lt;/p&gt;
+
+&lt;p&gt;Why might we wish to circumvent the virtual mechanism? The most common reason is when a derived-class virtual function calls the version from the base class. In such cases, the base-class version might do work common to all types in the hierarchy. The versions defined in the derived classes would do whatever additional work is particular to their own type.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Pure Virtual Functions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Unlike ordinary virtuals, a pure virtual function does not have to be defined. We specify that a virtual function is a pure virtual by writing &lt;strong&gt;= 0&lt;/strong&gt; in place of a function body (i.e., just before the semicolon that ends the declaration). The = 0 may appear only on the declaration
+of a virtual function in the class body.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// class to hold the discount rate and quantity
+// derived classes will implement pricing strategies using these data
+class Disc_quote : public Quote {
+public:
+Disc_quote() = default;
+Disc_quote(const std::string&amp;amp; book, double price,
+std::size_t qty, double disc):
+Quote(book, price),
+quantity(qty), discount(disc) { }
+double net_price(std::size_t) const = 0;
+protected:
+std::size_t quantity = 0; //  purchase size for the discount to apply
+double discount = 0.0;  //  fractional discount to apply
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Classes with Pure Virtuals Are Abstract Base Classes&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A class containing (or inheriting without overridding) a pure virtual function is an abstract base class. An abstract base class defines an interface for subsequent classes to override. We cannot (directly) create objects of a type that is an abstract base class. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;A Derived Class Constructor Initializes Its Direct Base Class Only&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;protected Members&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As we’ve seen, a class uses protected for those members that it is willing to share with its derived classes but wants to protect from general access. The protected specifier can be thought of as a blend of private and public:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Like private, protected members are inaccessible to users of the class.&lt;/li&gt;
+&lt;li&gt;Like public, protected members are accessible to members and friends of
+classes derived from this class.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In addition, protected has another important property:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A derived class member or friend may access the protected members of the
+base class only through a derived object. The derived class has no special
+access to the protected members of base-class objects.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;public, private, and protected Inheritance&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The derivation access specifier has no effect on whether members (and friends) of a derived class may access the members of its own direct base class. Access to the members of a base class is controlled by the access specifiers in the base class itself.&lt;/p&gt;
+
+&lt;p&gt;The purpose of the derivation access specifier is to control the access that users of the derived class—including other classes derived from the derived class.&lt;/p&gt;
+
+&lt;p&gt;The derivation access specifier used by a derived class also controls access from classes that inherit from that derived class&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Base {
+public:
+void pub_mem();  // public member
+protected:
+int prot_mem;  // protected member
+private:
+char priv_mem;  // private member
+};
+struct Pub_Derv : public Base {
+// ok: derived classes can access protected members
+int f() { return prot_mem; }
+// error: private members are inaccessible to derived classes
+char g() { return priv_mem; }
+};
+struct Priv_Derv : private Base {
+// private derivation doesn&amp;#39;t affect access in the derived class
+int f1() const { return prot_mem; }
+};
+
+Pub_Derv d1;  //  members inherited from Base are public
+Priv_Derv d2;  //  members inherited from Base are private
+d1.pub_mem();  //  ok: pub_mem is public in the derived class
+d2.pub_mem();  //  error: pub_mem is private in the derived clas
+
+struct Derived_from_Public : public Pub_Derv {
+// ok: Base::prot_mem remains protected in Pub_Derv
+int use_base() { return prot_mem; }
+};
+struct Derived_from_Private : public Priv_Derv {
+// error: Base::prot_mem is private in Priv_Derv
+int use_base() { return prot_mem; }
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Key Concept: Class Design and protected Members&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In the absence of inheritance, we can think of a class as having two different kinds of users: ordinary users and implementors. Ordinary users write code that uses objects of the class type; such code can access only the public (interface) members of the class. Implementors write the code contained in the members and friends of the class. The members and friends of the class can access both the public and private(implementation) sections.&lt;/p&gt;
+
+&lt;p&gt;Under inheritance, there is a third kind of user, namely, derived classes. A base class makes protected those parts of its implementation that it is
+willing to let its derived classes use. The protected members remain
+inaccessible to ordinary user code; private members remain inaccessible to
+derived classes and their friends.&lt;/p&gt;
+
+&lt;p&gt;Like any other class, a class that is used as a base class makes its interface members public. A class that is used as a base class may divide its implementation into those members that are accessible to derived classes and those that remain accessible only to the base class and its friends. An implementation member should be protected if it provides an operation or data that a derived class will need to use in its own implementation. Otherwise, implementation members should be private.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Friendship and Inheritance&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Just as friendship is not transitive, friendship is also not inherited.
+Friends of the base have no special access to members of its derived classes, and friends of a derived class have no special access to the base class.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Exempting Individual Members&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Sometimes we need to change the access level of a name that a derived class
+inherits. We can do so by providing a &lt;strong&gt;using&lt;/strong&gt; declaration.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Base {
+public:
+std::size_t size() const { return n; }
+protected:
+std::size_t n;
+};
+class Derived : private Base {  //  note: private inheritance
+public:
+// maintain access levels for members related to the size of the object
+using Base::size;
+protected:
+using Base::n;
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Default Inheritance Protection Levels&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;By default, a derived class defined with the class keyword has private inheritance; a derived class defined with struct has public inheritance.&lt;/p&gt;
+
+&lt;p&gt;It is a common misconception to think that there are deeper differences between classes defined using the struct keyword and those defined using class. The only differences are the default access specifier for members and the default derivation access specifier. There are no other distinctions.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Name Collisions and Inheritance&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A derived-class member with the same name as a member of the base class
+hides direct use of the base-class member. Using the Scope Operator to Use Hidden Members.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;As Usual, Name Lookup Happens before Type Checking&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As in any other scope, if a member in a derived class (i.e., in an inner scope) has the same name as a base class member (i.e., a name defined in an outer scope), then the derived member hides the base-class member within the scope of the derived class. The base member is hidden even if the functions have different parameter lists.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;struct Base {
+int memfcn();
+};
+structDerived : Base {
+int memfcn(int);  // hides memfcn in the base
+};
+Derived d; Base b;
+b.memfcn();  //  calls Base::memfcn
+d.memfcn(10);  //  calls Derived::memfcn
+d.memfcn();  //  error: memfcn with no arguments is hidden
+d.Base::memfcn(); //  ok: calls Base::memfcn
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Virtual Functions and Scope&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We can now understand why virtual functions must have the same parameter list in the base and derived classes. If the base and derived members took
+arguments that differed from one another, there would be no way to call the derived version through a reference or pointer to the base class.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Overriding Overloaded Functions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As with any other function, a member function (virtual or otherwise) can be
+overloaded. A derived class can override zero or more instances of the overloaded functions it inherits. If a derived class wants to make all the overloaded versions available through its type, then it must override all of them or none of them.&lt;/p&gt;
+
+&lt;p&gt;Instead of overriding every base-class version that it inherits, a derived class can provide a &lt;strong&gt;using&lt;/strong&gt; declaration for the overloaded member. A using declaration specifies only a name; it may not specify a parameter list. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Virtual Destructors&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The primary direct impact that inheritance has on copy control for a base class is that a base class generally should define a virtual destructor. The destructor needs to be virtual to allow objects in the inheritance hierarchy to be dynamically allocated. If a class defines a destructor—even if it uses &lt;strong&gt;= default&lt;/strong&gt; to use the synthesized version—the compiler will not synthesize a move operation for that class. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Inherited Constructors&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Under the new standard, a derived class can reuse the constructors defined by its direct base class. Ad erived class inherits its base-class constructors by providing a &lt;strong&gt;using&lt;/strong&gt; declaration that names its (direct) base class. &lt;/p&gt;
+</description>
+      <link>/c++/2014-07/object-oriented-programming.html</link>
+      <guid>/c++/2014-07/object-oriented-programming</guid>
+      <pubDate>Fri, 18 Jul 2014 18:09:52 +0800</pubDate>
+    </item>
+    
+    <item>
+      <title><![CDATA[Overloaded Operations and Conversions]]></title>
+      <description>&lt;p&gt;When an overloaded operator is a member function, &lt;strong&gt;this&lt;/strong&gt; is bound to the
+&lt;strong&gt;left-hand operand&lt;/strong&gt;. Member operator functions have one less (explicit)
+parameter than the number of operands.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Calling an Overloaded Operator Function Directly&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// equivalent calls to a nonmember operator function
+data1 + data2;  // normal expression
+operator+(data1, data2); // equivalent function cal
+
+data1+= data2;  // expression-based &amp;#39;&amp;#39;call&amp;#39;&amp;#39;
+data1.operator+=(data2);  // equivalent call to a member operator
+function
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Ordinarily,the comma, address-of, logical AND, and logical ORoperators
+should notbe overloaded.Users of the class will be surprised if these operators behave differently from their normal meanings.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Choosing Member or Nonmember Implementation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The assignment (=), subscript ([]), call (()), and member access arrow (-&amp;gt;) operators must be defined as members.&lt;/li&gt;
+&lt;li&gt;The compound-assignment operators ordinarily oughtto be members. However,
+unlike assignment, they are not required to be members.&lt;/li&gt;
+&lt;li&gt;Operators that change the state of their object or that are closely tied to their given type—such as increment, decrement, and dereference—usually should be members.&lt;/li&gt;
+&lt;li&gt;Symmetric operators—those that might convert either operand, such as the
+arithmetic, equality, relational, and bitwise operators—usually should be defined as ordinary nonmember functions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When we define an operator as a member function, then the left-hand operand
+must be an object of the class of which that operator is a member. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;strings = &amp;quot;world&amp;quot;;
+string t = s + &amp;quot;!&amp;quot;;  // ok: we can add a const char* to a string
+string u = &amp;quot;hi&amp;quot; + s; // would be an error if + were a member of string
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If operator+ were a member of the string class, the first addition would be
+equivalent to s.operator+(&amp;quot;!&amp;quot;). Likewise, &amp;quot;hi&amp;quot; + swould be equivalent to
+&amp;quot;hi&amp;quot;.operator+(s). However, the type of &amp;quot;hi&amp;quot; is const char*, and that is a
+built-in type; it does not even have member functions.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Overloading the Output Operator &amp;lt;&amp;lt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Ordinarily, the first parameter of an output operator is a reference to a nonconst ostream object. The ostream is nonconst because writing to the stream changes its state. The parameter is a reference because we cannot copy an ostream object.&lt;/p&gt;
+
+&lt;p&gt;The second parameter ordinarily should be a reference to const of the class type we want to print. The parameter is a reference to avoid copying the argument. It can be const because (ordinarily) printing an object does not change that object.&lt;/p&gt;
+
+&lt;p&gt;To be consistent with other output operators, operator&amp;lt;&amp;lt; normally returns its ostream parameter.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ostream &amp;amp;operator&amp;lt;&amp;lt;(ostream &amp;amp;os, const Sales_data &amp;amp;item)
+{
+os &amp;lt;&amp;lt; item.isbn() &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; item.units_sold &amp;lt;&amp;lt; &amp;quot; &amp;quot;
+&amp;lt;&amp;lt; item.revenue &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; item.avg_price();
+return os;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Generally,output operators should print the contents of the object, with
+minimal formatting. They should not print a newline.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IO Operators Must Be Nonmember Functions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Input and output operators that conform to the conventions of the iostream library must be ordinary nonmember functions. These operators cannot be members of our own class. If they were, then the left-hand operand would have to be an object of our class type.&lt;/p&gt;
+
+&lt;p&gt;Thus,if we want to define the IO operators for our types, we must define them as nonmember functions. Of course, IO operators usually need to read or write the &lt;strong&gt;nonpublic&lt;/strong&gt; data members. As a consequence, IO operators usually must be declared as &lt;strong&gt;friends&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Overloading the Input Operator &amp;gt;&amp;gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Ordinarily the first parameter of an input operator is a reference to the stream from which it is to read, and the second parameter is a reference to the (nonconst) object into which to read. The operator usually returns a reference to its given stream. The second parameter must be nonconst because the purpose of an input operator is to read data into this object.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;istream &amp;amp;operator&amp;gt;&amp;gt;(istream &amp;amp;is, Sales_data &amp;amp;item)
+{
+double price;  // no need to initialize; we&amp;#39;ll read into price before we use it
+is &amp;gt;&amp;gt; item.bookNo &amp;gt;&amp;gt; item.units_sold &amp;gt;&amp;gt; price;
+if (is)  // check that the inputs succeeded
+item.revenue = item.units_sold * price;
+else
+item = Sales_data(); // input failed: give the object the default state
+return is;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Input operators must deal with the possibility that the input might fail; output operators generally don’t bother.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Indicating Errors&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Usually an input operator should set only the failbit. Setting eofbit
+would imply that the file was exhausted, and setting badbit would indicate that the stream was corrupted. These errors are best left to the IO library itself to indicate.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Arithmetic and Relational Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Ordinarily,we define the arithmetic and relational operators as nonmember functions in order to allow conversions for either the left- or right-hand operand. These operators shouldn’t need to change the state of either operand, so the parameters are ordinarily references to &lt;strong&gt;const&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// assumes that both objects refer to the same book
+Sales_data operator+(const Sales_data &amp;amp;lhs, const Sales_data &amp;amp;rhs)
+{
+Sales_data sum = lhs;  // copy data members from lhs into sum
+sum += rhs;  // add rhs into sum
+return sum;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Classes that define both an arithmetic operator and the related compound
+assignment ordinarily ought to implement the arithmetic operator by using
+the compound assignment.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Equality Operators&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;bool operator==(const Sales_data &amp;amp;lhs, const Sales_data &amp;amp;rhs)
+{
+return lhs.isbn() == rhs.isbn() &amp;amp;&amp;amp;
+lhs.units_sold == rhs.units_sold &amp;amp;&amp;amp;
+lhs.revenue == rhs.revenue;
+}
+bool operator!=(const Sales_data &amp;amp;lhs, const Sales_data &amp;amp;rhs)
+{
+return !(lhs == rhs);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Classes for which there is a logical meaning for equality normally should
+define operator==. Classes that define ==make it easier for users to use
+the class with the library algorithms.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Relational Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Classes for which the equality operator is defined also often (but not always) have relational operators. In particular, because the associative containers and some of the algorithms use the less-than operator, it can be useful to define an &lt;strong&gt;operator&amp;lt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ordinarily the relational operators should&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Define an ordering relation that is consistent with the requirements for use as a key to an associative container; and&lt;/li&gt;
+&lt;li&gt;Define a relation that is consistent with ==if the class has both operators. In particular, if two objects are !=, then one object should be &amp;lt;the other.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Ifa single logical definition for &amp;lt;exists, classes usually should define the &amp;lt;operator. However, if the class also has ==, define &amp;lt;only if the definitions of &amp;lt;and ==yield consistent results.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Assignment Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In addition to the copy- and move-assignment operators that assign one object of the class type to another object of the same type,a class can define additional assignment operators that allow other types as the
+right-hand operand.&lt;/p&gt;
+
+&lt;p&gt;As one example, in addition to the copy- and move-assignment operators, the library &lt;strong&gt;vector&lt;/strong&gt; class defines a third assignment operator that takes a braced list of elements.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;vector&amp;lt;string&amp;gt; v;
+v = {&amp;quot;a&amp;quot;, &amp;quot;an&amp;quot;, &amp;quot;the&amp;quot;};
+
+classStrVec {
+public:
+StrVec &amp;amp;operator=(std::initializer_list&amp;lt;std::string&amp;gt;);
+// other members as in § 13.5 (p. 526)
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Assignment operators can be overloaded. Assignment operators, regardless of
+parameter type, must be defined as member functions.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Compound-Assignment Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Compound assignment operators are not required to be members. However, we prefer to define all assignments, including compound assignments, in the class. For consistency with the built-in compound assignment, these operators should return a reference to their left-hand operand. &lt;/p&gt;
+
+&lt;p&gt;Assignment operators must, and ordinarily compound-assignment operators
+should, be defined as members. These operators should return a reference to
+the left-hand operand.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Subscript Operator&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Classes that represent containers from which elements can be retrieved by position often define the subscript operator, &lt;strong&gt;operator[]&lt;/strong&gt;. &lt;/p&gt;
+
+&lt;p&gt;The subscript operator must be a member function.&lt;/p&gt;
+
+&lt;p&gt;To be compatible with the ordinary meaning of subscript, the subscript operator usually returns a &lt;strong&gt;reference&lt;/strong&gt; to the element that is fetched. By returning a reference, subscript can be used on either side of an assignment. Consequently, it is also usually a good idea to define both const and nonconst versions of this operator. When applied to a const object, subscript should return a reference to const so that it is
+not possible to assign to the returned object.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class StrVec {
+public:
+std::string&amp;amp; operator[](std::size_t n)
+{ return elements[n]; }
+const std::string&amp;amp; operator[](std::size_t n) const
+{ return elements[n]; }
+// other members as in § 13.5 (p. 526)
+private:
+std::string *elements;  // pointer to the first element in the array
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Increment and Decrement Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The increment (++) and decrement (--) operators are most often implemented for iterator classes. These operators let the class move between the elements of a sequence.&lt;/p&gt;
+
+&lt;p&gt;Classes that define increment or decrement operators should define both the prefix and postfix versions. These operators usually should be defined as members.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Defining Prefix Increment/Decrement Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To be consistent with the built-in operators, the prefix operators should
+return a reference to the incremented or decremented object.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// prefix: return a reference to the incremented/decremented object
+StrBlobPtr&amp;amp; StrBlobPtr::operator++()
+{
+// if curr already points past the end of the container, can&amp;#39;t increment it
+check(curr, &amp;quot;increment past end of StrBlobPtr&amp;quot;);
+++curr;  // advance the current state
+return *this;
+}
+StrBlobPtr&amp;amp; StrBlobPtr::operator--()
+{
+// if curr is zero, decrementing it will yield an invalid subscript
+--curr;  // move the current state back one element
+check(-1, &amp;quot;decrement past begin of StrBlobPtr&amp;quot;);
+return *this;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Differentiating Prefix and Postfix Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The postfix versions take an extra (unused) parameter of type int. Its sole purpose is to distinguish a postfix function from the prefix version.&lt;/p&gt;
+
+&lt;p&gt;To be consistent with the built-in operators, the postfix operators should
+return the old (unincremented or undecremented) value. That value is
+returned as a value, not a reference.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class StrBlobPtr {
+public:
+// increment and decrement
+StrBlobPtr operator++(int);  // postfix operators
+StrBlobPtr operator--(int);
+// other members as before
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Calling the Postfix Operators Explicitly&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If we want to call the postfix version using a function call, then we must pass a value for the integer argument. The value passed usually is ignored but is necessary in order to tell the compiler to use the postfix version.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;StrBlobPtrp(a1); // p points to the vector inside a1
+p.operator++(0);  // call postfix operator++
+p.operator++();  // call prefix  operator++
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Member Access Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The dereference (*) and arrow (-&amp;gt;) operators are often used in classes that
+represent iterators and in smart pointer classes.Operator arrow must be a member. The dereference operator is not required to be a member but usually should be a member as well.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class StrBlobPtr {
+public:
+std::string&amp;amp; operator*() const
+{ auto p = check(curr, &amp;quot;dereference past end&amp;quot;);
+return (*p)[curr];  // (*p) is the vector to which this object points
+}
+std::string* operator-&amp;gt;() const
+{ // delegate the real work to the dereference operator
+return &amp;amp; this-&amp;gt;operator*();
+}
+// other members as before
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Constraintson the Return from Operator Arrow&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The overloaded arrow operator must return either a pointer to a class type or an object of a class type that defines its own operator arrow.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Function-Call Operator&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Classes that overload the call operator allow objects of its type to be used as if they were a function. Because such classes can also store state, they can be more flexible than ordinary functions.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;struct absInt {
+int operator()(int val) const {
+return val &amp;lt; 0 ? -val : val;
+}
+};
+inti = -42;
+absInt absObj;  // object that has a function-call operator
+int ui = absObj(i); // passes i to absObj.operator()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The function-call operator must be a member function. A class may define
+multiple versions of the call operator, each of which must differ as to the
+number or types of their parameters.&lt;/p&gt;
+
+&lt;p&gt;Objects of classes that define the call operator are referred to as &lt;strong&gt;function objects&lt;/strong&gt;.Such objects “act like functions” because we can call them.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Function-Object Classes with State&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Function objects are most often used as arguments to the generic algorithms. For example, we can use the library for_each algorithm.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class PrintString {
+public:
+PrintString(ostream &amp;amp;o = cout, char c = &amp;#39; &amp;#39;):
+os(o), sep(c) { }
+void operator()(const string &amp;amp;s) const { os &amp;lt;&amp;lt; s &amp;lt;&amp;lt; sep;
+}
+private:
+ostream &amp;amp;os;  // stream on which to write
+char sep;  // character to print after each output
+};
+
+PrintString printer;  // uses the defaults; prints to cout
+printer(s);  // prints s followed by a space on cout
+PrintString errors(cerr, &amp;#39;\n&amp;#39;);
+errors(s);  // prints s followed by a newline on cerr
+
+for_each(vs.begin(),vs.end(), PrintString(cerr, &amp;#39;\n&amp;#39;));
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Lambdas Are Function Objects&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When we write a lambda, the compiler translates that expression into an unnamed object of an unnamed class.The classes generated from a lambda contain an overloaded function-call operator.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// sort words by size, but maintain alphabetical order for words of the same size
+stable_sort(words.begin(), words.end(),
+[](const string &amp;amp;a, const string &amp;amp;b)
+{ return a.size() &amp;lt; b.size();});
+
+class ShorterString {
+public:
+bool operator()(const string &amp;amp;s1, const string &amp;amp;s2) const
+{ return s1.size() &amp;lt; s2.size(); }
+};
+
+stable_sort(words.begin(),words.end(), ShorterString());
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Classes Representing Lambdas with Captures&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// get an iterator to the first element whose size() is &amp;gt;= sz
+auto wc = find_if(words.begin(), words.end(),[sz](const string &amp;amp;a)
+
+class SizeComp {
+SizeComp(size_t n): sz(n) { } // parameter for each captured variable
+// call operator with the same return type, parameters, and body as the lambda
+bool operator()(const string &amp;amp;s) const
+{ return s.size() &amp;gt;= sz; }
+private:
+size_t sz; // a data member for each variable captured by value
+};
+
+// get an iterator to the first element whose size() is &amp;gt;= sz
+auto wc = find_if(words.begin(), words.end(), SizeComp(sz));
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Library-Defined Function Objects&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The standard library defines a set of classes that represent the arithmetic, relational,and logical operators. Each class defines a call operator that applies the named operation. These classes are templates to which we supply a single type. That type specifies the parameter type for the call operator.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/8UZnARL.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;plus&amp;lt;int&amp;gt; intAdd;  // function object that can add two int values
+negate&amp;lt;int&amp;gt; intNegate;  // function object that can negate an int value
+// uses intAdd::operator(int, int) to add 10 and 20
+int sum = intAdd(10, 20);  // equivalent to sum = 30
+sum = intNegate(intAdd(10, 20));  // equivalent to sum = 30
+// uses intNegate::operator(int) to generate -10 as the second parameter
+// to intAdd::operator(int, int)
+sum = intAdd(10, intNegate(10));  // sum = 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Using a Library Function Object with the Algorithms&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The function-object classes that represent operators are often used to override the default operator used by an algorithm. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// passes a temporary function object that applies the &amp;lt; operator to two strings
+sort(svec.begin(), svec.end(), greater&amp;lt;string&amp;gt;());
+sort(svec.begin(), svec.end(), less&amp;lt;string&amp;gt;());
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Callable Objects and function&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;C++ has several kinds of callable objects: functions and pointers to functions,lambdas, objects created by bind, and classes that overload the function-call operator.&lt;/p&gt;
+
+&lt;p&gt;two callable objects with different types may share the same &lt;strong&gt;call
+signature&lt;/strong&gt;. The call signature specifies the type returned by a call to the object and the argument type(s) that must be passed in the call. A call signature corresponds to a function type. For example: int(int,int).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The Library function Type&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;function&lt;/strong&gt; is a template. As with other templates we’ve used, we must specify additional information when we create a function type. In this case, that information is the &lt;strong&gt;call signature&lt;/strong&gt; of the objects that this particular function type can represent.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// table of callable objects corresponding to each binary operator
+// all the callables must take two ints and return an int
+// an element can be a function pointer, function object, or lambda
+map&amp;lt;string,function&amp;lt;int(int, int)&amp;gt;&amp;gt; binops = {
+{&amp;quot;+&amp;quot;, add},  // function pointer
+{&amp;quot;-&amp;quot;, std::minus&amp;lt;int&amp;gt;()},  // library function object
+{&amp;quot;/&amp;quot;,  div()},  // user-defined function object
+{&amp;quot;*&amp;quot;, [](int i, int j) { return i * j; }}, // unnamed
+lambda
+{&amp;quot;%&amp;quot;, mod} };  // named lambda object
+
+binops[&amp;quot;+&amp;quot;](10,5); // calls add(10, 5)
+binops[&amp;quot;-&amp;quot;](10, 5); // uses the call operator of the minus&amp;lt;int&amp;gt; object
+binops[&amp;quot;/&amp;quot;](10, 5); // uses the call operator of the div object
+binops[&amp;quot;*&amp;quot;](10, 5); // calls the lambda function object
+binops[&amp;quot;%&amp;quot;](10, 5); // calls the lambda function object
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The function class in the new library is not related to classes named
+unary&lt;em&gt;function and binary&lt;/em&gt;function that were part of earlier versions
+of the library. These classes have been deprecated by the more general bind
+function.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Conversion Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A conversion operatoris a special kind of member function that converts a value of a class type to a value of some other type. A conversion function typically has the general form &lt;strong&gt;operator type() const;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;where type represents a type. Conversion operators can be defined for any type (other than void) that can be a function return type. Conversions to
+an array or a function type are not permitted. Conversions to pointer types—both data and function pointers—and to reference types are allowed.&lt;/p&gt;
+
+&lt;p&gt;Conversion operators have no explicitly stated return type and no parameters, and they must be defined as member functions. Conversion operations ordinarily should not change the object they are converting. As a result, conversion operators usually should be defined as const members.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Defining a Class with a Conversion Operator&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class SmallInt {
+public:
+SmallInt(int i = 0): val(i)
+{
+if (i &amp;lt; 0 || i &amp;gt; 255)
+throw std::out_of_range(&amp;quot;Bad SmallInt value&amp;quot;);
+}
+operator int() const { return val; }
+private:
+std::size_t val;
+};
+
+SmallIntsi;
+si = 4; // implicitly converts 4 to SmallInt then calls SmallInt::operator=
+si + 3; // implicitly converts si to int followed by integer addition
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Conversion Operators Can Yield Suprising Results&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In practice, classes rarely provide conversion operators. Too often users are more likely to be surprised if a conversion happens automatically than to be helped by the existence of the conversion. However, there is one important exception to this rule of thumb: It is not uncommon for classes to define conversions to bool.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;int i = 42;
+cin &amp;lt;&amp;lt; i; // this code would be legal if the conversion to bool were not explicit!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This program attempts to use the output operator on an input stream. There is no &amp;lt;&amp;lt; defined for istream, so the code is almost surely in error. However, this code could use the bool conversion operator to convert cin to bool. The resulting bool value would then be promoted to int and used as the left-hand operand to the built-in version of the left-shift operator. The promoted boolvalue (either 1 or 0) would be shifted left 42 positions.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;explicit Conversion Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To prevent such problems, the new standard introduced explicit conversion operators.&lt;/p&gt;
+
+&lt;p&gt;class SmallInt {
+public:
+// the compiler won&amp;#39;t automatically apply this conversion
+explicit operator int() const { return val; }
+// other members as before
+};&lt;/p&gt;
+
+&lt;p&gt;SmallInt si = 3;  // ok: the SmallInt constructor is not explicit
+si + 3; // error: implicit is conversion required, but operator int is explicit
+static_cast&lt;int&gt;(si) + 3; // ok: explicitly request the conversion&lt;/p&gt;
+
+&lt;p&gt;If the conversion operator is explicit, we can still do the conversion. However, with one exception, we must do so explicitly through a cast.
+The exception is that the compiler will apply an explicit conversion to an
+expression used as a &lt;strong&gt;condition&lt;/strong&gt;. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Conversion to bool&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In earlier versions of the library, the IO types defined a conversion to void*. They did so to avoid the kinds of problems illustrated above. Under the new standard, the IO library instead defines an explicit conversion to bool.&lt;/p&gt;
+
+&lt;p&gt;while(std::cin &amp;gt;&amp;gt; value)&lt;/p&gt;
+
+&lt;p&gt;The condition in the while executes the input operator, which reads into value and returns cin. To evaluate the condition, cin is implicitly converted by the istream operator bool conversion function. That function returns true if the conditionstate of cin is good, and false other wise.&lt;/p&gt;
+
+&lt;p&gt;Conversion to bool is usually intended for use in conditions. As a result,
+operator bool ordinarily should be defined as explicit.&lt;/p&gt;
+</description>
+      <link>/c++/2014-07/overloaded-operations-and-conversions.html</link>
+      <guid>/c++/2014-07/overloaded-operations-and-conversions</guid>
+      <pubDate>Fri, 18 Jul 2014 13:44:09 +0800</pubDate>
+    </item>
+    
+    <item>
+      <title><![CDATA[Copy Control]]></title>
+      <description>&lt;p&gt;When we define a class,we specify—explicitly or implicitly—what happens when objects of that class type are copied, moved, assigned, and destroyed. A class controls
+these operations by defining five special member functions: &lt;strong&gt;copy constructor&lt;/strong&gt;, &lt;strong&gt;copy-assignment operator&lt;/strong&gt;, &lt;strong&gt;move constructor&lt;/strong&gt;, &lt;strong&gt;move-assignment operator&lt;/strong&gt;, and &lt;strong&gt;destructor&lt;/strong&gt;. The copy and move constructors define what happens when an object is
+initialized from another object of the same type. The copy- and move-assignment operators define what happens when we assign an object of a class type to another
+object of that same class type. The destructor defines what happens when an object of the type ceases to exist. Collectively, we’ll refer to these operations as copy
+control.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The Copy Constructor&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A constructor is the copy constructor if its first parameter is a reference to the class type and any additional parameters have default values:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Foo {
+public:
+Foo();  // default constructor
+Foo(const Foo&amp;amp;);  // copy constructor
+// ...
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Copy Initialization&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When we use &lt;strong&gt;direct initialization&lt;/strong&gt;, we are asking the compiler to use ordinary function matching to select the constructor that best matches the arguments we provide. When we use &lt;strong&gt;copy initialization&lt;/strong&gt;, we are asking the compiler to copy the right-hand operand into the object being created, converting that operand if necessary。&lt;/p&gt;
+
+&lt;p&gt;Copy initialization happens not only when we define variables using an =, but also when we&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pass an object as an argument to a parameter of nonreference type&lt;/li&gt;
+&lt;li&gt;Return an object from a function that has a nonreference return type&lt;/li&gt;
+&lt;li&gt;Brace initialize the elements in an array or the members of an aggregate class&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some class types also use copy initialization for the objects they allocate. For example, the library containers copy initialize their elements when we initialize the container, or when we call an insertor push member. By contrast, elements created by an emplace member are direct initialized.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Parameters and Return Values&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The fact that the copy constructor is used to initialize nonreference parameters of class type explains why the copy constructor’s own parameter must be a reference. If
+that parameter were not a reference, then the call would never succeed—to call the copy constructor, we’d need to use the copy constructor to copy the argument, but to
+copy the argument, we’d need to call the copy constructor, and so on indefinitely.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Introducing Overloaded Assignment&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Overloaded operators&lt;/strong&gt; are functions that have the name operatorfollowed by the symbol for the operator being defined. Hence, the assignment operator is a function
+named operator=. Like any other function, an operator function has a return type and a parameter list. The copy-assignment operator takes an argument of the same type as the class：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Foo {
+public:
+Foo&amp;amp; operator=(const Foo&amp;amp;); // assignment operator
+// ...
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Assignment operators ordinarily should return a reference to their left-hand operand.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What a Destructor Does&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Just as a constructor has an initialization part and a function body, a destructor has a function body and a destruction part. In a constructor, members are
+initialized before the function body is executed, and members are initialized in the same order as they appear in the class. In a destructor, the function body is executed first and then the members are destroyed. Members are destroyed in reverse order from the order in which they were initialized.&lt;/p&gt;
+
+&lt;p&gt;The implicit destruction of a member of built-in pointer type does not delete the object to which that pointer points. Members of class type are destroyed by running the member’s own destructor. Unlike ordinary pointers, the smart pointers are class types and have destructors. As a result, unlike ordinary pointers, members that are smart
+pointers are automatically destroyed during the destruction phase.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Classes That Need Destructors Need Copy and Assignment&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If a class needs a destructor, it almost surely also needs the copy-assignment operator and a copy constructor.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Classes That Need Copy Need Assignment, and Vice Versa&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As an example, consider a class that gives each object its own, unique serial number. Such a class would need a copy constructor to generate a new, distinct serial
+number for the object being created. That constructor would copy all the other data members from the given object. This class would also need its own copy-assignment
+operator to avoid assigning to the serial number of the left-hand object. However, this class would have no need for a destructor.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Using = default&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We can explicitly ask the compiler to generate the synthesized versions of the copycontrol members by defining them as = default.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Sales_data {
+public:
+// copy control; use defaults
+Sales_data() = default;
+Sales_data(const Sales_data&amp;amp;) = default;
+Sales_data&amp;amp; operator=(const Sales_data &amp;amp;);
+~Sales_data() = default;
+// other members as before
+};
+Sales_data&amp;amp; Sales_data::operator=(const Sales_data&amp;amp;) =
+default;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Preventing Copies&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Although most classes should (and generally do) define a copy constructor and a copy-assignment operator, for some classes, there really is no sensible meaning for
+these operations. In such cases, the class must be defined so as to prevent copies or assignments from being made. For example, the &lt;em&gt;iostream&lt;/em&gt; classes prevent copying to
+avoid letting multiple objects write to or read from the same IO buffer. It might seem that we could prevent copies by not defining the copy-control members. However, this
+strategy doesn’t work: If our class doesn’t define these operations, the compiler will synthesize them.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Defining a Function as Deleted&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Under the new standard, we can prevent copies by defining the copy constructor and copy-assignment operator as &lt;strong&gt;deleted functions&lt;/strong&gt;. A deleted function is one that is
+declared but may not be used in any other way. We indicate that we want to define a function as deleted by following its parameter list with = delete:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;struct NoCopy {
+NoCopy() = default;  // use the synthesized default constructor
+NoCopy(const NoCopy&amp;amp;) = delete;  // no copy
+NoCopy &amp;amp;operator=(const NoCopy&amp;amp;) = delete; // no assignment
+~NoCopy() = default;  // use the synthesized destructor
+// other members
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;The Copy-Control Members May Be Synthesized as Deleted&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In essence, the copy-control members are synthesized as deleted when it is impossible to copy, assign, or destroy a member of the class.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;private Copy Control&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Prior to the new standard, classes prevented copies by declaring their copy constructor and copy-assignment operator as &lt;em&gt;private&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Classes that want to prevent copying should define their copy constructor and copy-assignment operators using = delete rather than making those members private.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class PrivateCopy {
+// no access specifier; following members are private by default; see § 7.2 (p.
+268)
+// copy control is private and so is inaccessible to ordinary user code
+PrivateCopy(const PrivateCopy&amp;amp;);
+PrivateCopy &amp;amp;operator=(const PrivateCopy&amp;amp;);
+// other members
+public:
+PrivateCopy() = default; // use the synthesized default constructor
+~PrivateCopy(); // users can define objects of this type but not copy them
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Assignment Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;There are two points to keep in mind when you write an assignment operator:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Assignment operators must work correctly if an object is assigned to itself.&lt;/li&gt;
+&lt;li&gt;Most assignment operators share work with the destructor and copy constructor.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A good pattern to use when you write an assignment operator is to first copy the right-hand operand into a local temporary. Afterthe copy is done, it is safe to destroy the existing members of the left-hand operand. Once the lefthand operand is destroyed, copy the data from the temporary into the members of the left-hand operand.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Reference Counts&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Reference counting works as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In addition to initializing the object, each constructor (other than the copy constructor) creates a counter. This counter will keep track of how many objects share state with the object we are creating. When we create an object, there is only one such object, so we initialize the counter to 1.&lt;/li&gt;
+&lt;li&gt;The copy constructor does not allocate a new counter; instead, it copies the data members of its given object, including the counter. The copy constructor increments this shared counter, indicating that there is another user of that object’s state.&lt;/li&gt;
+&lt;li&gt;The destructor decrements the counter, indicating that there is one less user of the shared state. If the count goes to zero, the destructor deletes that state.&lt;/li&gt;
+&lt;li&gt;The copy-assignment operator increments the right-hand operand’s counter and decrements the counter of the left-hand operand. If the counter for the left-hand operand goes to zero, there are no more users. In this case, the copy assignment operator must destroy the state of the left-hand operand.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Using &lt;em&gt;swap&lt;/em&gt; in Assignment Operators&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Classes that define swap often use swap to define their assignment operator. These operators use a technique known as &lt;strong&gt;copy and swap&lt;/strong&gt;. This technique swaps the lefthand operand with a copy of the right-hand operand:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// note rhs is passed by value, which means the HasPtr copy constructor
+// copies the string in the right-hand operand into rhs
+HasPtr&amp;amp; HasPtr::operator=(HasPtr rhs)
+{
+// swap the contents of the left-hand operand with the local variable rhs
+swap(*this, rhs); // rhs now points to the memory this object had used
+return *this;  // rhs is destroyed, which deletes the pointer in rhs
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Rvalue References&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To support move operations, the new standard introduced a new kind of reference, an &lt;em&gt;rvalue reference&lt;/em&gt;. An rvalue reference is a reference that must be bound to an
+rvalue. An rvalue reference is obtained by using &lt;strong&gt;&amp;amp;&amp;amp;&lt;/strong&gt; rather than &lt;strong&gt;&amp;amp;&lt;/strong&gt;. As we’ll see, rvalue references have the important property that they may be bound only to an object that is about to be destroyed. As a result, we are free to “move” resources from an rvalue reference to another object.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The Library move Function&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Although we cannot directly bind an rvalue reference to an lvalue, we can explicitly cast an lvalue to its corresponding rvalue reference type. We can also obtain an rvalue reference bound to an lvalue by calling a new library function named &lt;strong&gt;move&lt;/strong&gt;, which is defined in the &lt;em&gt;utility&lt;/em&gt; header.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;int i = 42;
+int &amp;amp;r = i;  // ok: r refers to i
+int &amp;amp;&amp;amp;rr = i;// error: cannot bind an rvalue reference to an lvalue
+int &amp;amp;r2 = i * 42;  // error: i * 42 is an rvalue
+const int &amp;amp;r3 = i * 42; // ok: we can bind a reference to const to an rvalue
+int &amp;amp;&amp;amp;rr2 = i * 42;  // ok: bind rr2 to the result of the multiplication
+int &amp;amp;&amp;amp;rr1 = 42;  // ok: literals are rvalues
+int &amp;amp;&amp;amp;rr2 = rr1;  // error: the expression rr1 is an lvalue!
+int &amp;amp;&amp;amp;rr3 = std::move(rr1);  // ok
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We can destroy a moved-from object and can assign a new value to it, but we cannot use the value of a moved-from object.&lt;/p&gt;
+
+&lt;p&gt;After a move operation, the “moved-from” object must remain a valid, destructible object but users may make no assumptions about its value.&lt;/p&gt;
+
+&lt;p&gt;The compiler synthesizes the move constructor and move assignment only if a class does not define any of its own copy-control members and only if all the data members can be moved constructed and move assigned,respectively.&lt;/p&gt;
+
+&lt;p&gt;Classes that define a move constructor or move-assignment operator must also define their own copy operations. Otherwise, those members are deleted by default.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Rvalues Are Moved, Lvalues Are Copied, But Rvalues Are Copied If There Is No Move Constructor.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Advice:Updating the Rule of Three&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;All five copy-control members should be thought of as a unit: Ordinarily, if a class defines any of these operations, it usually should define them all. As
+we’ve seen, some classes must define the copy constructor, copy-assignment operator, and destructor to work correctly. Such classes typically have a resource that the copy members must copy. Ordinarily,copying a resource entails some amount of overhead. Classes that define the
+move constructor and move-assignment operator can avoid this overhead in those circumstances where a copy isn’t necessary.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Rvalue References and Member Functions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Overloaded functions that distinguish between moving and copying a parameter typically have one version that takes a &lt;em&gt;const T&amp;amp;&lt;/em&gt; and one that takes a &lt;em&gt;T&amp;amp;&amp;amp;&lt;/em&gt;.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class StrVec {
+public:
+void push_back(const std::string&amp;amp;);  // copy the element
+void push_back(std::string&amp;amp;&amp;amp;);  // move the element
+// other members as before
+};
+// unchanged from the original version in § 13.5 (p. 527)
+void StrVec::push_back(const string&amp;amp; s)
+{
+chk_n_alloc(); // ensure that there is room for another element
+// construct a copy of s in the element to which first_free points
+alloc.construct(first_free++, s);
+}
+void StrVec::push_back(string &amp;amp;&amp;amp;s)
+{
+chk_n_alloc(); // reallocates the StrVec if necessary
+alloc.construct(first_free++, std::move(s));
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;reference qualifier&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Symbol used to indicate that a nonstatic member function
+can be called on an lvalue or an rvalue. The qualifier, &amp;amp;or &amp;amp;&amp;amp;, follows the parameter list or the const qualifier if there is one. A function qualified by &amp;amp; may be called only on lvalues; a function qualified by &amp;amp;&amp;amp; may be called only on rvalues.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;rvalue reference&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Reference to an object that is about to be destroyed.&lt;/p&gt;
+</description>
+      <link>/c++/2014-07/copy-control.html</link>
+      <guid>/c++/2014-07/copy-control</guid>
+      <pubDate>Wed, 16 Jul 2014 12:46:59 +0800</pubDate>
+    </item>
+    
+    <item>
+      <title><![CDATA[Dynamic Memory]]></title>
+      <description>&lt;p&gt;&lt;strong&gt;smart pointer&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To make using dynamic memory easier (and safer), the new library provides two smart pointer types that manage dynamic objects. A smart pointer acts like a regular pointer with the important exception that it automatically deletes the object to which it points. The new library defines two kinds of smart pointers that differ in how
+they manage their underlying pointers: &lt;em&gt;shared_ptr&lt;/em&gt;, which allows multiple pointers to refer to the same object, and &lt;em&gt;unique_ptr&lt;/em&gt;, which “owns” the object to which it points.
+The library also defines a companion class named &lt;em&gt;weak_ptr&lt;/em&gt; that is a weak reference to an object managed by a shared_ptr. All three are defined in the memory header.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The &lt;em&gt;shared_ptr&lt;/em&gt; Class&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Like vectors, smart pointers are templates. Therefore, when we create a smart pointer, we must supply additional information—in this case, the type to which the pointer can point. As with vector, we supply that type inside angle brackets that follow the name of the kind of smart pointer we are defining.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;shared_ptr&amp;lt;string&amp;gt;p1;  // shared_ptr that can point at a string
+shared_ptr&amp;lt;list&amp;lt;int&amp;gt;&amp;gt; p2; // shared_ptr that can point at a list of ints
+
+// if p1 is not null, check whether it&amp;#39;s the empty string
+if (p1 &amp;amp;&amp;amp; p1-&amp;gt;empty())
+*p1 = &amp;quot;hi&amp;quot;;  // if so, dereference p1 to assign a new value to that string
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/jrVh8xa.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The make_shared Function&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The safest way to allocate and use dynamic memory is to call a library function named &lt;strong&gt;&lt;em&gt;make_shared&lt;/em&gt;&lt;/strong&gt;. This function allocates and initializes an object in dynamic memory and returns a shared&lt;em&gt;ptr that points to that object. Like the smart pointers,make&lt;/em&gt;shared is defined in the memory header.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// shared_ptr that points to an int with value 42
+shared_ptr&amp;lt;int&amp;gt; p3 = make_shared&amp;lt;int&amp;gt;(42);
+// p4 points to a string with value 9999999999
+shared_ptr&amp;lt;string&amp;gt; p4 = make_shared&amp;lt;string&amp;gt;(10, &amp;#39;9&amp;#39;);
+// p5 points to an int that is value initialized (§ 3.3.1 (p. 98)) to 0
+shared_ptr&amp;lt;int&amp;gt; p5 = make_shared&amp;lt;int&amp;gt;();
+// p6 points to a dynamically allocated, empty vector&amp;lt;string&amp;gt;
+auto p6 = make_shared&amp;lt;vector&amp;lt;string&amp;gt;&amp;gt;();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Copying and Assigning shared_ptrs&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When we copy or assign a shared&lt;em&gt;ptr, each shared&lt;/em&gt;ptr keeps track of how many other shared_ptrs point to the same object.&lt;/p&gt;
+
+&lt;p&gt;We can think of a shared&lt;em&gt;ptr as if it has an &lt;strong&gt;associated counter&lt;/strong&gt;, usually referred to as a &lt;strong&gt;reference count&lt;/strong&gt;. Whenever we copy a shared&lt;/em&gt;ptr, the count is incremented.
+For example, the counter associated with a shared&lt;em&gt;ptr is incremented when we use it to initialize another shared&lt;/em&gt;ptr, when we use it as the right-hand operand of an
+assignment, or when we pass it to or return it from a function by value . The counter is decremented when we assign a new value to the shared&lt;em&gt;ptrand when the shared&lt;/em&gt;ptr itself is destroyed, such as when a local
+shared&lt;em&gt;ptr goes out of scope.Once a shared&lt;/em&gt;ptr’s counter goes to zero, the shared_ptr automatically frees the object that it manages.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;auto p = make_shared&amp;lt;int&amp;gt;(42); // object to which p points has one user
+auto q(p); // p and q point to the same object
+// object to which p and q point has two users
+
+autor = make_shared&amp;lt;int&amp;gt;(42); // int to which r points has one user
+r = q;  // assign to r, making it point to a different address
+// increase the use count for the object to which q points
+// reduce the use count of the object to which r had pointed
+// the object r had pointed to has no users; that object is automatically freed
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;shared_ptrs Automatically Destroy Their Objects and Automatically Free the Associated Memory&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When the last shared&lt;em&gt;ptr pointing to an object is destroyed, the shared&lt;/em&gt;ptr class automatically destroys the object to which that shared_ptr points. It does so
+through another special member function known as a &lt;strong&gt;destructor&lt;/strong&gt;. Analogous to its constructors, each class has a destructor. Just as a constructor controls initialization, the destructor controls what happens when objects of that class type are destroyed.&lt;/p&gt;
+
+&lt;p&gt;The destructor for shared&lt;em&gt;ptr decrements the reference count of the object to which that shared&lt;/em&gt;ptr points. If the count goes to zero, the shared&lt;em&gt;ptr destructor destroys the object to which the shared&lt;/em&gt;ptr points and frees the memory used by that object.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// factory returns a shared_ptr pointing to a dynamically allocated object
+shared_ptr&amp;lt;Foo&amp;gt; factory(T arg)
+{
+// process arg as appropriate
+// shared_ptr will take care of deleting this memory
+return make_shared&amp;lt;Foo&amp;gt;(arg);
+}
+
+void use_factory(T arg)
+{
+shared_ptr&amp;lt;Foo&amp;gt; p = factory(arg);
+// use p
+} // p goes out of scope; the memory to which p points is automatically freed
+
+shared_ptr&amp;lt;Foo&amp;gt;use_factory(T arg)
+{
+shared_ptr&amp;lt;Foo&amp;gt; p = factory(arg);
+// use p
+return p;  // reference count is incremented when we return p
+} // p goes out of scope; the memory to which p points is not freed
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Programs tend to use dynamic memory for one of three purposes:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;They don’t know how many objects they’ll need&lt;/li&gt;
+&lt;li&gt;They don’t know the precise type of the objects they need&lt;/li&gt;
+&lt;li&gt;They want to share data between several objects&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Managing Memory Directly&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The language itself defines two operators that allocate and free dynamic memory. The &lt;strong&gt;new&lt;/strong&gt; operator allocates memory, and &lt;strong&gt;delete&lt;/strong&gt; frees memory allocated by new.&lt;/p&gt;
+
+&lt;p&gt;The new expression constructs an object of type T on the free store and returns a pointer to that object.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;int *pi = new int;  // pi points to a dynamically allocated,
+// unnamed, uninitialized int
+string *ps = new string;  // initialized to empty string
+int *pi = new int;  // pi points to an uninitialized int
+int*pi = new int(1024); // object to which pi points has value 1024
+string *ps = new string(10, &amp;#39;9&amp;#39;);  // *ps is &amp;quot;9999999999&amp;quot;
+// vector with ten elements with values from 0 to 9
+vector&amp;lt;int&amp;gt; *pv = new vector&amp;lt;int&amp;gt;{0,1,2,3,4,5,6,7,8,9};
+string*ps1 = new string;  // default initialized to the empty string
+string *ps = new string(); // value initialized to the empty string
+int *pi1 = new int;  // default initialized; *pi1 is undefined
+int *pi2 = new int();  // value initialized to 0; *pi2 is 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Memory Exhaustion&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// if allocation fails, new returns a null pointer
+int *p1 = new int; // if allocation fails, new throws std::bad_alloc
+int *p2 = new (nothrow) int; // if allocation fails, new returns a null pointer
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Freeing Dynamic Memory&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;delete p;  // p must point to a dynamically allocated object or be null&lt;/p&gt;
+
+&lt;p&gt;Like new, a delete expression performs two actions: It destroys the object to which its given pointer points, and it frees the corresponding memory.The pointer we pass to delete must either point to dynamically allocated memory or be a null pointer. Deleting a pointer to memory that was not allocated by new, or deleting the same pointer value more than once, is undefined.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Caution:Managing Dynamic Memory Is Error-Prone&lt;/strong&gt;
+There are three common problems with using new and delete to manage dynamic memory:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Forgetting to delete memory. Neglecting to delete dynamic memory is known as a “memory leak,” because the memory is never returned to the free store. Testing for memory leaks is difficult because they usually cannot
+be detected until the application is run for a long enough time to actually exhaust memory.&lt;/li&gt;
+&lt;li&gt;Using an object after it has been deleted. This error can sometimes be detected by making the pointer null after the delete.&lt;/li&gt;
+&lt;li&gt;Deleting the same memory twice. This error can happen when two pointers address the same dynamically allocated object. If delete is applied to one of the pointers, then the object’s memory is returned to the free store. If we subsequently delete the second pointer, then the free
+store may be corrupted.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;You can avoid all of these problems by using smart pointers exclusively.The smart pointer will take care of deleting the memory only when there are no remaining smart pointers pointing to that memory.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Resetting the Value of a Pointer after a delete Provides Only Limited Protection&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In real systems, finding all the pointers that point to the same memory is surprisingly difficult.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;int *p(new int(42));  // p points to dynamic memory
+auto q = p;  // p and q point to the same memory
+delete p;  // invalidates both p and q
+p = nullptr; // indicates that p is no longer bound to an object
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;resetting p has no effect on q, which became invalid when we deleted the memory to which p(and q!) pointed.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Don’t Mix Ordinary Pointers and Smart Pointers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It is dangerous to use a built-in pointer to access an object owned by a smart pointer, because we may not know when that object is destroyed.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;int *x(new int(1024)); // dangerous: x is a plain pointer, not a smart
+pointer
+process(x);  // error: cannot convert int* to shared_ptr&amp;lt;int&amp;gt;
+process(shared_ptr&amp;lt;int&amp;gt;(x)); // legal, but the memory will be deleted!
+int j = *x;  // undefined: x is a dangling pointer!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Don’t Use &lt;em&gt;get&lt;/em&gt; to Initialize or Assign Another Smart Pointer&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Use get only to pass access to the pointer to code that you know will not delete the pointer. In particular, never use get to initialize or assign to another smart pointer.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;shared_ptr&amp;lt;int&amp;gt;p(new int(42)); // reference count is 1
+int *q = p.get();  // ok: but don&amp;#39;t use q in any way that might delete its
+pointer
+{ // new block
+// undefined: two independent shared_ptrs point to the same memory
+shared_ptr&amp;lt;int&amp;gt;(q);
+} // block ends, q is destroyed, and the memory to which q points is freed
+int foo = *p; // undefined; the memory to which p points was freed
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Smart Pointers and Exceptions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When we use a smart pointer, the smart pointer class ensures that memory is freed when it is no longer needed even if the block is exited prematurely.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;void f()
+{
+shared_ptr&amp;lt;int&amp;gt; sp(new int(42)); // allocate a new object
+// code that throws an exception that is not caught inside f
+} // shared_ptr freed automatically when the function ends
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In contrast, memory that we manage directly is not automatically freed when an exception occurs. If we use built-in pointers to manage memory and an exception
+occurs after a new but before the corresponding delete, then that memory won’t be freed.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;void f()
+{
+int *ip = new int(42);  // dynamically allocate a new object
+// code that throws an exception that is not caught inside f
+delete ip;  // free the memory before exiting
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If an exception happens between the newand the delete, and is not caught inside f, then this memory can never be freed. There is no pointer to this memory outside
+the function f. Thus, there is no way to free this memory.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Using Our Own Deletion Code&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;void end_connection(connection *p) { disconnect(*p); }
+void f(destination &amp;amp;d /* other parameters*/)
+{
+connection c = connect(&amp;amp;d);
+shared_ptr&amp;lt;connection&amp;gt; p(&amp;amp;c, end_connection);
+// use the connection
+// when f exits, even if by an exception, the connection will be properly closed
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Caution:Smart Pointer Pitfalls&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Smart pointers can provide safety and convenience for handling dynamically allocated memory only when they are used properly. To use smart pointers correctly, we must adhere to a set of conventions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Don’t use the same built-in pointer value to initialize (or reset) more than one smart pointer.&lt;/li&gt;
+&lt;li&gt;Don’t deletethe pointer returned from get().&lt;/li&gt;
+&lt;li&gt;Don’t use get()to initialize or reset another smart pointer.&lt;/li&gt;
+&lt;li&gt;If you use a pointer returned by get(), remember that the pointer will become invalid when the last corresponding smart pointer goes away.&lt;/li&gt;
+&lt;li&gt;If you use a smart pointer to manage a resource other than memory allocated by new, remember to pass a deleter.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;unique_ptr&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A unique_ptr “owns” the object to which it points. Unlike shared_ptr, only one unique_ptr at a time can point to a given object. The object to which a unique_ptr points is destroyed when the unique_ptr is destroyed.&lt;/p&gt;
+
+&lt;p&gt;Because a unique_ptr owns the object to which it points, unique_ptr does not support ordinary copy or assignment.&lt;/p&gt;
+
+&lt;p&gt;Although we can’t copy or assign a unique_ptr, we can transfer ownership from one (nonconst) unique_ptr to another by calling &lt;strong&gt;release&lt;/strong&gt; or &lt;strong&gt;reset&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;release&lt;/em&gt; member returns the pointer currently stored in the unique_ptr and makes that unique_ptr null.&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;reset&lt;/em&gt; member takes an optional pointer and repositions the unique_ptr to point to the given pointer.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;unique_ptr&amp;lt;string&amp;gt;p1(new string(&amp;quot;Stegosaurus&amp;quot;));
+unique_ptr&amp;lt;string&amp;gt; p2(p1);  // error: no copy for unique_ptr
+unique_ptr&amp;lt;string&amp;gt; p3;
+p3 = p2;  // error: no assign for unique_ptr
+// transfers ownership from p1 (which points to the string Stegosaurus) to p2
+unique_ptr&amp;lt;string&amp;gt; p2(p1.release()); // release makes p1 null
+unique_ptr&amp;lt;string&amp;gt; p3(new string(&amp;quot;Trex&amp;quot;));
+// transfers ownership from p3 to p2
+p2.reset(p3.release()); // reset deletes the memory to which p2 had pointed
+p2.release();// WRONG: p2 won&amp;#39;t free the memory and we&amp;#39;ve lost the pointer
+auto p = p2.release(); // ok, but we must remember to delete(p)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Passing and Returning unique_ptrs&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;There is one exception to the rule that we cannot copy a unique_ptr:We can copy or assign a unique_ptr that is about to be destroyed. The most common example is
+when we return a unique_ptr from a function.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;weak_ptr&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A weak_ptr is a smart pointer that does not control the lifetime of the object to which it points. Instead, a weak_ptr points to an object that is managed by a shared_ptr. Binding a weak_ptr to a shared_ptr does not change the reference count of that shared_ptr. Once the last shared_ptr pointing to the object goes away, the object itself will be deleted. That object will be deleted even if there are weak_ptrs pointing to it—hence the name weak_ptr, which captures the idea that a weak_ptr shares its object “weakly.”&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The allocator Class&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When we allocate a block of memory, we often plan to construct objects in that memory as needed. In this case, we’d like to decouple memory allocation from object
+construction. Decoupling construction from allocation means that we can allocate memory in large chunks and pay the overhead of constructing the objects only when
+we actually need to create them. In general, coupling allocation and construction can be wasteful. More importantly, classes that do not have default constructors cannot be dynamically allocated as an array.&lt;/p&gt;
+
+&lt;p&gt;The library &lt;strong&gt;allocator&lt;/strong&gt; class, which is defined in the &lt;strong&gt;memory&lt;/strong&gt; header, lets us separate allocation from construction. It provides type-aware allocation of raw, unconstructed,memory. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;allocator&amp;lt;string&amp;gt;alloc;  // object that can allocate strings
+auto const p = alloc.allocate(n); // allocate n unconstructed strings
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;allocators Allocate Unconstructed Memory&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The memory an allocator allocates is unconstructed.We use this memory by constructing objects in that memory. In the new library the &lt;strong&gt;construct&lt;/strong&gt; member takes a pointer and zero or more additional arguments; it constructs an element at the given location. The additional arguments are used to initialize the object being constructed.&lt;/p&gt;
+
+&lt;p&gt;We must construct objects in order to use memory returned by allocate. Using unconstructed memory in other ways is undefined.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;auto q = p; // q will point to one past the last constructed element
+alloc.construct(q++);  // *q is the empty string
+alloc.construct(q++, 10, &amp;#39;c&amp;#39;);  // *q is cccccccccc
+alloc.construct(q++, &amp;quot;hi&amp;quot;);  // *q is hi!
+cout&amp;lt;&amp;lt; *p &amp;lt;&amp;lt; endl; // ok: uses the string output operator
+cout &amp;lt;&amp;lt; *q &amp;lt;&amp;lt; endl; // disaster: q points to unconstructed memory!
+while(q != p)
+alloc.destroy(--q);// free the  strings  we actually
+allocated
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Once the elements have been destroyed, we can either reuse the memory to hold other strings or return the memory to the system. We free the memory by calling deallocate:
+&lt;strong&gt;&lt;em&gt;alloc.deallocate(p,n);&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Algorithms to Copy and Fill Uninitialized Memory&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// allocate twice as many elements as vi holds
+auto p = alloc.allocate(vi.size() * 2);
+// construct elements starting at p as copies of elements in vi
+auto q = uninitialized_copy(vi.begin(), vi.end(), p);
+// initialize the remaining elements to 42
+uninitialized_fill_n(q, vi.size(), 42);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      <link>/c++/2014-07/dynamic-memory.html</link>
+      <guid>/c++/2014-07/dynamic-memory</guid>
+      <pubDate>Mon, 14 Jul 2014 13:06:30 +0800</pubDate>
+    </item>
+    
+    <item>
+      <title><![CDATA[Associative Containers]]></title>
+      <description>&lt;p&gt;Associative and sequential containers differ from one another in a fundamental way: Elements in an associative container are stored and retrieved by a key. In contrast,
+elements in a sequential container are stored and accessed sequentially by their position in the container.&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;map&lt;/em&gt; and &lt;em&gt;multimap&lt;/em&gt; types are defined in the map header; the &lt;em&gt;set&lt;/em&gt; and &lt;em&gt;multiset&lt;/em&gt; types are in the set header; and the &lt;em&gt;unordered&lt;/em&gt; containers are in the
+unordered&lt;em&gt;map and unordered&lt;/em&gt;set headers.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;map&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// count the number of times each word occurs in the input
+map&amp;lt;string, size_t&amp;gt; word_count; // empty map from string to size_t
+string word;
+while (cin &amp;gt;&amp;gt; word)
+++word_count[word];  // fetch and increment the counter for word
+for (const auto &amp;amp;w : word_count) // for each element in the map
+// print the results
+cout &amp;lt;&amp;lt;  w.first &amp;lt;&amp;lt; &amp;quot; occurs &amp;quot; &amp;lt;&amp;lt; w.second
+&amp;lt;&amp;lt; ((w.second &amp;gt; 1) ? &amp;quot; times&amp;quot; : &amp;quot; time&amp;quot;) &amp;lt;&amp;lt; endl;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;set&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// count the number of times each word occurs in the input
+map&amp;lt;string, size_t&amp;gt; word_count; // empty map from string to size_t
+set&amp;lt;string&amp;gt; exclude = {&amp;quot;The&amp;quot;, &amp;quot;But&amp;quot;, &amp;quot;And&amp;quot;, &amp;quot;Or&amp;quot;, &amp;quot;An&amp;quot;, &amp;quot;A&amp;quot;,
+&amp;quot;the&amp;quot;, &amp;quot;but&amp;quot;, &amp;quot;and&amp;quot;, &amp;quot;or&amp;quot;, &amp;quot;an&amp;quot;,
+&amp;quot;a&amp;quot;};
+string word;
+while (cin &amp;gt;&amp;gt; word)
+// count only words that are not in exclude
+if (exclude.find(word) == exclude.end())
+++word_count[word];  // fetch and increment the counter for word
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Requirements on Key Type&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For the ordered containers—map, multimap, set, and multiset—the key type must define a way to compare the elements. By default, the library uses the &amp;lt; operator for
+the key type to compare the keys. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Key Types for Ordered Containers&lt;/strong&gt;（strict weak ordering）&lt;/p&gt;
+
+&lt;p&gt;In practice, what’s important is that a type that defines a &amp;lt; operator that “behaves normally” can be used as a key.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The pair Type&lt;/strong&gt;（defined in the utility header）&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;pair&amp;lt;map&amp;lt;string,size_t&amp;gt;::iterator, bool&amp;gt; ret =
+word_count.insert(make_pair(word, 1));
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Subscripting a map&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Subscripting a mapbehaves quite differently from subscripting an array or vector:Using a key that is not already present adds an element with that key to the map. sometimes we only want to know whether an element is present and do not want to add the element if it is not.
+In such cases, we must not use the subscript operator.&lt;/p&gt;
+
+&lt;p&gt;when we subscript a map, we get a mapped&lt;em&gt;type object; when we dereference a map iterator,we get a value&lt;/em&gt;type object.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Accessing Elements&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/3rxxwMc.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Using &lt;em&gt;find&lt;/em&gt; Instead of Subscript for maps.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;if(word_count.find(&amp;quot;foobar&amp;quot;) == word_count.end())
+cout &amp;lt;&amp;lt; &amp;quot;foobar is not in the map&amp;quot; &amp;lt;&amp;lt; endl;
+
+string search_item(&amp;quot;Alain de Botton&amp;quot;); // author we&amp;#39;ll look for
+auto entries = authors.count(search_item); // number of elements
+auto iter = authors.find(search_item); // first entry for this author
+// loop through the number of entries there are for this author
+while(entries) {
+cout &amp;lt;&amp;lt; iter-&amp;gt;second &amp;lt;&amp;lt; endl; // print each title
+++iter;  // advance to the next title
+--entries;  // keep track of how many we&amp;#39;ve printed
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We are guaranteed that iterating across a multimap or multiset returns all the elements with a given key in sequence.&lt;/p&gt;
+
+&lt;p&gt;The iterator returned from lower_bound may or may not refer to an element with the given key. If the key is not in the container, then lower_bound refers to the first point at which this key can be inserted while preserving the element order within the container.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// definitions of authors and search_item as above
+// beg and end denote the range of elements for this author
+for (auto beg = authors.lower_bound(search_item),
+end = authors.upper_bound(search_item);
+beg != end; ++beg)
+cout &amp;lt;&amp;lt; beg-&amp;gt;second &amp;lt;&amp;lt; endl; // print each title
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If lower_bound and upper_bound return the same iterator, then the given key is not in the container.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The equal_range Function&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// definitions of authors and search_item as above
+// pos holds iterators that denote the range of elements for this key
+for (auto pos = authors.equal_range(search_item);
+pos.first != pos.second; ++pos.first)
+cout &amp;lt;&amp;lt; pos.first-&amp;gt;second &amp;lt;&amp;lt; endl; // print each title
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;The Unordered Containers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The new standard defines four unordered associative containers. Rather than using a comparison operation to organize their elements, these containers use a hash
+function and the key type’s ==operator. An unordered container is most useful when we have a key type for which there is no obvious ordering relationship among the
+elements. These containers are also useful for applications in which the cost of maintaining the elements in order is prohibitive.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Managing the Buckets&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The unordered containers are organized as a collection of buckets, each of which holds zero or more elements. These containers use a hash function to map elements to buckets. To access an element, the container first computes the element’s hash code, which tells which bucket to search. The container puts all of its elements with a given hash value into the same bucket. If the container allows multiple elements with a given key, all the elements with the same key will be in the same bucket. As a result, the performance of an unordered container depends on the quality of its hash function and on the number and size of its buckets.&lt;/p&gt;
+
+&lt;p&gt;The hash function must always yield the same result when called with the same argument. Ideally, the hash function also maps each particular value to a unique bucket. However, a hash function is allowed to map elements with differing keys to the same bucket. When a bucket holds several elements, those elements are searched sequentially to find the one we want. Typically, computing an element’s hash code and finding its bucket is a fast operation. However, if the bucket has many elements, many comparisons may be needed to find a particular element.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Requirements on Key Type for Unordered Containers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;By default, the unordered containers use the ==operator on the key type to compare elements. They also use an object of type hash&lt;key\_type&gt; to generate the hash
+code for each element. The library supplies versions of the hash template for the builtin types, including pointers. It also defines hash for some of the library types, including strings and the smart pointer types. Thus, we can directly define unordered containers whose key is one of the built-in types (including pointer types), or a string, or a smart pointer.&lt;/p&gt;
+
+&lt;p&gt;However,we cannot directly define an unordered container that uses a our own class types for its key type. Unlike the containers, we cannot use the hash template directly. Instead, we must supply our own version of the hash template.&lt;/p&gt;
+</description>
+      <link>/c++/2014-07/associative-containers.html</link>
+      <guid>/c++/2014-07/associative-containers</guid>
+      <pubDate>Sun, 13 Jul 2014 20:40:14 +0800</pubDate>
+    </item>
+    
+    <item>
+      <title><![CDATA[Generic Algorithms]]></title>
+      <description>&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Iterators Make the Algorithms Container Independent, But Algorithms Do Depend on Element-Type Operations&lt;/li&gt;
+&lt;li&gt;Algorithms Never Execute Container Operations&lt;/li&gt;
+&lt;li&gt;Ordinarily it is best to use cbegin() and cend() with
+algorithms that read, but do not write, the elements. However, if you plan to use the iterator returned by the algorithm to change an element’s value, then you need to pass begin()and end().&lt;/li&gt;
+&lt;li&gt;Algorithms that take a single iterator denoting a second sequence assume that the second sequence is at least as large at the first.&lt;/li&gt;
+&lt;li&gt;Algorithms that write to a destination iterator assumethe destination is large enough to hold the number of elements being written.&lt;/li&gt;
+&lt;li&gt;The library algorithms operate on iterators, not containers. Therefore, an algorithm cannot (directly) add or remove elements.&lt;/li&gt;
+&lt;li&gt;Lambdas with function bodies that contain anything other than a single return statement that do not specify a return type return void.&lt;/li&gt;
+&lt;li&gt;A lambda may use a variable local to its surrounding function only if the lambda captures that variable in its capture list.&lt;/li&gt;
+&lt;li&gt;The capture list is used for local nonstatic variables only; lambdas can use local statics and variables declared outside the function directly.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Read-Only Algorithms&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;find&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;string val = &amp;quot;a value&amp;quot;;  // value we&amp;#39;ll look for
+// this call to find looks through string elements in a list
+auto result = find(1st.cbegin(), 1st.cend(), val);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;accumulate&lt;/strong&gt;(defined in the numeric header)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// sum the elements in vec starting the summation with the value 0
+int sum = accumulate(vec.cbegin(), vec.cend(), 0);
+stringsum = accumulate(v.cbegin(), v.cend(), string(&amp;quot;&amp;quot;));
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;equal&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// roster2 should have at least as many elements as roster1
+equal(roster1.cbegin(), roster1.cend(), roster2.cbegin());
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Algorithms That Write Container Elements&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;fill&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It is a fairly common beginner mistake to call fill_n(or similar algorithms that write to elements) on a container that has no elements.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;fill(vec.begin(),vec.end(), 0);  // reset each element to 0
+fill_n(dest,n, val)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;back_inserter&lt;/strong&gt;(defined in the iterator header)&lt;/p&gt;
+
+&lt;p&gt;One way to ensure that an algorithm has enough elements to hold the output is to use an &lt;em&gt;insert iterator&lt;/em&gt;. An insert iterator is an iterator that adds elements to a container.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;back_inserter&lt;/em&gt; takes a reference to a container and returns an insert iterator bound to that container. When we assign through that iterator, the assignment calls
+push_back to add an element with the given value to the container.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;vector&amp;lt;int&amp;gt;vec; // empty vector
+// ok: back_inserter creates an insert iterator that adds elements to vec
+fill_n(back_inserter(vec), 10, 0);  // appends ten elements to vec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;copy&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;int a1[] = {0,1,2,3,4,5,6,7,8,9};
+int a2[sizeof(a1)/sizeof(*a1)];  // a2 has the same size as a1
+// ret points just past the last element copied into a2
+auto ret = copy(begin(a1), end(a1), a2);  // copy a1 into a2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;replace&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// replace any element with the value 0 with 42
+replace(ilst.begin(), ilst.end(), 0, 42);
+// use back_inserter to grow destination as needed
+replace_copy(ilst.cbegin(), ilst.cend(),
+back_inserter(ivec), 0, 42);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Algorithms That Reorder Container Elements&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;sort&lt;/strong&gt;(using the element types&amp;#39;s &amp;lt; operator)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Eliminating Duplicates&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To eliminate the duplicated words, we will first &lt;em&gt;sort&lt;/em&gt; the vector so that duplicated words appear adjacent to each other. Once the vector is sorted, we can use another
+library algorithm, named unique, to reorder the vector so that the &lt;em&gt;unique&lt;/em&gt; elements appear in the first part of the vector. Because algorithms cannot do container operations, we’ll use the &lt;em&gt;erase&lt;/em&gt; member of vector to actually remove the elements.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;void elimDups(vector&amp;lt;string&amp;gt; &amp;amp;words)
+{
+// sort words alphabetically so we can find the duplicates
+sort(words.begin(), words.end());
+// unique  reorders the input range so that each word appears once in the
+// front portion of the range and returns an iterator one past the unique range
+auto end_unique = unique(words.begin(), words.end());
+// erase uses a vector operation to remove the nonunique elements
+words.erase(end_unique, words.end());
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Customizing Operations&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;the sort algorithm uses the element type’s &amp;lt; operator. However, we might want to sort a sequence into a different order from that defined by &amp;lt;, or our sequence might have elements of a type (such as Sales_data) that does not have a &amp;lt; operator. In both cases, we need to override the default behavior of &lt;em&gt;sort&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Passing a Function to an Algorithm&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;predicate&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A predicate is an expression that can be called and that returns a value that can be used as a condition. The predicates used by library algorithms are either unary
+predicates(meaning they have a single parameter) or binary predicates(meaning they have two parameters). The algorithms that take predicates call the given
+predicate on the elements in the input range. As a result, it must be possible to convert the element type to the parameter type of the predicate.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// comparison function to be used to sort by word length
+bool isShorter(const string &amp;amp;s1, const string &amp;amp;s2)
+{
+return s1.size() &amp;lt; s2.size();
+}
+// sort on word length, shortest to longest
+sort(words.begin(), words.end(), isShorter);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;stable_sort&lt;/strong&gt;(maintains the original order among equal elements.)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// resort by length, maintaining alphabetical order among words of the same length
+stable_sort(words.begin(), words.end(), isShorter);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Lambda Expressions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;callable object&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We can pass any kind of &lt;em&gt;callable object&lt;/em&gt; to an algorithm. An object or expression is callable if we can apply the call operator to it. That is, if e is a callable expression, we can write e(args) where args is a comma-separated list of zero or more arguments.&lt;/p&gt;
+
+&lt;p&gt;The only callables we’ve used so far are functions and function pointers. There are two other kinds of callables: classes that overload the function-call operator, and lambda expressions.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;lambda expressions&lt;/strong&gt;
+A lambda expression represents a callable unit of code. It can be thought of as an unnamed, inline function. Like any function, a lambda has a return type, a parameter list, and a function body. Unlike a function, lambdas may be defined inside a function. A lamba expression has the form&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;&lt;a href=&quot;parameter%20list&quot;&gt;capturelist&lt;/a&gt; -&amp;gt; return type  { function body}&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;where capture listis an (often empty) list of local variables defined in the enclosing function; return type, parameter list, and function body are the same as in any
+ordinary function. However, unlike ordinary functions, a lambda must use a trailing return to specify its return type. We can omit either or both of the parameter list and return type but must always include the capture list and function body.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// sort words by size, but maintain alphabetical order for words of the same size
+stable_sort(words.begin(), words.end(),
+[](const string &amp;amp;a, const string &amp;amp;b)
+{ return a.size() &amp;lt; b.size();});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;find_if&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// get an iterator to the first element whose size() is &amp;gt;= sz
+auto wc = find_if(words.begin(), words.end(),
+[sz](const string &amp;amp;a)
+{ return a.size() &amp;gt;= sz; });
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;for_each&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// print words of the given size or longer, each one followed by a space
+for_each(wc, words.end(),
+[](const string &amp;amp;s){cout &amp;lt;&amp;lt; s &amp;lt;&amp;lt; &amp;quot; &amp;quot;;});
+cout &amp;lt;&amp;lt; endl;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Lambda Captures and Returns&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When we define a lambda, the compiler generates a new (unnamed) class type that corresponds to that lambda. By default, the class generated from a lambda contains a data member corresponding to the variables captured by the lambda. Like the data members of any class, the data members of a lambda are initialized when a lambda object is created. Similar to parameter passing, we can capture variables by value or by reference.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Mutable Lambdas&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;By default, a lambda may not change the value of a variable that it copies by value. If we want to be able to change the value of a captured variable, we must follow the parameter list with the keyword mutable. Lambdas that are mutable may not omit the parameter list.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Specifying the Lambda Return Type&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When we need to define a return type for a lambda, we must use a trailing return type.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;transform(vi.begin(),vi.end(), vi.begin(),
+[](int i) -&amp;gt; int
+{ if (i &amp;lt; 0) return -i; else return i; });
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;The Library bind Function&lt;/strong&gt;( defined in the &lt;em&gt;functional&lt;/em&gt; header)&lt;/p&gt;
+
+&lt;p&gt;The bind function can be thought of as a general-purpose function adaptor.It takes a callable object and generates a new callable that “adapts” the parameter list of the original object.The general form of a call to bind is:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;auto newCallable= bind(callable, arg_list);&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;where newCallable is itself a callable object and arg&lt;em&gt;list is a comma-separated list of arguments that correspond to the parameters of the given callable. That is, when we
+call newCallable, newCallable calls callable, passing the arguments in arg&lt;/em&gt;list.&lt;/p&gt;
+
+&lt;p&gt;The arguments in arg_list  may include names of the form _n, where n is an integer.These arguments are “placeholders” representing the parameters of newCallable. They stand “in place of” the arguments that will be passed to newCallable. The number n is the position of the parameter in the generated callable: _1 is the first parameter in newCallable, _2 is the second, and so forth.The _n names are defined in a namespace named placeholders. That namespace is itself defined inside the std namespace.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;bool check_size(const string &amp;amp;s, string::size_type sz)
+{
+return s.size() &amp;gt;= sz;
+}
+// check6 is a callable object that takes one argument ``of type string
+// and calls check_size on its given string and the value 6
+auto check6 = bind(check_size, _1, 6);
+string s = &amp;quot;hello&amp;quot;;
+bool b1 = check6(s);
+auto wc = find_if(words.begin(), words.end(),
+bind(check_size, _1, sz));
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      <link>/c++/2014-07/generic-algorithms.html</link>
+      <guid>/c++/2014-07/generic-algorithms</guid>
+      <pubDate>Sat, 12 Jul 2014 20:07:54 +0800</pubDate>
+    </item>
+    
+    <item>
+      <title><![CDATA[Sequential Containers]]></title>
+      <description>&lt;p&gt;&lt;strong&gt;The Sequential Containers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/0PEOjIC.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Iterator Ranges&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;An &lt;em&gt;iterator range&lt;/em&gt; is denoted by a pair of iterators each of which refers to an element, or to one past the last element,in the same container. These two iterators,
+often referred to as &lt;em&gt;begin&lt;/em&gt; and &lt;em&gt;end&lt;/em&gt;—or (somewhat misleadingly) as &lt;em&gt;first&lt;/em&gt; and &lt;em&gt;last&lt;/em&gt;—mark a range of elements from the container.&lt;/p&gt;
+
+&lt;p&gt;The name &lt;em&gt;last&lt;/em&gt;, although commonly used, is a bit misleading, because the second iterator never refers to the last element of the range. Instead, it refers to a point one past the last element. The elements in the range include the element denoted by &lt;em&gt;first&lt;/em&gt; and every element from &lt;em&gt;first&lt;/em&gt; up to but not including &lt;em&gt;last&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This element range is called a &lt;strong&gt;left-inclusive interval&lt;/strong&gt;. The standard mathematical notation for such a range is&lt;strong&gt;[ begin, end)&lt;/strong&gt;.indicating that the range begins with &lt;em&gt;begin&lt;/em&gt; and ends with, but does not include,
+&lt;em&gt;end&lt;/em&gt;. The iterators begin and end must refer to the same container. The iterator end may be equal to begin but must not refer to an element before the one denoted by begin.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Subscripting and Safe Random Access&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If we want to ensure that our index is valid, we can use the &lt;strong&gt;at&lt;/strong&gt; member instead.The at member acts like the subscript operator, but if the index is invalid, atthrows
+an out&lt;em&gt;of&lt;/em&gt;rangeexception.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;capacity and size&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It is important to understand the difference between &lt;em&gt;capacity&lt;/em&gt; and &lt;em&gt;size&lt;/em&gt;. The &lt;em&gt;size&lt;/em&gt; of a container is the number of elements it already holds; its &lt;em&gt;capacity&lt;/em&gt; is how many elements it can hold before more space must be allocated.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Numeric Conversions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/Cq46gBy.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Container Adaptors&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In addition to the sequential containers, the library defines three sequential container adaptors: &lt;strong&gt;stack&lt;/strong&gt;, &lt;strong&gt;queue&lt;/strong&gt;, and &lt;strong&gt;priority_queue&lt;/strong&gt;. An adaptor is a general concept in the library. There are container, iterator, and function adaptors. Essentially, an adaptor is a mechanism for making one thing act like another. A container adaptor
+takes an existing container type and makes it act like a different type. For example,the stack adaptor takes a sequential container (other than array or forward&lt;em&gt;list)and makes it operate as if it were a stack.The &lt;strong&gt;stack&lt;/strong&gt; type is defined in the stack header.The &lt;strong&gt;queue&lt;/strong&gt; and **priority&lt;/em&gt;queue** adaptors are defined in the queue header.&lt;/p&gt;
+</description>
+      <link>/c++/2014-07/sequential-containers.html</link>
+      <guid>/c++/2014-07/sequential-containers</guid>
+      <pubDate>Fri, 11 Jul 2014 13:37:28 +0800</pubDate>
+    </item>
+    
+    <item>
+      <title><![CDATA[The IO Library]]></title>
+      <description>&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;To support different kinds of IO processing,IO types are defined in three separate headers:iostream defines the basic types used to read from and write to a stream, fstream defines the types used to read and write named files, and sstream defines the types used to read and write in-memory strings.&lt;/li&gt;
+&lt;li&gt;Caution:Buffers Are Not Flushed If the Program Crashes.&lt;/li&gt;
+&lt;li&gt;When an fstream object is destroyed, close is called automatically.&lt;/li&gt;
+&lt;li&gt;The only way to preserve the existing data in a file opened by an ofstream is to specify app or in mode explicitly.&lt;/li&gt;
+&lt;li&gt;The sstream header defines three types to support in-memory IO; these types read from or write to a string as if the string were an IO stream.The &lt;em&gt;istringstream&lt;/em&gt; type reads a string, &lt;em&gt;ostringstream&lt;/em&gt; writes a string, and &lt;em&gt;stringstream&lt;/em&gt; reads and writes the string.An &lt;em&gt;istringstream&lt;/em&gt; is often used when we have some work to do on an entire line,and other work to do with individual words within a line.An &lt;em&gt;ostringstream&lt;/em&gt; is useful when we need to build up our output a little at a time but do not want to print the output until later.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;string line, word;  // will hold a line and word from input,respectively
+vector&amp;lt;PersonInfo&amp;gt; people; // will hold all the records from the input
+// read the input a line at a time until cin hits end-of-file (or another error)
+while (getline(cin, line)) {
+    PersonInfo info;  // create an object to hold this record&amp;#39;s data
+    istringstream record(line); // bind record to the line we just read
+    record &amp;gt;&amp;gt; info.name;  // read the name
+    while (record &amp;gt;&amp;gt; word)  // read the phone numbers
+    info.phones.push_back(word);  // and store them
+    people.push_back(info); // append this record to people
+}
+
+for(const auto &amp;amp;entry : people) {  // for each entry in people
+    ostringstream formatted, badNums; // objects created on each loop
+    for (const auto &amp;amp;nums : entry.phones) { // for each number
+        if (!valid(nums)) {
+            badNums &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; nums;  // string in badNums
+} 
+        // &amp;#39;&amp;#39;writes&amp;#39;&amp;#39; to formatted&amp;#39;s string
+else formatted &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; format(nums);
+}
+    if (badNums.str().empty())  // there were no bad numbers
+       os &amp;lt;&amp;lt; entry.name &amp;lt;&amp;lt; &amp;quot; &amp;quot;  // print the name
+       &amp;lt;&amp;lt; formatted.str() &amp;lt;&amp;lt; endl; // and reformatted numbers
+    else  // otherwise, print the name and bad numbers
+  cerr &amp;lt;&amp;lt; &amp;quot;input error: &amp;quot; &amp;lt;&amp;lt; entry.name
+  &amp;lt;&amp;lt; &amp;quot; invalid number(s) &amp;quot; &amp;lt;&amp;lt; badNums.str() &amp;lt;&amp;lt;endl;
+}  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      <link>/c++/2014-07/the-io-library.html</link>
+      <guid>/c++/2014-07/the-io-library</guid>
+      <pubDate>Fri, 11 Jul 2014 09:25:11 +0800</pubDate>
+    </item>
+    
+  </channel>
+</rss>

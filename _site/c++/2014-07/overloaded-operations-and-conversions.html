@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Overloaded Operations and Conversions - My study notes</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="liuguichao">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="canonical" href="/c++/2014-07/overloaded-operations-and-conversions.html">
+
+  <link rel="stylesheet" href="/assets/css/style.css" media="all">
+
+  <!-- atom & rss feed -->
+  <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="My study notes RSS Feed">
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="My study notes ATOM Feed">
+
+  <!-- fav and touch icons  -->
+  <!-- Update these with your own images
+  <link rel="shortcut icon" href="images/favicon.ico">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+  <meta name="renderer" content="webkit|ie-stand">
+
+  <meta name="baidu-site-verification" content="BvD3CNBzK6" />
+  <meta name="msvalidate.01" content="FE0D1D87A075E1003B82C7446EE360ED" />
+</head>
+
+
+  <body>
+    <div class="container">
+      <!--[if lt IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+  <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <div class="title"><a title="My study notes" href="/">My study notes</a></div>
+  <ul class="nav navbar-nav collapse navbar-collapse bs-navbar-collapse navbar-right">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories" rel="nofollow"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags" rel="nofollow"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/liuguichao" target="_blank" title="Github" rel="nofollow"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS" rel="nofollow"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <article class="wrapper">
+        <div id="search-loader" class="img-wrap">
+          <div class="loading">
+            <img src="/assets/img/loading.png">
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-12">
+<h2 class="title"> Overloaded Operations and Conversions <time class="small">2014.07.18</time></h2>
+<p>When an overloaded operator is a member function, <strong>this</strong> is bound to the
+<strong>left-hand operand</strong>. Member operator functions have one less (explicit)
+parameter than the number of operands.</p>
+
+<p><strong>Calling an Overloaded Operator Function Directly</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// equivalent calls to a nonmember operator function
+data1 + data2;  // normal expression
+operator+(data1, data2); // equivalent function cal
+
+data1+= data2;  // expression-based &#39;&#39;call&#39;&#39;
+data1.operator+=(data2);  // equivalent call to a member operator
+function
+</code></pre></div>
+<p>Ordinarily,the comma, address-of, logical AND, and logical ORoperators
+should notbe overloaded.Users of the class will be surprised if these operators behave differently from their normal meanings.</p>
+
+<p><strong>Choosing Member or Nonmember Implementation</strong></p>
+
+<ul>
+<li>The assignment (=), subscript ([]), call (()), and member access arrow (-&gt;) operators must be defined as members.</li>
+<li>The compound-assignment operators ordinarily oughtto be members. However,
+unlike assignment, they are not required to be members.</li>
+<li>Operators that change the state of their object or that are closely tied to their given type—such as increment, decrement, and dereference—usually should be members.</li>
+<li>Symmetric operators—those that might convert either operand, such as the
+arithmetic, equality, relational, and bitwise operators—usually should be defined as ordinary nonmember functions.</li>
+</ul>
+
+<p>When we define an operator as a member function, then the left-hand operand
+must be an object of the class of which that operator is a member. </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">strings = &quot;world&quot;;
+string t = s + &quot;!&quot;;  // ok: we can add a const char* to a string
+string u = &quot;hi&quot; + s; // would be an error if + were a member of string
+</code></pre></div>
+<p>If operator+ were a member of the string class, the first addition would be
+equivalent to s.operator+(&quot;!&quot;). Likewise, &quot;hi&quot; + swould be equivalent to
+&quot;hi&quot;.operator+(s). However, the type of &quot;hi&quot; is const char*, and that is a
+built-in type; it does not even have member functions.</p>
+
+<p><strong>Overloading the Output Operator &lt;&lt;</strong></p>
+
+<p>Ordinarily, the first parameter of an output operator is a reference to a nonconst ostream object. The ostream is nonconst because writing to the stream changes its state. The parameter is a reference because we cannot copy an ostream object.</p>
+
+<p>The second parameter ordinarily should be a reference to const of the class type we want to print. The parameter is a reference to avoid copying the argument. It can be const because (ordinarily) printing an object does not change that object.</p>
+
+<p>To be consistent with other output operators, operator&lt;&lt; normally returns its ostream parameter.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">ostream &amp;operator&lt;&lt;(ostream &amp;os, const Sales_data &amp;item)
+{
+os &lt;&lt; item.isbn() &lt;&lt; &quot; &quot; &lt;&lt; item.units_sold &lt;&lt; &quot; &quot;
+&lt;&lt; item.revenue &lt;&lt; &quot; &quot; &lt;&lt; item.avg_price();
+return os;
+}
+</code></pre></div>
+<p>Generally,output operators should print the contents of the object, with
+minimal formatting. They should not print a newline.</p>
+
+<p><strong>IO Operators Must Be Nonmember Functions</strong></p>
+
+<p>Input and output operators that conform to the conventions of the iostream library must be ordinary nonmember functions. These operators cannot be members of our own class. If they were, then the left-hand operand would have to be an object of our class type.</p>
+
+<p>Thus,if we want to define the IO operators for our types, we must define them as nonmember functions. Of course, IO operators usually need to read or write the <strong>nonpublic</strong> data members. As a consequence, IO operators usually must be declared as <strong>friends</strong>.</p>
+
+<p><strong>Overloading the Input Operator &gt;&gt;</strong></p>
+
+<p>Ordinarily the first parameter of an input operator is a reference to the stream from which it is to read, and the second parameter is a reference to the (nonconst) object into which to read. The operator usually returns a reference to its given stream. The second parameter must be nonconst because the purpose of an input operator is to read data into this object.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">istream &amp;operator&gt;&gt;(istream &amp;is, Sales_data &amp;item)
+{
+double price;  // no need to initialize; we&#39;ll read into price before we use it
+is &gt;&gt; item.bookNo &gt;&gt; item.units_sold &gt;&gt; price;
+if (is)  // check that the inputs succeeded
+item.revenue = item.units_sold * price;
+else
+item = Sales_data(); // input failed: give the object the default state
+return is;
+}
+</code></pre></div>
+<p>Input operators must deal with the possibility that the input might fail; output operators generally don’t bother.</p>
+
+<p><strong>Indicating Errors</strong></p>
+
+<p>Usually an input operator should set only the failbit. Setting eofbit
+would imply that the file was exhausted, and setting badbit would indicate that the stream was corrupted. These errors are best left to the IO library itself to indicate.</p>
+
+<p><strong>Arithmetic and Relational Operators</strong></p>
+
+<p>Ordinarily,we define the arithmetic and relational operators as nonmember functions in order to allow conversions for either the left- or right-hand operand. These operators shouldn’t need to change the state of either operand, so the parameters are ordinarily references to <strong>const</strong>.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// assumes that both objects refer to the same book
+Sales_data operator+(const Sales_data &amp;lhs, const Sales_data &amp;rhs)
+{
+Sales_data sum = lhs;  // copy data members from lhs into sum
+sum += rhs;  // add rhs into sum
+return sum;
+}
+</code></pre></div>
+<p>Classes that define both an arithmetic operator and the related compound
+assignment ordinarily ought to implement the arithmetic operator by using
+the compound assignment.</p>
+
+<p><strong>Equality Operators</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">bool operator==(const Sales_data &amp;lhs, const Sales_data &amp;rhs)
+{
+return lhs.isbn() == rhs.isbn() &amp;&amp;
+lhs.units_sold == rhs.units_sold &amp;&amp;
+lhs.revenue == rhs.revenue;
+}
+bool operator!=(const Sales_data &amp;lhs, const Sales_data &amp;rhs)
+{
+return !(lhs == rhs);
+}
+</code></pre></div>
+<p>Classes for which there is a logical meaning for equality normally should
+define operator==. Classes that define ==make it easier for users to use
+the class with the library algorithms.</p>
+
+<p><strong>Relational Operators</strong></p>
+
+<p>Classes for which the equality operator is defined also often (but not always) have relational operators. In particular, because the associative containers and some of the algorithms use the less-than operator, it can be useful to define an <strong>operator&lt;</strong>.</p>
+
+<p>Ordinarily the relational operators should</p>
+
+<ol>
+<li>Define an ordering relation that is consistent with the requirements for use as a key to an associative container; and</li>
+<li>Define a relation that is consistent with ==if the class has both operators. In particular, if two objects are !=, then one object should be &lt;the other.</li>
+</ol>
+
+<p>Ifa single logical definition for &lt;exists, classes usually should define the &lt;operator. However, if the class also has ==, define &lt;only if the definitions of &lt;and ==yield consistent results.</p>
+
+<p><strong>Assignment Operators</strong></p>
+
+<p>In addition to the copy- and move-assignment operators that assign one object of the class type to another object of the same type,a class can define additional assignment operators that allow other types as the
+right-hand operand.</p>
+
+<p>As one example, in addition to the copy- and move-assignment operators, the library <strong>vector</strong> class defines a third assignment operator that takes a braced list of elements.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">vector&lt;string&gt; v;
+v = {&quot;a&quot;, &quot;an&quot;, &quot;the&quot;};
+
+classStrVec {
+public:
+StrVec &amp;operator=(std::initializer_list&lt;std::string&gt;);
+// other members as in § 13.5 (p. 526)
+};
+</code></pre></div>
+<p>Assignment operators can be overloaded. Assignment operators, regardless of
+parameter type, must be defined as member functions.</p>
+
+<p><strong>Compound-Assignment Operators</strong></p>
+
+<p>Compound assignment operators are not required to be members. However, we prefer to define all assignments, including compound assignments, in the class. For consistency with the built-in compound assignment, these operators should return a reference to their left-hand operand. </p>
+
+<p>Assignment operators must, and ordinarily compound-assignment operators
+should, be defined as members. These operators should return a reference to
+the left-hand operand.</p>
+
+<p><strong>Subscript Operator</strong></p>
+
+<p>Classes that represent containers from which elements can be retrieved by position often define the subscript operator, <strong>operator[]</strong>. </p>
+
+<p>The subscript operator must be a member function.</p>
+
+<p>To be compatible with the ordinary meaning of subscript, the subscript operator usually returns a <strong>reference</strong> to the element that is fetched. By returning a reference, subscript can be used on either side of an assignment. Consequently, it is also usually a good idea to define both const and nonconst versions of this operator. When applied to a const object, subscript should return a reference to const so that it is
+not possible to assign to the returned object.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class StrVec {
+public:
+std::string&amp; operator[](std::size_t n)
+{ return elements[n]; }
+const std::string&amp; operator[](std::size_t n) const
+{ return elements[n]; }
+// other members as in § 13.5 (p. 526)
+private:
+std::string *elements;  // pointer to the first element in the array
+};
+</code></pre></div>
+<p><strong>Increment and Decrement Operators</strong></p>
+
+<p>The increment (++) and decrement (--) operators are most often implemented for iterator classes. These operators let the class move between the elements of a sequence.</p>
+
+<p>Classes that define increment or decrement operators should define both the prefix and postfix versions. These operators usually should be defined as members.</p>
+
+<p><strong>Defining Prefix Increment/Decrement Operators</strong></p>
+
+<p>To be consistent with the built-in operators, the prefix operators should
+return a reference to the incremented or decremented object.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// prefix: return a reference to the incremented/decremented object
+StrBlobPtr&amp; StrBlobPtr::operator++()
+{
+// if curr already points past the end of the container, can&#39;t increment it
+check(curr, &quot;increment past end of StrBlobPtr&quot;);
+++curr;  // advance the current state
+return *this;
+}
+StrBlobPtr&amp; StrBlobPtr::operator--()
+{
+// if curr is zero, decrementing it will yield an invalid subscript
+--curr;  // move the current state back one element
+check(-1, &quot;decrement past begin of StrBlobPtr&quot;);
+return *this;
+}
+</code></pre></div>
+<p><strong>Differentiating Prefix and Postfix Operators</strong></p>
+
+<p>The postfix versions take an extra (unused) parameter of type int. Its sole purpose is to distinguish a postfix function from the prefix version.</p>
+
+<p>To be consistent with the built-in operators, the postfix operators should
+return the old (unincremented or undecremented) value. That value is
+returned as a value, not a reference.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class StrBlobPtr {
+public:
+// increment and decrement
+StrBlobPtr operator++(int);  // postfix operators
+StrBlobPtr operator--(int);
+// other members as before
+};
+</code></pre></div>
+<p><strong>Calling the Postfix Operators Explicitly</strong></p>
+
+<p>If we want to call the postfix version using a function call, then we must pass a value for the integer argument. The value passed usually is ignored but is necessary in order to tell the compiler to use the postfix version.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">StrBlobPtrp(a1); // p points to the vector inside a1
+p.operator++(0);  // call postfix operator++
+p.operator++();  // call prefix  operator++
+</code></pre></div>
+<p><strong>Member Access Operators</strong></p>
+
+<p>The dereference (*) and arrow (-&gt;) operators are often used in classes that
+represent iterators and in smart pointer classes.Operator arrow must be a member. The dereference operator is not required to be a member but usually should be a member as well.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class StrBlobPtr {
+public:
+std::string&amp; operator*() const
+{ auto p = check(curr, &quot;dereference past end&quot;);
+return (*p)[curr];  // (*p) is the vector to which this object points
+}
+std::string* operator-&gt;() const
+{ // delegate the real work to the dereference operator
+return &amp; this-&gt;operator*();
+}
+// other members as before
+};
+</code></pre></div>
+<p><strong>Constraintson the Return from Operator Arrow</strong></p>
+
+<p>The overloaded arrow operator must return either a pointer to a class type or an object of a class type that defines its own operator arrow.</p>
+
+<p><strong>Function-Call Operator</strong></p>
+
+<p>Classes that overload the call operator allow objects of its type to be used as if they were a function. Because such classes can also store state, they can be more flexible than ordinary functions.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">struct absInt {
+int operator()(int val) const {
+return val &lt; 0 ? -val : val;
+}
+};
+inti = -42;
+absInt absObj;  // object that has a function-call operator
+int ui = absObj(i); // passes i to absObj.operator()
+</code></pre></div>
+<p>The function-call operator must be a member function. A class may define
+multiple versions of the call operator, each of which must differ as to the
+number or types of their parameters.</p>
+
+<p>Objects of classes that define the call operator are referred to as <strong>function objects</strong>.Such objects “act like functions” because we can call them.</p>
+
+<p><strong>Function-Object Classes with State</strong></p>
+
+<p>Function objects are most often used as arguments to the generic algorithms. For example, we can use the library for_each algorithm.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class PrintString {
+public:
+PrintString(ostream &amp;o = cout, char c = &#39; &#39;):
+os(o), sep(c) { }
+void operator()(const string &amp;s) const { os &lt;&lt; s &lt;&lt; sep;
+}
+private:
+ostream &amp;os;  // stream on which to write
+char sep;  // character to print after each output
+};
+
+PrintString printer;  // uses the defaults; prints to cout
+printer(s);  // prints s followed by a space on cout
+PrintString errors(cerr, &#39;\n&#39;);
+errors(s);  // prints s followed by a newline on cerr
+
+for_each(vs.begin(),vs.end(), PrintString(cerr, &#39;\n&#39;));
+</code></pre></div>
+<p><strong>Lambdas Are Function Objects</strong></p>
+
+<p>When we write a lambda, the compiler translates that expression into an unnamed object of an unnamed class.The classes generated from a lambda contain an overloaded function-call operator.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// sort words by size, but maintain alphabetical order for words of the same size
+stable_sort(words.begin(), words.end(),
+[](const string &amp;a, const string &amp;b)
+{ return a.size() &lt; b.size();});
+
+class ShorterString {
+public:
+bool operator()(const string &amp;s1, const string &amp;s2) const
+{ return s1.size() &lt; s2.size(); }
+};
+
+stable_sort(words.begin(),words.end(), ShorterString());
+</code></pre></div>
+<p><strong>Classes Representing Lambdas with Captures</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// get an iterator to the first element whose size() is &gt;= sz
+auto wc = find_if(words.begin(), words.end(),[sz](const string &amp;a)
+
+class SizeComp {
+SizeComp(size_t n): sz(n) { } // parameter for each captured variable
+// call operator with the same return type, parameters, and body as the lambda
+bool operator()(const string &amp;s) const
+{ return s.size() &gt;= sz; }
+private:
+size_t sz; // a data member for each variable captured by value
+};
+
+// get an iterator to the first element whose size() is &gt;= sz
+auto wc = find_if(words.begin(), words.end(), SizeComp(sz));
+</code></pre></div>
+<p><strong>Library-Defined Function Objects</strong></p>
+
+<p>The standard library defines a set of classes that represent the arithmetic, relational,and logical operators. Each class defines a call operator that applies the named operation. These classes are templates to which we supply a single type. That type specifies the parameter type for the call operator.</p>
+
+<p><img src="http://i.imgur.com/8UZnARL.jpg" alt=""></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">plus&lt;int&gt; intAdd;  // function object that can add two int values
+negate&lt;int&gt; intNegate;  // function object that can negate an int value
+// uses intAdd::operator(int, int) to add 10 and 20
+int sum = intAdd(10, 20);  // equivalent to sum = 30
+sum = intNegate(intAdd(10, 20));  // equivalent to sum = 30
+// uses intNegate::operator(int) to generate -10 as the second parameter
+// to intAdd::operator(int, int)
+sum = intAdd(10, intNegate(10));  // sum = 0
+</code></pre></div>
+<p><strong>Using a Library Function Object with the Algorithms</strong></p>
+
+<p>The function-object classes that represent operators are often used to override the default operator used by an algorithm. </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// passes a temporary function object that applies the &lt; operator to two strings
+sort(svec.begin(), svec.end(), greater&lt;string&gt;());
+sort(svec.begin(), svec.end(), less&lt;string&gt;());
+</code></pre></div>
+<p><strong>Callable Objects and function</strong></p>
+
+<p>C++ has several kinds of callable objects: functions and pointers to functions,lambdas, objects created by bind, and classes that overload the function-call operator.</p>
+
+<p>two callable objects with different types may share the same <strong>call
+signature</strong>. The call signature specifies the type returned by a call to the object and the argument type(s) that must be passed in the call. A call signature corresponds to a function type. For example: int(int,int).</p>
+
+<p><strong>The Library function Type</strong></p>
+
+<p><strong>function</strong> is a template. As with other templates we’ve used, we must specify additional information when we create a function type. In this case, that information is the <strong>call signature</strong> of the objects that this particular function type can represent.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// table of callable objects corresponding to each binary operator
+// all the callables must take two ints and return an int
+// an element can be a function pointer, function object, or lambda
+map&lt;string,function&lt;int(int, int)&gt;&gt; binops = {
+{&quot;+&quot;, add},  // function pointer
+{&quot;-&quot;, std::minus&lt;int&gt;()},  // library function object
+{&quot;/&quot;,  div()},  // user-defined function object
+{&quot;*&quot;, [](int i, int j) { return i * j; }}, // unnamed
+lambda
+{&quot;%&quot;, mod} };  // named lambda object
+
+binops[&quot;+&quot;](10,5); // calls add(10, 5)
+binops[&quot;-&quot;](10, 5); // uses the call operator of the minus&lt;int&gt; object
+binops[&quot;/&quot;](10, 5); // uses the call operator of the div object
+binops[&quot;*&quot;](10, 5); // calls the lambda function object
+binops[&quot;%&quot;](10, 5); // calls the lambda function object
+</code></pre></div>
+<p>The function class in the new library is not related to classes named
+unary<em>function and binary</em>function that were part of earlier versions
+of the library. These classes have been deprecated by the more general bind
+function.</p>
+
+<p><strong>Conversion Operators</strong></p>
+
+<p>A conversion operatoris a special kind of member function that converts a value of a class type to a value of some other type. A conversion function typically has the general form <strong>operator type() const;</strong></p>
+
+<p>where type represents a type. Conversion operators can be defined for any type (other than void) that can be a function return type. Conversions to
+an array or a function type are not permitted. Conversions to pointer types—both data and function pointers—and to reference types are allowed.</p>
+
+<p>Conversion operators have no explicitly stated return type and no parameters, and they must be defined as member functions. Conversion operations ordinarily should not change the object they are converting. As a result, conversion operators usually should be defined as const members.</p>
+
+<p><strong>Defining a Class with a Conversion Operator</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class SmallInt {
+public:
+SmallInt(int i = 0): val(i)
+{
+if (i &lt; 0 || i &gt; 255)
+throw std::out_of_range(&quot;Bad SmallInt value&quot;);
+}
+operator int() const { return val; }
+private:
+std::size_t val;
+};
+
+SmallIntsi;
+si = 4; // implicitly converts 4 to SmallInt then calls SmallInt::operator=
+si + 3; // implicitly converts si to int followed by integer addition
+</code></pre></div>
+<p><strong>Conversion Operators Can Yield Suprising Results</strong></p>
+
+<p>In practice, classes rarely provide conversion operators. Too often users are more likely to be surprised if a conversion happens automatically than to be helped by the existence of the conversion. However, there is one important exception to this rule of thumb: It is not uncommon for classes to define conversions to bool.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">int i = 42;
+cin &lt;&lt; i; // this code would be legal if the conversion to bool were not explicit!
+</code></pre></div>
+<p>This program attempts to use the output operator on an input stream. There is no &lt;&lt; defined for istream, so the code is almost surely in error. However, this code could use the bool conversion operator to convert cin to bool. The resulting bool value would then be promoted to int and used as the left-hand operand to the built-in version of the left-shift operator. The promoted boolvalue (either 1 or 0) would be shifted left 42 positions.</p>
+
+<p><strong>explicit Conversion Operators</strong></p>
+
+<p>To prevent such problems, the new standard introduced explicit conversion operators.</p>
+
+<p>class SmallInt {
+public:
+// the compiler won&#39;t automatically apply this conversion
+explicit operator int() const { return val; }
+// other members as before
+};</p>
+
+<p>SmallInt si = 3;  // ok: the SmallInt constructor is not explicit
+si + 3; // error: implicit is conversion required, but operator int is explicit
+static_cast<int>(si) + 3; // ok: explicitly request the conversion</p>
+
+<p>If the conversion operator is explicit, we can still do the conversion. However, with one exception, we must do so explicitly through a cast.
+The exception is that the compiler will apply an explicit conversion to an
+expression used as a <strong>condition</strong>. </p>
+
+<p><strong>Conversion to bool</strong></p>
+
+<p>In earlier versions of the library, the IO types defined a conversion to void*. They did so to avoid the kinds of problems illustrated above. Under the new standard, the IO library instead defines an explicit conversion to bool.</p>
+
+<p>while(std::cin &gt;&gt; value)</p>
+
+<p>The condition in the while executes the input operator, which reads into value and returns cin. To evaluate the condition, cin is implicitly converted by the istream operator bool conversion function. That function returns true if the conditionstate of cin is good, and false other wise.</p>
+
+<p>Conversion to bool is usually intended for use in conditions. As a result,
+operator bool ordinarily should be defined as explicit.</p>
+
+<ul class="pager">
+  
+  <li class="previous"><a  href="/c++/2014-07/copy-control.html" title="Copy Control">&larr; Prev</a></li>
+  
+  
+  <li class="next"><a href="/c++/2014-07/object-oriented-programming.html" title="Object-Oriented Programming">Next &rarr;</a></li>
+  
+</ul>
+
+
+
+</div>
+
+        </div>
+      </article>
+
+      <footer class="footer text-center">
+  <p>&copy; 2015 <a href="" title="">liuguichao</a>. with Help from <a href="//jekyllrb.com/" title="Transform your plain text into static websites and blogs.">Jekyll</a> and <a href="//getbootstrap.com/" title="Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.">Bootstrap</a></p>
+  <p>Articles are licensed under <a href="//creativecommons.org/licenses/by/3.0/" title="CC BY 3.0 License">the CC BY 3.0</a></p>
+</footer>
+
+    </div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/webcore.js"></script>
+
+    
+
+    
+  </body>
+</html>

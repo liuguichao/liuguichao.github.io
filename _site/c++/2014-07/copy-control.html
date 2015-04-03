@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Copy Control - My study notes</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="liuguichao">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="canonical" href="/c++/2014-07/copy-control.html">
+
+  <link rel="stylesheet" href="/assets/css/style.css" media="all">
+
+  <!-- atom & rss feed -->
+  <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="My study notes RSS Feed">
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="My study notes ATOM Feed">
+
+  <!-- fav and touch icons  -->
+  <!-- Update these with your own images
+  <link rel="shortcut icon" href="images/favicon.ico">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+  <meta name="renderer" content="webkit|ie-stand">
+
+  <meta name="baidu-site-verification" content="BvD3CNBzK6" />
+  <meta name="msvalidate.01" content="FE0D1D87A075E1003B82C7446EE360ED" />
+</head>
+
+
+  <body>
+    <div class="container">
+      <!--[if lt IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+  <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <div class="title"><a title="My study notes" href="/">My study notes</a></div>
+  <ul class="nav navbar-nav collapse navbar-collapse bs-navbar-collapse navbar-right">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories" rel="nofollow"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags" rel="nofollow"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/liuguichao" target="_blank" title="Github" rel="nofollow"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS" rel="nofollow"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <article class="wrapper">
+        <div id="search-loader" class="img-wrap">
+          <div class="loading">
+            <img src="/assets/img/loading.png">
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-12">
+<h2 class="title"> Copy Control <time class="small">2014.07.16</time></h2>
+<p>When we define a class,we specify—explicitly or implicitly—what happens when objects of that class type are copied, moved, assigned, and destroyed. A class controls
+these operations by defining five special member functions: <strong>copy constructor</strong>, <strong>copy-assignment operator</strong>, <strong>move constructor</strong>, <strong>move-assignment operator</strong>, and <strong>destructor</strong>. The copy and move constructors define what happens when an object is
+initialized from another object of the same type. The copy- and move-assignment operators define what happens when we assign an object of a class type to another
+object of that same class type. The destructor defines what happens when an object of the type ceases to exist. Collectively, we’ll refer to these operations as copy
+control.</p>
+
+<p><strong>The Copy Constructor</strong></p>
+
+<p>A constructor is the copy constructor if its first parameter is a reference to the class type and any additional parameters have default values:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class Foo {
+public:
+Foo();  // default constructor
+Foo(const Foo&amp;);  // copy constructor
+// ...
+};
+</code></pre></div>
+<p><strong>Copy Initialization</strong></p>
+
+<p>When we use <strong>direct initialization</strong>, we are asking the compiler to use ordinary function matching to select the constructor that best matches the arguments we provide. When we use <strong>copy initialization</strong>, we are asking the compiler to copy the right-hand operand into the object being created, converting that operand if necessary。</p>
+
+<p>Copy initialization happens not only when we define variables using an =, but also when we</p>
+
+<ul>
+<li>Pass an object as an argument to a parameter of nonreference type</li>
+<li>Return an object from a function that has a nonreference return type</li>
+<li>Brace initialize the elements in an array or the members of an aggregate class</li>
+</ul>
+
+<p>Some class types also use copy initialization for the objects they allocate. For example, the library containers copy initialize their elements when we initialize the container, or when we call an insertor push member. By contrast, elements created by an emplace member are direct initialized.</p>
+
+<p><strong>Parameters and Return Values</strong></p>
+
+<p>The fact that the copy constructor is used to initialize nonreference parameters of class type explains why the copy constructor’s own parameter must be a reference. If
+that parameter were not a reference, then the call would never succeed—to call the copy constructor, we’d need to use the copy constructor to copy the argument, but to
+copy the argument, we’d need to call the copy constructor, and so on indefinitely.</p>
+
+<p><strong>Introducing Overloaded Assignment</strong></p>
+
+<p><strong>Overloaded operators</strong> are functions that have the name operatorfollowed by the symbol for the operator being defined. Hence, the assignment operator is a function
+named operator=. Like any other function, an operator function has a return type and a parameter list. The copy-assignment operator takes an argument of the same type as the class：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class Foo {
+public:
+Foo&amp; operator=(const Foo&amp;); // assignment operator
+// ...
+};
+</code></pre></div>
+<p>Assignment operators ordinarily should return a reference to their left-hand operand.</p>
+
+<p><strong>What a Destructor Does</strong></p>
+
+<p>Just as a constructor has an initialization part and a function body, a destructor has a function body and a destruction part. In a constructor, members are
+initialized before the function body is executed, and members are initialized in the same order as they appear in the class. In a destructor, the function body is executed first and then the members are destroyed. Members are destroyed in reverse order from the order in which they were initialized.</p>
+
+<p>The implicit destruction of a member of built-in pointer type does not delete the object to which that pointer points. Members of class type are destroyed by running the member’s own destructor. Unlike ordinary pointers, the smart pointers are class types and have destructors. As a result, unlike ordinary pointers, members that are smart
+pointers are automatically destroyed during the destruction phase.</p>
+
+<p><strong>Classes That Need Destructors Need Copy and Assignment</strong></p>
+
+<p>If a class needs a destructor, it almost surely also needs the copy-assignment operator and a copy constructor.</p>
+
+<p><strong>Classes That Need Copy Need Assignment, and Vice Versa</strong></p>
+
+<p>As an example, consider a class that gives each object its own, unique serial number. Such a class would need a copy constructor to generate a new, distinct serial
+number for the object being created. That constructor would copy all the other data members from the given object. This class would also need its own copy-assignment
+operator to avoid assigning to the serial number of the left-hand object. However, this class would have no need for a destructor.</p>
+
+<p><strong>Using = default</strong></p>
+
+<p>We can explicitly ask the compiler to generate the synthesized versions of the copycontrol members by defining them as = default.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class Sales_data {
+public:
+// copy control; use defaults
+Sales_data() = default;
+Sales_data(const Sales_data&amp;) = default;
+Sales_data&amp; operator=(const Sales_data &amp;);
+~Sales_data() = default;
+// other members as before
+};
+Sales_data&amp; Sales_data::operator=(const Sales_data&amp;) =
+default;
+</code></pre></div>
+<p><strong>Preventing Copies</strong></p>
+
+<p>Although most classes should (and generally do) define a copy constructor and a copy-assignment operator, for some classes, there really is no sensible meaning for
+these operations. In such cases, the class must be defined so as to prevent copies or assignments from being made. For example, the <em>iostream</em> classes prevent copying to
+avoid letting multiple objects write to or read from the same IO buffer. It might seem that we could prevent copies by not defining the copy-control members. However, this
+strategy doesn’t work: If our class doesn’t define these operations, the compiler will synthesize them.</p>
+
+<p><strong>Defining a Function as Deleted</strong></p>
+
+<p>Under the new standard, we can prevent copies by defining the copy constructor and copy-assignment operator as <strong>deleted functions</strong>. A deleted function is one that is
+declared but may not be used in any other way. We indicate that we want to define a function as deleted by following its parameter list with = delete:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">struct NoCopy {
+NoCopy() = default;  // use the synthesized default constructor
+NoCopy(const NoCopy&amp;) = delete;  // no copy
+NoCopy &amp;operator=(const NoCopy&amp;) = delete; // no assignment
+~NoCopy() = default;  // use the synthesized destructor
+// other members
+};
+</code></pre></div>
+<p><strong>The Copy-Control Members May Be Synthesized as Deleted</strong></p>
+
+<p>In essence, the copy-control members are synthesized as deleted when it is impossible to copy, assign, or destroy a member of the class.</p>
+
+<p><strong>private Copy Control</strong></p>
+
+<p>Prior to the new standard, classes prevented copies by declaring their copy constructor and copy-assignment operator as <em>private</em>.</p>
+
+<p>Classes that want to prevent copying should define their copy constructor and copy-assignment operators using = delete rather than making those members private.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class PrivateCopy {
+// no access specifier; following members are private by default; see § 7.2 (p.
+268)
+// copy control is private and so is inaccessible to ordinary user code
+PrivateCopy(const PrivateCopy&amp;);
+PrivateCopy &amp;operator=(const PrivateCopy&amp;);
+// other members
+public:
+PrivateCopy() = default; // use the synthesized default constructor
+~PrivateCopy(); // users can define objects of this type but not copy them
+};
+</code></pre></div>
+<p><strong>Assignment Operators</strong></p>
+
+<p>There are two points to keep in mind when you write an assignment operator:</p>
+
+<ul>
+<li>Assignment operators must work correctly if an object is assigned to itself.</li>
+<li>Most assignment operators share work with the destructor and copy constructor.</li>
+</ul>
+
+<p>A good pattern to use when you write an assignment operator is to first copy the right-hand operand into a local temporary. Afterthe copy is done, it is safe to destroy the existing members of the left-hand operand. Once the lefthand operand is destroyed, copy the data from the temporary into the members of the left-hand operand.</p>
+
+<p><strong>Reference Counts</strong></p>
+
+<p>Reference counting works as follows:</p>
+
+<ul>
+<li>In addition to initializing the object, each constructor (other than the copy constructor) creates a counter. This counter will keep track of how many objects share state with the object we are creating. When we create an object, there is only one such object, so we initialize the counter to 1.</li>
+<li>The copy constructor does not allocate a new counter; instead, it copies the data members of its given object, including the counter. The copy constructor increments this shared counter, indicating that there is another user of that object’s state.</li>
+<li>The destructor decrements the counter, indicating that there is one less user of the shared state. If the count goes to zero, the destructor deletes that state.</li>
+<li>The copy-assignment operator increments the right-hand operand’s counter and decrements the counter of the left-hand operand. If the counter for the left-hand operand goes to zero, there are no more users. In this case, the copy assignment operator must destroy the state of the left-hand operand.</li>
+</ul>
+
+<p><strong>Using <em>swap</em> in Assignment Operators</strong></p>
+
+<p>Classes that define swap often use swap to define their assignment operator. These operators use a technique known as <strong>copy and swap</strong>. This technique swaps the lefthand operand with a copy of the right-hand operand:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// note rhs is passed by value, which means the HasPtr copy constructor
+// copies the string in the right-hand operand into rhs
+HasPtr&amp; HasPtr::operator=(HasPtr rhs)
+{
+// swap the contents of the left-hand operand with the local variable rhs
+swap(*this, rhs); // rhs now points to the memory this object had used
+return *this;  // rhs is destroyed, which deletes the pointer in rhs
+}
+</code></pre></div>
+<p><strong>Rvalue References</strong></p>
+
+<p>To support move operations, the new standard introduced a new kind of reference, an <em>rvalue reference</em>. An rvalue reference is a reference that must be bound to an
+rvalue. An rvalue reference is obtained by using <strong>&amp;&amp;</strong> rather than <strong>&amp;</strong>. As we’ll see, rvalue references have the important property that they may be bound only to an object that is about to be destroyed. As a result, we are free to “move” resources from an rvalue reference to another object.</p>
+
+<p><strong>The Library move Function</strong></p>
+
+<p>Although we cannot directly bind an rvalue reference to an lvalue, we can explicitly cast an lvalue to its corresponding rvalue reference type. We can also obtain an rvalue reference bound to an lvalue by calling a new library function named <strong>move</strong>, which is defined in the <em>utility</em> header.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">int i = 42;
+int &amp;r = i;  // ok: r refers to i
+int &amp;&amp;rr = i;// error: cannot bind an rvalue reference to an lvalue
+int &amp;r2 = i * 42;  // error: i * 42 is an rvalue
+const int &amp;r3 = i * 42; // ok: we can bind a reference to const to an rvalue
+int &amp;&amp;rr2 = i * 42;  // ok: bind rr2 to the result of the multiplication
+int &amp;&amp;rr1 = 42;  // ok: literals are rvalues
+int &amp;&amp;rr2 = rr1;  // error: the expression rr1 is an lvalue!
+int &amp;&amp;rr3 = std::move(rr1);  // ok
+</code></pre></div>
+<p>We can destroy a moved-from object and can assign a new value to it, but we cannot use the value of a moved-from object.</p>
+
+<p>After a move operation, the “moved-from” object must remain a valid, destructible object but users may make no assumptions about its value.</p>
+
+<p>The compiler synthesizes the move constructor and move assignment only if a class does not define any of its own copy-control members and only if all the data members can be moved constructed and move assigned,respectively.</p>
+
+<p>Classes that define a move constructor or move-assignment operator must also define their own copy operations. Otherwise, those members are deleted by default.</p>
+
+<p><strong>Rvalues Are Moved, Lvalues Are Copied, But Rvalues Are Copied If There Is No Move Constructor.</strong></p>
+
+<p><strong>Advice:Updating the Rule of Three</strong></p>
+
+<p>All five copy-control members should be thought of as a unit: Ordinarily, if a class defines any of these operations, it usually should define them all. As
+we’ve seen, some classes must define the copy constructor, copy-assignment operator, and destructor to work correctly. Such classes typically have a resource that the copy members must copy. Ordinarily,copying a resource entails some amount of overhead. Classes that define the
+move constructor and move-assignment operator can avoid this overhead in those circumstances where a copy isn’t necessary.</p>
+
+<p><strong>Rvalue References and Member Functions</strong></p>
+
+<p>Overloaded functions that distinguish between moving and copying a parameter typically have one version that takes a <em>const T&amp;</em> and one that takes a <em>T&amp;&amp;</em>.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">class StrVec {
+public:
+void push_back(const std::string&amp;);  // copy the element
+void push_back(std::string&amp;&amp;);  // move the element
+// other members as before
+};
+// unchanged from the original version in § 13.5 (p. 527)
+void StrVec::push_back(const string&amp; s)
+{
+chk_n_alloc(); // ensure that there is room for another element
+// construct a copy of s in the element to which first_free points
+alloc.construct(first_free++, s);
+}
+void StrVec::push_back(string &amp;&amp;s)
+{
+chk_n_alloc(); // reallocates the StrVec if necessary
+alloc.construct(first_free++, std::move(s));
+}
+</code></pre></div>
+<p><strong>reference qualifier</strong></p>
+
+<p>Symbol used to indicate that a nonstatic member function
+can be called on an lvalue or an rvalue. The qualifier, &amp;or &amp;&amp;, follows the parameter list or the const qualifier if there is one. A function qualified by &amp; may be called only on lvalues; a function qualified by &amp;&amp; may be called only on rvalues.</p>
+
+<p><strong>rvalue reference</strong></p>
+
+<p>Reference to an object that is about to be destroyed.</p>
+
+<ul class="pager">
+  
+  <li class="previous"><a  href="/c++/2014-07/dynamic-memory.html" title="Dynamic Memory">&larr; Prev</a></li>
+  
+  
+  <li class="next"><a href="/c++/2014-07/overloaded-operations-and-conversions.html" title="Overloaded Operations and Conversions">Next &rarr;</a></li>
+  
+</ul>
+
+
+
+</div>
+
+        </div>
+      </article>
+
+      <footer class="footer text-center">
+  <p>&copy; 2015 <a href="" title="">liuguichao</a>. with Help from <a href="//jekyllrb.com/" title="Transform your plain text into static websites and blogs.">Jekyll</a> and <a href="//getbootstrap.com/" title="Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.">Bootstrap</a></p>
+  <p>Articles are licensed under <a href="//creativecommons.org/licenses/by/3.0/" title="CC BY 3.0 License">the CC BY 3.0</a></p>
+</footer>
+
+    </div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/webcore.js"></script>
+
+    
+
+    
+  </body>
+</html>

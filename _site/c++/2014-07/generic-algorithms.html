@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Generic Algorithms - My study notes</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="liuguichao">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="canonical" href="/c++/2014-07/generic-algorithms.html">
+
+  <link rel="stylesheet" href="/assets/css/style.css" media="all">
+
+  <!-- atom & rss feed -->
+  <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="My study notes RSS Feed">
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="My study notes ATOM Feed">
+
+  <!-- fav and touch icons  -->
+  <!-- Update these with your own images
+  <link rel="shortcut icon" href="images/favicon.ico">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+  <meta name="renderer" content="webkit|ie-stand">
+
+  <meta name="baidu-site-verification" content="BvD3CNBzK6" />
+  <meta name="msvalidate.01" content="FE0D1D87A075E1003B82C7446EE360ED" />
+</head>
+
+
+  <body>
+    <div class="container">
+      <!--[if lt IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+  <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <div class="title"><a title="My study notes" href="/">My study notes</a></div>
+  <ul class="nav navbar-nav collapse navbar-collapse bs-navbar-collapse navbar-right">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories" rel="nofollow"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags" rel="nofollow"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/liuguichao" target="_blank" title="Github" rel="nofollow"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS" rel="nofollow"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <article class="wrapper">
+        <div id="search-loader" class="img-wrap">
+          <div class="loading">
+            <img src="/assets/img/loading.png">
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-12">
+<h2 class="title"> Generic Algorithms <time class="small">2014.07.12</time></h2>
+<blockquote>
+<ul>
+<li>Iterators Make the Algorithms Container Independent, But Algorithms Do Depend on Element-Type Operations</li>
+<li>Algorithms Never Execute Container Operations</li>
+<li>Ordinarily it is best to use cbegin() and cend() with
+algorithms that read, but do not write, the elements. However, if you plan to use the iterator returned by the algorithm to change an element’s value, then you need to pass begin()and end().</li>
+<li>Algorithms that take a single iterator denoting a second sequence assume that the second sequence is at least as large at the first.</li>
+<li>Algorithms that write to a destination iterator assumethe destination is large enough to hold the number of elements being written.</li>
+<li>The library algorithms operate on iterators, not containers. Therefore, an algorithm cannot (directly) add or remove elements.</li>
+<li>Lambdas with function bodies that contain anything other than a single return statement that do not specify a return type return void.</li>
+<li>A lambda may use a variable local to its surrounding function only if the lambda captures that variable in its capture list.</li>
+<li>The capture list is used for local nonstatic variables only; lambdas can use local statics and variables declared outside the function directly.</li>
+</ul>
+</blockquote>
+
+<p><strong>Read-Only Algorithms</strong></p>
+
+<p><strong>find</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">string val = &quot;a value&quot;;  // value we&#39;ll look for
+// this call to find looks through string elements in a list
+auto result = find(1st.cbegin(), 1st.cend(), val);
+</code></pre></div>
+<p><strong>accumulate</strong>(defined in the numeric header)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// sum the elements in vec starting the summation with the value 0
+int sum = accumulate(vec.cbegin(), vec.cend(), 0);
+stringsum = accumulate(v.cbegin(), v.cend(), string(&quot;&quot;));
+</code></pre></div>
+<p><strong>equal</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// roster2 should have at least as many elements as roster1
+equal(roster1.cbegin(), roster1.cend(), roster2.cbegin());
+</code></pre></div>
+<p><strong>Algorithms That Write Container Elements</strong></p>
+
+<p><strong>fill</strong></p>
+
+<p>It is a fairly common beginner mistake to call fill_n(or similar algorithms that write to elements) on a container that has no elements.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">fill(vec.begin(),vec.end(), 0);  // reset each element to 0
+fill_n(dest,n, val)
+</code></pre></div>
+<p><strong>back_inserter</strong>(defined in the iterator header)</p>
+
+<p>One way to ensure that an algorithm has enough elements to hold the output is to use an <em>insert iterator</em>. An insert iterator is an iterator that adds elements to a container.</p>
+
+<p><em>back_inserter</em> takes a reference to a container and returns an insert iterator bound to that container. When we assign through that iterator, the assignment calls
+push_back to add an element with the given value to the container.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">vector&lt;int&gt;vec; // empty vector
+// ok: back_inserter creates an insert iterator that adds elements to vec
+fill_n(back_inserter(vec), 10, 0);  // appends ten elements to vec
+</code></pre></div>
+<p><strong>copy</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">int a1[] = {0,1,2,3,4,5,6,7,8,9};
+int a2[sizeof(a1)/sizeof(*a1)];  // a2 has the same size as a1
+// ret points just past the last element copied into a2
+auto ret = copy(begin(a1), end(a1), a2);  // copy a1 into a2
+</code></pre></div>
+<p><strong>replace</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// replace any element with the value 0 with 42
+replace(ilst.begin(), ilst.end(), 0, 42);
+// use back_inserter to grow destination as needed
+replace_copy(ilst.cbegin(), ilst.cend(),
+back_inserter(ivec), 0, 42);
+</code></pre></div>
+<p><strong>Algorithms That Reorder Container Elements</strong></p>
+
+<p><strong>sort</strong>(using the element types&#39;s &lt; operator)</p>
+
+<p><strong>Eliminating Duplicates</strong></p>
+
+<p>To eliminate the duplicated words, we will first <em>sort</em> the vector so that duplicated words appear adjacent to each other. Once the vector is sorted, we can use another
+library algorithm, named unique, to reorder the vector so that the <em>unique</em> elements appear in the first part of the vector. Because algorithms cannot do container operations, we’ll use the <em>erase</em> member of vector to actually remove the elements.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">void elimDups(vector&lt;string&gt; &amp;words)
+{
+// sort words alphabetically so we can find the duplicates
+sort(words.begin(), words.end());
+// unique  reorders the input range so that each word appears once in the
+// front portion of the range and returns an iterator one past the unique range
+auto end_unique = unique(words.begin(), words.end());
+// erase uses a vector operation to remove the nonunique elements
+words.erase(end_unique, words.end());
+}
+</code></pre></div>
+<p><strong>Customizing Operations</strong></p>
+
+<p>the sort algorithm uses the element type’s &lt; operator. However, we might want to sort a sequence into a different order from that defined by &lt;, or our sequence might have elements of a type (such as Sales_data) that does not have a &lt; operator. In both cases, we need to override the default behavior of <em>sort</em>.</p>
+
+<p><strong>Passing a Function to an Algorithm</strong></p>
+
+<p><strong>predicate</strong></p>
+
+<p>A predicate is an expression that can be called and that returns a value that can be used as a condition. The predicates used by library algorithms are either unary
+predicates(meaning they have a single parameter) or binary predicates(meaning they have two parameters). The algorithms that take predicates call the given
+predicate on the elements in the input range. As a result, it must be possible to convert the element type to the parameter type of the predicate.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// comparison function to be used to sort by word length
+bool isShorter(const string &amp;s1, const string &amp;s2)
+{
+return s1.size() &lt; s2.size();
+}
+// sort on word length, shortest to longest
+sort(words.begin(), words.end(), isShorter);
+</code></pre></div>
+<p><strong>stable_sort</strong>(maintains the original order among equal elements.)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// resort by length, maintaining alphabetical order among words of the same length
+stable_sort(words.begin(), words.end(), isShorter);
+</code></pre></div>
+<p><strong>Lambda Expressions</strong></p>
+
+<p><strong>callable object</strong></p>
+
+<p>We can pass any kind of <em>callable object</em> to an algorithm. An object or expression is callable if we can apply the call operator to it. That is, if e is a callable expression, we can write e(args) where args is a comma-separated list of zero or more arguments.</p>
+
+<p>The only callables we’ve used so far are functions and function pointers. There are two other kinds of callables: classes that overload the function-call operator, and lambda expressions.</p>
+
+<p><strong>lambda expressions</strong>
+A lambda expression represents a callable unit of code. It can be thought of as an unnamed, inline function. Like any function, a lambda has a return type, a parameter list, and a function body. Unlike a function, lambdas may be defined inside a function. A lamba expression has the form</p>
+
+<p><strong><em><a href="parameter%20list">capturelist</a> -&gt; return type  { function body}</em></strong></p>
+
+<p>where capture listis an (often empty) list of local variables defined in the enclosing function; return type, parameter list, and function body are the same as in any
+ordinary function. However, unlike ordinary functions, a lambda must use a trailing return to specify its return type. We can omit either or both of the parameter list and return type but must always include the capture list and function body.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// sort words by size, but maintain alphabetical order for words of the same size
+stable_sort(words.begin(), words.end(),
+[](const string &amp;a, const string &amp;b)
+{ return a.size() &lt; b.size();});
+</code></pre></div>
+<p><strong>find_if</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// get an iterator to the first element whose size() is &gt;= sz
+auto wc = find_if(words.begin(), words.end(),
+[sz](const string &amp;a)
+{ return a.size() &gt;= sz; });
+</code></pre></div>
+<p><strong>for_each</strong></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">// print words of the given size or longer, each one followed by a space
+for_each(wc, words.end(),
+[](const string &amp;s){cout &lt;&lt; s &lt;&lt; &quot; &quot;;});
+cout &lt;&lt; endl;
+</code></pre></div>
+<p><strong>Lambda Captures and Returns</strong></p>
+
+<p>When we define a lambda, the compiler generates a new (unnamed) class type that corresponds to that lambda. By default, the class generated from a lambda contains a data member corresponding to the variables captured by the lambda. Like the data members of any class, the data members of a lambda are initialized when a lambda object is created. Similar to parameter passing, we can capture variables by value or by reference.</p>
+
+<p><strong>Mutable Lambdas</strong></p>
+
+<p>By default, a lambda may not change the value of a variable that it copies by value. If we want to be able to change the value of a captured variable, we must follow the parameter list with the keyword mutable. Lambdas that are mutable may not omit the parameter list.</p>
+
+<p><strong>Specifying the Lambda Return Type</strong></p>
+
+<p>When we need to define a return type for a lambda, we must use a trailing return type.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">transform(vi.begin(),vi.end(), vi.begin(),
+[](int i) -&gt; int
+{ if (i &lt; 0) return -i; else return i; });
+</code></pre></div>
+<p><strong>The Library bind Function</strong>( defined in the <em>functional</em> header)</p>
+
+<p>The bind function can be thought of as a general-purpose function adaptor.It takes a callable object and generates a new callable that “adapts” the parameter list of the original object.The general form of a call to bind is:</p>
+
+<p><strong><em>auto newCallable= bind(callable, arg_list);</em></strong></p>
+
+<p>where newCallable is itself a callable object and arg<em>list is a comma-separated list of arguments that correspond to the parameters of the given callable. That is, when we
+call newCallable, newCallable calls callable, passing the arguments in arg</em>list.</p>
+
+<p>The arguments in arg_list  may include names of the form _n, where n is an integer.These arguments are “placeholders” representing the parameters of newCallable. They stand “in place of” the arguments that will be passed to newCallable. The number n is the position of the parameter in the generated callable: _1 is the first parameter in newCallable, _2 is the second, and so forth.The _n names are defined in a namespace named placeholders. That namespace is itself defined inside the std namespace.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">bool check_size(const string &amp;s, string::size_type sz)
+{
+return s.size() &gt;= sz;
+}
+// check6 is a callable object that takes one argument ``of type string
+// and calls check_size on its given string and the value 6
+auto check6 = bind(check_size, _1, 6);
+string s = &quot;hello&quot;;
+bool b1 = check6(s);
+auto wc = find_if(words.begin(), words.end(),
+bind(check_size, _1, sz));
+</code></pre></div>
+<ul class="pager">
+  
+  <li class="previous"><a  href="/c++/2014-07/sequential-containers.html" title="Sequential Containers">&larr; Prev</a></li>
+  
+  
+  <li class="next"><a href="/c++/2014-07/associative-containers.html" title="Associative Containers">Next &rarr;</a></li>
+  
+</ul>
+
+
+
+</div>
+
+        </div>
+      </article>
+
+      <footer class="footer text-center">
+  <p>&copy; 2015 <a href="" title="">liuguichao</a>. with Help from <a href="//jekyllrb.com/" title="Transform your plain text into static websites and blogs.">Jekyll</a> and <a href="//getbootstrap.com/" title="Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.">Bootstrap</a></p>
+  <p>Articles are licensed under <a href="//creativecommons.org/licenses/by/3.0/" title="CC BY 3.0 License">the CC BY 3.0</a></p>
+</footer>
+
+    </div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/webcore.js"></script>
+
+    
+
+    
+  </body>
+</html>

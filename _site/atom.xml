@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>My study notes</title>
+  <link href="//atom.xml" rel="self"/>
+  <link href=""/>
+  <updated>2015-04-03T09:01:49+08:00</updated>
+  <id></id>
+  <author>
+    <name>liuguichao</name>
+  </author>
+
+  
+  <entry>
+    <title>Templates and Generic Programming</title>
+    <link href="/algorithms/2015-04/TwoSum.html"/>
+    <updated>2015-04-01T00:00:00+08:00</updated>
+    <id>/algorithms/2015-04/TwoSum</id>
+    <content type="html">1. Two Sum
+
+https://oj.leetcode.com/problems/two-sum/
+
+Question:
+
+Given an array of integers, find two numbers such that they add up to a specific target number.
+
+The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index...</content>
+  </entry>
+  
+  <entry>
+    <title>Templates and Generic Programming</title>
+    <link href="/c++/2014-07/templates-and-generic-programming.html"/>
+    <updated>2014-07-20T10:05:00+08:00</updated>
+    <id>/c++/2014-07/templates-and-generic-programming</id>
+    <content type="html">Both object-oriented programming (OOP) and generic programming deal with types that are not known at the time the program is written. The distinction between the two is that OOP deals with types that are not known until run time, whereas in generic programming the types become known during compil...</content>
+  </entry>
+  
+  <entry>
+    <title>Object-Oriented Programming</title>
+    <link href="/c++/2014-07/object-oriented-programming.html"/>
+    <updated>2014-07-18T18:09:52+08:00</updated>
+    <id>/c++/2014-07/object-oriented-programming</id>
+    <content type="html">The key ideas in object-oriented programming are data abstraction, inheritance,and dynamic binding. Using data abstraction, we can define classes that separate interface from implementation. Through inheritance, we can define classes that model the relationships among similar types. Through dynam...</content>
+  </entry>
+  
+  <entry>
+    <title>Overloaded Operations and Conversions</title>
+    <link href="/c++/2014-07/overloaded-operations-and-conversions.html"/>
+    <updated>2014-07-18T13:44:09+08:00</updated>
+    <id>/c++/2014-07/overloaded-operations-and-conversions</id>
+    <content type="html">When an overloaded operator is a member function, this is bound to the
+left-hand operand. Member operator functions have one less (explicit)
+parameter than the number of operands.
+
+Calling an Overloaded Operator Function Directly
+// equivalent calls to a nonmember operator function
+data1 + data2;...</content>
+  </entry>
+  
+  <entry>
+    <title>Copy Control</title>
+    <link href="/c++/2014-07/copy-control.html"/>
+    <updated>2014-07-16T12:46:59+08:00</updated>
+    <id>/c++/2014-07/copy-control</id>
+    <content type="html">When we define a class,we specify—explicitly or implicitly—what happens when objects of that class type are copied, moved, assigned, and destroyed. A class controls
+these operations by defining five special member functions: copy constructor, copy-assignment operator, move constructor, move-assig...</content>
+  </entry>
+  
+  <entry>
+    <title>Dynamic Memory</title>
+    <link href="/c++/2014-07/dynamic-memory.html"/>
+    <updated>2014-07-14T13:06:30+08:00</updated>
+    <id>/c++/2014-07/dynamic-memory</id>
+    <content type="html">smart pointer
+
+To make using dynamic memory easier (and safer), the new library provides two smart pointer types that manage dynamic objects. A smart pointer acts like a regular pointer with the important exception that it automatically deletes the object to which it points. The new library defin...</content>
+  </entry>
+  
+  <entry>
+    <title>Associative Containers</title>
+    <link href="/c++/2014-07/associative-containers.html"/>
+    <updated>2014-07-13T20:40:14+08:00</updated>
+    <id>/c++/2014-07/associative-containers</id>
+    <content type="html">Associative and sequential containers differ from one another in a fundamental way: Elements in an associative container are stored and retrieved by a key. In contrast,
+elements in a sequential container are stored and accessed sequentially by their position in the container.
+
+The map and multima...</content>
+  </entry>
+  
+  <entry>
+    <title>Generic Algorithms</title>
+    <link href="/c++/2014-07/generic-algorithms.html"/>
+    <updated>2014-07-12T20:07:54+08:00</updated>
+    <id>/c++/2014-07/generic-algorithms</id>
+    <content type="html">
+
+Iterators Make the Algorithms Container Independent, But Algorithms Do Depend on Element-Type Operations
+Algorithms Never Execute Container Operations
+Ordinarily it is best to use cbegin() and cend() with
+algorithms that read, but do not write, the elements. However, if you plan to use the iter...</content>
+  </entry>
+  
+  <entry>
+    <title>Sequential Containers</title>
+    <link href="/c++/2014-07/sequential-containers.html"/>
+    <updated>2014-07-11T13:37:28+08:00</updated>
+    <id>/c++/2014-07/sequential-containers</id>
+    <content type="html">The Sequential Containers
+
+
+
+Iterator Ranges
+
+An iterator range is denoted by a pair of iterators each of which refers to an element, or to one past the last element,in the same container. These two iterators,
+often referred to as begin and end—or (somewhat misleadingly) as first and last—mark a ...</content>
+  </entry>
+  
+  <entry>
+    <title>The IO Library</title>
+    <link href="/c++/2014-07/the-io-library.html"/>
+    <updated>2014-07-11T09:25:11+08:00</updated>
+    <id>/c++/2014-07/the-io-library</id>
+    <content type="html">
+
+To support different kinds of IO processing,IO types are defined in three separate headers:iostream defines the basic types used to read from and write to a stream, fstream defines the types used to read and write named files, and sstream defines the types used to read and write in-memory strin...</content>
+  </entry>
+  
+  <entry>
+    <title>classes concept</title>
+    <link href="/c++/2014-07/classes-concept.html"/>
+    <updated>2014-07-10T15:43:45+08:00</updated>
+    <id>/c++/2014-07/classes-concept</id>
+    <content type="html">Note
+
+
+Functions defined in the class are implicitly inline
+Ordinarily,nonmember functions that are part of the interface of a class should be declared in the same header as the class itself.
+The compiler generates a default constructor automatically only if a class declares noconstructors.
+Class...</content>
+  </entry>
+  
+  <entry>
+    <title>fibonacci sequence</title>
+    <link href="/algorithms/2014-07/fibonacci-sequence.html"/>
+    <updated>2014-07-10T13:25:14+08:00</updated>
+    <id>/algorithms/2014-07/fibonacci-sequence</id>
+    <content type="html">斐波那契数列，又称黄金分割数列，指的是这样一个数列：1、1、2、3、5、8、13、21、……在数学上，斐波纳契数列以如下被以递归的方法定义：F0=1，F1=1，Fn=F(n-1)+F(n-2)（n&amp;gt;=2，n∈N*）在现代物理、准晶体结构、化学等领域，斐波纳契数列都有直接的应用。
+
+
+有趣的是：这样一个完全是自然数的数列，通项公式却是用无理数来表达的。而且当n趋向于无穷大时，后一项与前一项的比值越来越逼近黄金分割0.618.（或者说后一项与前一项的比值小数部分越来越逼近黄金分割0.618、前一项与后一项的比值越来越逼近黄金分割0.618）
+
+1÷1=1，1÷2=0.5，2÷3=0.6...</content>
+  </entry>
+  
+  <entry>
+    <title>常成员函数</title>
+    <link href="/c++/2014-07/const-member-functions-zh.html"/>
+    <updated>2014-07-09T18:57:30+08:00</updated>
+    <id>/c++/2014-07/const-member-functions-zh</id>
+    <content type="html">
+常成员函数不能更新对象的数据成员。
+当一个对象被声明为常对象，则不能通过该对象调用该类中的非const成员函数，因为它可能企图修改常量的数据成员。但构造函数和析构函数对这个规则例外，他们从不定义为常量成员，但可被常量对象自动调用。它们也能给常对象的数据成员赋值，除非数据成员本身是常量。
+使用const修饰成员函数，可以提高程序可读性和可靠性。
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>const member functions</title>
+    <link href="/c++/2014-07/const-member-functions.html"/>
+    <updated>2014-07-09T15:31:26+08:00</updated>
+    <id>/c++/2014-07/const-member-functions</id>
+    <content type="html">Introducing const Member Functions
+std::string isbn() const
+ { return bookNo; }
+
+The other important part about the isbn function is the keyword const that follows the parameter list. The purpose of that const is to modify the type of the implicit this pointer.
+
+By default, the type of this is a ...</content>
+  </entry>
+  
+
+</feed>
