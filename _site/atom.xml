@@ -4,7 +4,7 @@
   <title>My study notes</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-04-03T09:01:49+08:00</updated>
+  <updated>2015-04-03T15:11:11+08:00</updated>
   <id></id>
   <author>
     <name>liuguichao</name>
@@ -12,7 +12,7 @@
 
   
   <entry>
-    <title>Templates and Generic Programming</title>
+    <title>Two Sum</title>
     <link href="/algorithms/2015-04/TwoSum.html"/>
     <updated>2015-04-01T00:00:00+08:00</updated>
     <id>/algorithms/2015-04/TwoSum</id>

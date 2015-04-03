@@ -4,7 +4,7 @@
   <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Templates and Generic Programming - My study notes</title>
+  <title>Two Sum - My study notes</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
   <meta name="author" content="liuguichao">
@@ -80,12 +80,12 @@
         </div>
         <div class="row clearfix">
           <div class="col-md-12">
-<h2 class="title"> Templates and Generic Programming <time class="small">2015.04.01</time></h2>
-<h1>1. Two Sum</h1>
+<h2 class="title"> Two Sum <time class="small">2015.04.01</time></h2>
+<h4>1. Two Sum</h4>
 
 <p><a href="https://oj.leetcode.com/problems/two-sum/">https://oj.leetcode.com/problems/two-sum/</a></p>
 
-<h2>Question:</h2>
+<h5>Question:</h5>
 
 <p>Given an array of integers, find two numbers such that they add up to a specific target number.</p>
 
@@ -93,29 +93,138 @@
 
 <p>You may assume that each input would have exactly one solution.</p>
 
-<h2>Solution:</h2>
+<h5>Solution:</h5>
 
 <p><strong>O(n) runtime, O(n) space - Hash table</strong></p>
 
-<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="lineno"> 2</span>  <span class="k">public</span><span class="o">:</span>
-<span class="lineno"> 3</span>      <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">numbers</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
-<span class="lineno"> 4</span>          <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">index</span><span class="p">;</span>
-<span class="lineno"> 5</span>          <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
-<span class="lineno"> 6</span>          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">!=</span><span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
-<span class="lineno"> 7</span>          <span class="p">{</span>
-<span class="lineno"> 8</span>              <span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> 
-<span class="lineno"> 9</span>  
-<span class="lineno">10</span>              <span class="k">if</span><span class="p">(</span><span class="n">map</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">target</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">!=</span><span class="n">map</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
-<span class="lineno">11</span>              <span class="p">{</span>
-<span class="lineno">12</span>                  <span class="n">index</span><span class="o">=</span><span class="p">{</span><span class="n">map</span><span class="p">[</span><span class="n">target</span><span class="o">-</span><span class="n">x</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">};</span>
-<span class="lineno">13</span>                  <span class="k">return</span> <span class="n">index</span><span class="p">;</span>
-<span class="lineno">14</span>              <span class="p">}</span>
-<span class="lineno">15</span>              <span class="n">map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
-<span class="lineno">16</span>          <span class="p">}</span>
-<span class="lineno">17</span>     <span class="p">}</span>
-<span class="lineno">18</span>  <span class="p">};</span></code></pre></div>
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">numbers</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">index</span><span class="p">;</span>
+            <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">!=</span><span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> 
+    
+                <span class="k">if</span><span class="p">(</span><span class="n">map</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">target</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">!=</span><span class="n">map</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+                <span class="p">{</span>
+                    <span class="n">index</span><span class="o">=</span><span class="p">{</span><span class="n">map</span><span class="p">[</span><span class="n">target</span><span class="o">-</span><span class="n">x</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">};</span>
+                    <span class="k">return</span> <span class="n">index</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="n">map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
+            <span class="p">}</span>
+       <span class="p">}</span>
+    <span class="p">};</span></code></pre></div>
 
+<h4>2. Two Sum II - Input array is sorted</h4>
+
+<h5>Question:</h5>
+
+<p>Similar to Question [1. Two Sum], except that the input array is already sorted in ascending order.</p>
+
+<h5>Solution:</h5>
+
+<p><strong>O(n log n) runtime, O(1) space – Binary search:</strong></p>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">numbers</span><span class="p">,</span><span class="kt">int</span> <span class="n">target</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">key</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">index</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">!=</span><span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">key</span><span class="o">=</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">val</span><span class="o">=</span><span class="n">target</span><span class="o">-</span><span class="n">key</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">key</span><span class="o">==</span><span class="n">val</span><span class="o">&amp;&amp;</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">val</span><span class="p">)</span> <span class="k">return</span> <span class="p">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">};</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">key</span><span class="o">&lt;</span><span class="n">val</span><span class="p">)</span>         
+             <span class="n">index</span><span class="o">=</span><span class="n">binarySearch</span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="k">else</span> <span class="n">index</span><span class="o">=</span><span class="n">binarySearch</span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>     
+        <span class="k">if</span><span class="p">(</span><span class="n">index</span><span class="o">!=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">};</span>       
+    <span class="p">}</span>
+
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">binarySearch</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">numbers</span><span class="p">,</span><span class="kt">int</span> <span class="n">key</span><span class="p">,</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span><span class="kt">int</span> <span class="n">right</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">middle</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">&lt;=</span><span class="n">right</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">middle</span><span class="o">=</span><span class="p">(</span><span class="n">left</span><span class="o">+</span><span class="n">right</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">key</span><span class="o">==</span><span class="n">numbers</span><span class="p">[</span><span class="n">middle</span><span class="p">])</span> <span class="k">return</span> <span class="n">middle</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">key</span><span class="o">&lt;</span><span class="n">numbers</span><span class="p">[</span><span class="n">middle</span><span class="p">])</span>
+            <span class="n">right</span><span class="o">=</span><span class="n">middle</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">left</span><span class="o">=</span><span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>     
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>  
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>O(n) runtime, O(1) space – Two pointers:</strong></p>
+
+<blockquote>
+<p>Let’s assume we have two indices pointing to the ith and jth elements, Ai and Aj
+respectively. The sum of Ai and Aj could only fall into one of these three possibilities:</p>
+
+<p>i. Ai + Aj &gt; target. Increasing i isn’t going to help us, as it makes the sum even
+bigger. Therefore we should decrement j.</p>
+
+<p>ii. Ai + Aj &lt; target. Decreasing j isn’t going to help us, as it makes the sum even
+smaller. Therefore we should increment i.</p>
+
+<p>iii. Ai + Aj == target. We have found the answer.</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSumTwoPointers</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">numbers</span><span class="p">,</span><span class="kt">int</span> <span class="n">target</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">sum</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">sum</span><span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">sum</span><span class="o">==</span><span class="n">target</span><span class="p">)</span>
+            <span class="p">{</span><span class="n">result</span><span class="o">=</span><span class="p">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">};</span><span class="k">break</span><span class="p">;}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">sum</span><span class="o">&gt;</span><span class="n">target</span><span class="p">)</span>
+            <span class="n">j</span><span class="o">--</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>   
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4>3. Two Sum III – Data structure design</h4>
+
+<h5>Question:</h5>
+
+<p>Design and implement a TwoSum class. It should support the following operations: add and find.</p>
+
+<p>add(input) – Add the number input to an internal data structure.</p>
+
+<p>find(value) – Find if there exists any pair of numbers which sum is equal to the value.</p>
+
+<p>For example, add(1); add(3); add(5); find(4)-&gt;true; find(7)-&gt;false.</p>
+
+<h6>Solution:<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">class</span> <span class="nc">TwoSum</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">count</span><span class="o">=</span><span class="n">counter</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">count</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">counter</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">counter</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="n">key</span><span class="p">,</span><span class="mi">1</span><span class="p">});</span>
+    <span class="p">}</span>
+    <span class="kt">bool</span> <span class="n">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">item</span><span class="p">:</span><span class="n">counter</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">val</span><span class="o">-</span><span class="n">item</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="n">item</span><span class="p">.</span><span class="n">first</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">item</span><span class="p">.</span><span class="n">second</span><span class="o">&gt;=</span><span class="mi">2</span><span class="p">;</span>
+            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>        
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">counter</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
 <ul class="pager">
   
   <li class="previous"><a  href="/c++/2014-07/templates-and-generic-programming.html" title="Templates and Generic Programming">&larr; Prev</a></li>
