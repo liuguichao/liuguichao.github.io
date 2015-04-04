@@ -4,12 +4,33 @@
   <title>My study notes</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-04-03T15:11:11+08:00</updated>
+  <updated>2015-04-04T22:01:03+08:00</updated>
   <id></id>
   <author>
     <name>liuguichao</name>
   </author>
 
+  
+  <entry>
+    <title>string find</title>
+    <link href="/algorithms/2015-04/string-find.html"/>
+    <updated>2015-04-04T00:00:00+08:00</updated>
+    <id>/algorithms/2015-04/string-find</id>
+    <content type="html">5.Implement strstr()
+
+Code it now: https://oj.leetcode.com/problems/implement-strstr/ 
+
+Question:
+
+Implement strstr(). Returns the index of the first occurrence of needle in haystack, or –1 if needle is not part of haystack.
+
+Solution:
+
+O(nm) runtime, O(1) space – Brute force:
+
+
+The brute force m...</content>
+  </entry>
   
   <entry>
     <title>Two Sum</title>
@@ -18,13 +39,13 @@
     <id>/algorithms/2015-04/TwoSum</id>
     <content type="html">1. Two Sum
 
-https://oj.leetcode.com/problems/two-sum/
+Code it now: https://oj.leetcode.com/problems/two-sum/
 
 Question:
 
 Given an array of integers, find two numbers such that they add up to a specific target number.
 
-The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index...</content>
+The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be le...</content>
   </entry>
   
   <entry>

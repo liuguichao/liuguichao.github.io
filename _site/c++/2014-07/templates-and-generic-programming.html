@@ -83,59 +83,57 @@
 <h2 class="title"> Templates and Generic Programming <time class="small">2014.07.20</time></h2>
 <p>Both object-oriented programming (OOP) and generic programming deal with types that are not known at the time the program is written. The distinction between the two is that OOP deals with types that are not known until <strong>run time</strong>, whereas in generic programming the types become known during <strong>compilation</strong>.</p>
 
-<p><strong>Function Templates</strong></p>
+<p>** Function Templates **</p>
 
-<p>Rather than defining a new function for each type, we can define a function
-template. A function template is a formula from which we can generate type-specific versions of that function. </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">template &lt;typename T&gt;
-int compare(const T &amp;v1, const T &amp;v2)
-{
-if (v1 &lt; v2) return -1;
-if (v2 &lt; v1) return 1;
-return 0;
-}
+<p>Rather than defining a new function for each type, we can define a function template. A function template is a formula from which we can generate type-specific versions of that function. </p>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">int</span> <span class="n">compare</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">v1</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">v1</span> <span class="o">&lt;</span> <span class="n">v2</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">v2</span> <span class="o">&lt;</span> <span class="n">v1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-template &lt;typename T&gt; 
-int compare(const T &amp;v1, const T &amp;v2)
-{
-if (less&lt;T&gt;()(v1, v2)) return -1;
-if (less&lt;T&gt;()(v2, v1)) return 1;
-return 0;
-}
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> 
+<span class="kt">int</span> <span class="n">compare</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">v1</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">less</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">))</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">less</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v1</span><span class="p">))</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>At emplate definition starts with the keyword <strong>template</strong> followed by a <strong>template parameter list</strong>, which is a comma-separated list of one or more template parameters bracketed by the less-than (&lt;) and greater-than (&gt;) tokens.</p>
 
 <p>The compiler uses the deduced template parameter(s) to <strong>instantiate</strong> a specific version of the function for us. When the compiler instantiates a template, it creates a new “instance” of the template using the actual template argument(s) in place of the corresponding template parameter(s). </p>
 
-<p><strong>Template Compilation</strong></p>
+<p>** Template Compilation **</p>
 
 <p>When the compiler sees the definition of a template, it does not generate code. It generates code only when we instantiate a specific instance of the template. The fact that code is generated only when we use a template (and not when we define it) affects how we organize our source code and when errors are detected.</p>
 
 <p>Definitions of function templates and member functions of class templates are ordinarily put into header files.Users of the template must include the header for the template and for any types used to instantiate that template.</p>
 
-<p><strong>Template Type Aliases</strong></p>
+<p>** Template Type Aliases **</p>
 
 <p>Because a template is not a type, we cannot define a typedef that refers to a template. However, the new standard lets us define a type alias for a class template.</p>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">template</span> <span class="o">&lt;</span><span class="n">typenameT</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">twin</span> <span class="o">=</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="n">twin</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">authors</span><span class="p">;</span> <span class="c1">// authors is a pair&lt;string, string&gt;</span>
 
-<p>template <typenameT> using twin = pair<T, T>;
-twin<string> authors; // authors is a pair<string, string></p>
-
-<p>template <typename T> using partNo = pair<T, unsigned>;
-partNo<string> books;  // books is a pair<string, unsigned>
-partNo<Vehicle> cars;  // cars is a pair<Vehicle, unsigned>
-partNo<Student> kids;  // kids is a pair<Student, unsigned></p>
-
-<p><strong>Using Class Members That Are Types</strong></p>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">partNo</span> <span class="o">=</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="kt">unsigned</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="n">partNo</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">books</span><span class="p">;</span>  <span class="c1">// books is a pair&lt;string, unsigned&gt;</span>
+<span class="n">partNo</span><span class="o">&lt;</span><span class="n">Vehicle</span><span class="o">&gt;</span> <span class="n">cars</span><span class="p">;</span>  <span class="c1">// cars is a pair&lt;Vehicle, unsigned&gt;</span>
+<span class="n">partNo</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span> <span class="n">kids</span><span class="p">;</span>  <span class="c1">// kids is a pair&lt;Student, unsigned&gt;</span>
+</code></pre></div>
+<p>** Using Class Members That Are Types **</p>
 
 <p>By default, the language assumes that a name accessed through the scope operator is not a type. As a result, if we want to use a type member of a template type parameter, we must explicitly tell the compiler that the name is a type. We do so by using the keyword <strong>typename</strong>.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">template &lt;typename T&gt;
-typename T::value_type top(const T&amp; c)
-{
-if (!c.empty())
-return c.back();
-else
-return typename T::value_type();
-}
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">value_type</span> <span class="n">top</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">c</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+<span class="k">return</span> <span class="n">c</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+<span class="k">else</span>
+<span class="k">return</span> <span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">value_type</span><span class="p">();</span>
+<span class="p">}</span>
 </code></pre></div>
 <p><strong>To be continue……</strong></p>
 

@@ -86,15 +86,14 @@
 parameter than the number of operands.</p>
 
 <p><strong>Calling an Overloaded Operator Function Directly</strong></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">// equivalent calls to a nonmember operator function
-data1 + data2;  // normal expression
-operator+(data1, data2); // equivalent function cal
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="c1">// equivalent calls to a nonmember operator function</span>
+<span class="n">data1</span> <span class="o">+</span> <span class="n">data2</span><span class="p">;</span>  <span class="c1">// normal expression</span>
+<span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">);</span> <span class="c1">// equivalent function cal</span>
 
-data1+= data2;  // expression-based &#39;&#39;call&#39;&#39;
-data1.operator+=(data2);  // equivalent call to a member operator
-function
+<span class="n">data1</span><span class="o">+=</span> <span class="n">data2</span><span class="p">;</span>  <span class="c1">// expression-based &#39;&#39;call&#39;&#39;</span>
+<span class="n">data1</span><span class="p">.</span><span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="n">data2</span><span class="p">);</span>  <span class="c1">// equivalent call to a member operator function</span>
 </code></pre></div>
-<p>Ordinarily,the comma, address-of, logical AND, and logical ORoperators
+<p>Ordinarily,the comma, address-of, logical AND, and logical OR operators
 should notbe overloaded.Users of the class will be surprised if these operators behave differently from their normal meanings.</p>
 
 <p><strong>Choosing Member or Nonmember Implementation</strong></p>
@@ -110,9 +109,9 @@ arithmetic, equality, relational, and bitwise operators—usually should be defi
 
 <p>When we define an operator as a member function, then the left-hand operand
 must be an object of the class of which that operator is a member. </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">strings = &quot;world&quot;;
-string t = s + &quot;!&quot;;  // ok: we can add a const char* to a string
-string u = &quot;hi&quot; + s; // would be an error if + were a member of string
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="n">strings</span> <span class="o">=</span> <span class="s">&quot;world&quot;</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">t</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s">&quot;!&quot;</span><span class="p">;</span>  <span class="c1">// ok: we can add a const char* to a string</span>
+<span class="n">string</span> <span class="n">u</span> <span class="o">=</span> <span class="s">&quot;hi&quot;</span> <span class="o">+</span> <span class="n">s</span><span class="p">;</span> <span class="c1">// would be an error if + were a member of string</span>
 </code></pre></div>
 <p>If operator+ were a member of the string class, the first addition would be
 equivalent to s.operator+(&quot;!&quot;). Likewise, &quot;hi&quot; + swould be equivalent to
@@ -126,15 +125,14 @@ built-in type; it does not even have member functions.</p>
 <p>The second parameter ordinarily should be a reference to const of the class type we want to print. The parameter is a reference to avoid copying the argument. It can be const because (ordinarily) printing an object does not change that object.</p>
 
 <p>To be consistent with other output operators, operator&lt;&lt; normally returns its ostream parameter.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">ostream &amp;operator&lt;&lt;(ostream &amp;os, const Sales_data &amp;item)
-{
-os &lt;&lt; item.isbn() &lt;&lt; &quot; &quot; &lt;&lt; item.units_sold &lt;&lt; &quot; &quot;
-&lt;&lt; item.revenue &lt;&lt; &quot; &quot; &lt;&lt; item.avg_price();
-return os;
-}
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">Sales_data</span> <span class="o">&amp;</span><span class="n">item</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">item</span><span class="p">.</span><span class="n">isbn</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">item</span><span class="p">.</span><span class="n">units_sold</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span>
+    <span class="o">&lt;&lt;</span> <span class="n">item</span><span class="p">.</span><span class="n">revenue</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">item</span><span class="p">.</span><span class="n">avg_price</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">os</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>Generally,output operators should print the contents of the object, with
-minimal formatting. They should not print a newline.</p>
+<p>Generally,output operators should print the contents of the object, with minimal formatting. They should not print a newline.</p>
 
 <p><strong>IO Operators Must Be Nonmember Functions</strong></p>
 
@@ -145,53 +143,51 @@ minimal formatting. They should not print a newline.</p>
 <p><strong>Overloading the Input Operator &gt;&gt;</strong></p>
 
 <p>Ordinarily the first parameter of an input operator is a reference to the stream from which it is to read, and the second parameter is a reference to the (nonconst) object into which to read. The operator usually returns a reference to its given stream. The second parameter must be nonconst because the purpose of an input operator is to read data into this object.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">istream &amp;operator&gt;&gt;(istream &amp;is, Sales_data &amp;item)
-{
-double price;  // no need to initialize; we&#39;ll read into price before we use it
-is &gt;&gt; item.bookNo &gt;&gt; item.units_sold &gt;&gt; price;
-if (is)  // check that the inputs succeeded
-item.revenue = item.units_sold * price;
-else
-item = Sales_data(); // input failed: give the object the default state
-return is;
-}
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="n">istream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">istream</span> <span class="o">&amp;</span><span class="n">is</span><span class="p">,</span> <span class="n">Sales_data</span> <span class="o">&amp;</span><span class="n">item</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">price</span><span class="p">;</span>  <span class="c1">// no need to initialize; we&#39;ll read into price before we use it</span>
+    <span class="n">is</span> <span class="o">&gt;&gt;</span> <span class="n">item</span><span class="p">.</span><span class="n">bookNo</span> <span class="o">&gt;&gt;</span> <span class="n">item</span><span class="p">.</span><span class="n">units_sold</span> <span class="o">&gt;&gt;</span> <span class="n">price</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">is</span><span class="p">)</span>  <span class="c1">// check that the inputs succeeded</span>
+    <span class="n">item</span><span class="p">.</span><span class="n">revenue</span> <span class="o">=</span> <span class="n">item</span><span class="p">.</span><span class="n">units_sold</span> <span class="o">*</span> <span class="n">price</span><span class="p">;</span>
+    <span class="k">else</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">Sales_data</span><span class="p">();</span> <span class="c1">// input failed: give the object the default state</span>
+    <span class="k">return</span> <span class="n">is</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>Input operators must deal with the possibility that the input might fail; output operators generally don’t bother.</p>
 
 <p><strong>Indicating Errors</strong></p>
 
-<p>Usually an input operator should set only the failbit. Setting eofbit
+<p>Usually an input operator should set only the failbit. Setting eof bit
 would imply that the file was exhausted, and setting badbit would indicate that the stream was corrupted. These errors are best left to the IO library itself to indicate.</p>
 
 <p><strong>Arithmetic and Relational Operators</strong></p>
 
 <p>Ordinarily,we define the arithmetic and relational operators as nonmember functions in order to allow conversions for either the left- or right-hand operand. These operators shouldn’t need to change the state of either operand, so the parameters are ordinarily references to <strong>const</strong>.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">// assumes that both objects refer to the same book
-Sales_data operator+(const Sales_data &amp;lhs, const Sales_data &amp;rhs)
-{
-Sales_data sum = lhs;  // copy data members from lhs into sum
-sum += rhs;  // add rhs into sum
-return sum;
-}
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="c1">// assumes that both objects refer to the same book</span>
+<span class="n">Sales_data</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">Sales_data</span> <span class="o">&amp;</span><span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Sales_data</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Sales_data</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">lhs</span><span class="p">;</span>  <span class="c1">// copy data members from lhs into sum</span>
+    <span class="n">sum</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>  <span class="c1">// add rhs into sum</span>
+    <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>Classes that define both an arithmetic operator and the related compound
-assignment ordinarily ought to implement the arithmetic operator by using
+<p>Classes that define both an arithmetic operator and the related compound assignment ordinarily ought to implement the arithmetic operator by using
 the compound assignment.</p>
 
 <p><strong>Equality Operators</strong></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">bool operator==(const Sales_data &amp;lhs, const Sales_data &amp;rhs)
-{
-return lhs.isbn() == rhs.isbn() &amp;&amp;
-lhs.units_sold == rhs.units_sold &amp;&amp;
-lhs.revenue == rhs.revenue;
-}
-bool operator!=(const Sales_data &amp;lhs, const Sales_data &amp;rhs)
-{
-return !(lhs == rhs);
-}
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">Sales_data</span> <span class="o">&amp;</span><span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Sales_data</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">lhs</span><span class="p">.</span><span class="n">isbn</span><span class="p">()</span> <span class="o">==</span> <span class="n">rhs</span><span class="p">.</span><span class="n">isbn</span><span class="p">()</span> <span class="o">&amp;&amp;</span>
+    <span class="n">lhs</span><span class="p">.</span><span class="n">units_sold</span> <span class="o">==</span> <span class="n">rhs</span><span class="p">.</span><span class="n">units_sold</span> <span class="o">&amp;&amp;</span>
+    <span class="n">lhs</span><span class="p">.</span><span class="n">revenue</span> <span class="o">==</span> <span class="n">rhs</span><span class="p">.</span><span class="n">revenue</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">bool</span> <span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span> <span class="n">Sales_data</span> <span class="o">&amp;</span><span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Sales_data</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="n">lhs</span> <span class="o">==</span> <span class="n">rhs</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>Classes for which there is a logical meaning for equality normally should
-define operator==. Classes that define ==make it easier for users to use
+<p>Classes for which there is a logical meaning for equality normally should define operator==. Classes that define ==make it easier for users to use
 the class with the library algorithms.</p>
 
 <p><strong>Relational Operators</strong></p>
@@ -205,7 +201,7 @@ the class with the library algorithms.</p>
 <li>Define a relation that is consistent with ==if the class has both operators. In particular, if two objects are !=, then one object should be &lt;the other.</li>
 </ol>
 
-<p>Ifa single logical definition for &lt;exists, classes usually should define the &lt;operator. However, if the class also has ==, define &lt;only if the definitions of &lt;and ==yield consistent results.</p>
+<p>If a single logical definition for &lt;exists, classes usually should define the &lt;operator. However, if the class also has ==, define &lt;only if the definitions of &lt;and ==yield consistent results.</p>
 
 <p><strong>Assignment Operators</strong></p>
 
@@ -213,17 +209,16 @@ the class with the library algorithms.</p>
 right-hand operand.</p>
 
 <p>As one example, in addition to the copy- and move-assignment operators, the library <strong>vector</strong> class defines a third assignment operator that takes a braced list of elements.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">vector&lt;string&gt; v;
-v = {&quot;a&quot;, &quot;an&quot;, &quot;the&quot;};
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;an&quot;</span><span class="p">,</span> <span class="s">&quot;the&quot;</span><span class="p">};</span>
 
-classStrVec {
-public:
-StrVec &amp;operator=(std::initializer_list&lt;std::string&gt;);
-// other members as in § 13.5 (p. 526)
-};
+<span class="n">classStrVec</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">StrVec</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">);</span>
+    <span class="c1">// other members as in § 13.5 (p. 526)</span>
+<span class="p">};</span>
 </code></pre></div>
-<p>Assignment operators can be overloaded. Assignment operators, regardless of
-parameter type, must be defined as member functions.</p>
+<p>Assignment operators can be overloaded. Assignment operators, regardless of parameter type, must be defined as member functions.</p>
 
 <p><strong>Compound-Assignment Operators</strong></p>
 
@@ -241,16 +236,16 @@ the left-hand operand.</p>
 
 <p>To be compatible with the ordinary meaning of subscript, the subscript operator usually returns a <strong>reference</strong> to the element that is fetched. By returning a reference, subscript can be used on either side of an assignment. Consequently, it is also usually a good idea to define both const and nonconst versions of this operator. When applied to a const object, subscript should return a reference to const so that it is
 not possible to assign to the returned object.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class StrVec {
-public:
-std::string&amp; operator[](std::size_t n)
-{ return elements[n]; }
-const std::string&amp; operator[](std::size_t n) const
-{ return elements[n]; }
-// other members as in § 13.5 (p. 526)
-private:
-std::string *elements;  // pointer to the first element in the array
-};
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">class</span> <span class="nc">StrVec</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">n</span><span class="p">)</span>
+    <span class="p">{</span> <span class="k">return</span> <span class="n">elements</span><span class="p">[</span><span class="n">n</span><span class="p">];</span> <span class="p">}</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span> <span class="k">return</span> <span class="n">elements</span><span class="p">[</span><span class="n">n</span><span class="p">];</span> <span class="p">}</span>
+    <span class="c1">// other members as in § 13.5 (p. 526)</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">*</span><span class="n">elements</span><span class="p">;</span>  <span class="c1">// pointer to the first element in the array</span>
+<span class="p">};</span>
 </code></pre></div>
 <p><strong>Increment and Decrement Operators</strong></p>
 
@@ -260,63 +255,63 @@ std::string *elements;  // pointer to the first element in the array
 
 <p><strong>Defining Prefix Increment/Decrement Operators</strong></p>
 
-<p>To be consistent with the built-in operators, the prefix operators should
-return a reference to the incremented or decremented object.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">// prefix: return a reference to the incremented/decremented object
-StrBlobPtr&amp; StrBlobPtr::operator++()
-{
-// if curr already points past the end of the container, can&#39;t increment it
-check(curr, &quot;increment past end of StrBlobPtr&quot;);
-++curr;  // advance the current state
-return *this;
-}
-StrBlobPtr&amp; StrBlobPtr::operator--()
-{
-// if curr is zero, decrementing it will yield an invalid subscript
---curr;  // move the current state back one element
-check(-1, &quot;decrement past begin of StrBlobPtr&quot;);
-return *this;
-}
+<p>To be consistent with the built-in operators, the prefix operators should return a reference to the incremented or decremented object.</p>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="c1">// prefix: return a reference to the incremented/decremented object</span>
+<span class="n">StrBlobPtr</span><span class="o">&amp;</span> <span class="n">StrBlobPtr</span><span class="o">::</span><span class="k">operator</span><span class="o">++</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// if curr already points past the end of the container, can&#39;t increment it</span>
+    <span class="n">check</span><span class="p">(</span><span class="n">curr</span><span class="p">,</span> <span class="s">&quot;increment past end of StrBlobPtr&quot;</span><span class="p">);</span>
+    <span class="o">++</span><span class="n">curr</span><span class="p">;</span>  <span class="c1">// advance the current state</span>
+    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">StrBlobPtr</span><span class="o">&amp;</span> <span class="n">StrBlobPtr</span><span class="o">::</span><span class="k">operator</span><span class="o">--</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// if curr is zero, decrementing it will yield an invalid subscript</span>
+    <span class="o">--</span><span class="n">curr</span><span class="p">;</span>  <span class="c1">// move the current state back one element</span>
+    <span class="n">check</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;decrement past begin of StrBlobPtr&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
 <p><strong>Differentiating Prefix and Postfix Operators</strong></p>
 
 <p>The postfix versions take an extra (unused) parameter of type int. Its sole purpose is to distinguish a postfix function from the prefix version.</p>
 
-<p>To be consistent with the built-in operators, the postfix operators should
-return the old (unincremented or undecremented) value. That value is
+<p>To be consistent with the built-in operators, the postfix operators should return the old (unincremented or undecremented) value. That value is
 returned as a value, not a reference.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class StrBlobPtr {
-public:
-// increment and decrement
-StrBlobPtr operator++(int);  // postfix operators
-StrBlobPtr operator--(int);
-// other members as before
-};
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">class</span> <span class="nc">StrBlobPtr</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// increment and decrement</span>
+    <span class="n">StrBlobPtr</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>  <span class="c1">// postfix operators</span>
+    <span class="n">StrBlobPtr</span> <span class="k">operator</span><span class="o">--</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+    <span class="c1">// other members as before</span>
+<span class="p">};</span>
 </code></pre></div>
 <p><strong>Calling the Postfix Operators Explicitly</strong></p>
 
 <p>If we want to call the postfix version using a function call, then we must pass a value for the integer argument. The value passed usually is ignored but is necessary in order to tell the compiler to use the postfix version.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">StrBlobPtrp(a1); // p points to the vector inside a1
-p.operator++(0);  // call postfix operator++
-p.operator++();  // call prefix  operator++
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="n">StrBlobPtrp</span><span class="p">(</span><span class="n">a1</span><span class="p">);</span> <span class="c1">// p points to the vector inside a1</span>
+<span class="n">p</span><span class="p">.</span><span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>  <span class="c1">// call postfix operator++</span>
+<span class="n">p</span><span class="p">.</span><span class="k">operator</span><span class="o">++</span><span class="p">();</span>  <span class="c1">// call prefix  operator++</span>
 </code></pre></div>
 <p><strong>Member Access Operators</strong></p>
 
-<p>The dereference (*) and arrow (-&gt;) operators are often used in classes that
-represent iterators and in smart pointer classes.Operator arrow must be a member. The dereference operator is not required to be a member but usually should be a member as well.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class StrBlobPtr {
+<p>The dereference (<em>) and arrow (-&gt;) operators are often used in classes that
+represent iterators and in smart pointer classes.Operator arrow must be a member. The dereference operator is not required to be a member but usually should be a member as well.
+``` C++
+class StrBlobPtr {
 public:
-std::string&amp; operator*() const
-{ auto p = check(curr, &quot;dereference past end&quot;);
-return (*p)[curr];  // (*p) is the vector to which this object points
-}
-std::string* operator-&gt;() const
-{ // delegate the real work to the dereference operator
-return &amp; this-&gt;operator*();
-}
-// other members as before
+    std::string&amp; operator</em>() const
+    { auto p = check(curr, &quot;dereference past end&quot;);
+    return (<em>p)[curr];  // (</em>p) is the vector to which this object points
+    }
+    std::string* operator-&gt;() const
+    { // delegate the real work to the dereference operator
+    return &amp; this-&gt;operator*();
+    }
+    // other members as before
 };
-</code></pre></div>
+```</p>
+
 <p><strong>Constraintson the Return from Operator Arrow</strong></p>
 
 <p>The overloaded arrow operator must return either a pointer to a class type or an object of a class type that defines its own operator arrow.</p>
@@ -324,14 +319,14 @@ return &amp; this-&gt;operator*();
 <p><strong>Function-Call Operator</strong></p>
 
 <p>Classes that overload the call operator allow objects of its type to be used as if they were a function. Because such classes can also store state, they can be more flexible than ordinary functions.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">struct absInt {
-int operator()(int val) const {
-return val &lt; 0 ? -val : val;
-}
-};
-inti = -42;
-absInt absObj;  // object that has a function-call operator
-int ui = absObj(i); // passes i to absObj.operator()
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">struct</span> <span class="n">absInt</span> <span class="p">{</span>
+<span class="kt">int</span> <span class="k">operator</span><span class="p">()(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+<span class="k">return</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="o">-</span><span class="nl">val</span> <span class="p">:</span> <span class="n">val</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">};</span>
+<span class="n">inti</span> <span class="o">=</span> <span class="o">-</span><span class="mi">42</span><span class="p">;</span>
+<span class="n">absInt</span> <span class="n">absObj</span><span class="p">;</span>  <span class="c1">// object that has a function-call operator</span>
+<span class="kt">int</span> <span class="n">ui</span> <span class="o">=</span> <span class="n">absObj</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="c1">// passes i to absObj.operator()</span>
 </code></pre></div>
 <p>The function-call operator must be a member function. A class may define
 multiple versions of the call operator, each of which must differ as to the
@@ -342,76 +337,76 @@ number or types of their parameters.</p>
 <p><strong>Function-Object Classes with State</strong></p>
 
 <p>Function objects are most often used as arguments to the generic algorithms. For example, we can use the library for_each algorithm.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class PrintString {
-public:
-PrintString(ostream &amp;o = cout, char c = &#39; &#39;):
-os(o), sep(c) { }
-void operator()(const string &amp;s) const { os &lt;&lt; s &lt;&lt; sep;
-}
-private:
-ostream &amp;os;  // stream on which to write
-char sep;  // character to print after each output
-};
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">class</span> <span class="nc">PrintString</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="n">PrintString</span><span class="p">(</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">o</span> <span class="o">=</span> <span class="n">cout</span><span class="p">,</span> <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="sc">&#39; &#39;</span><span class="p">)</span><span class="o">:</span>
+<span class="n">os</span><span class="p">(</span><span class="n">o</span><span class="p">),</span> <span class="n">sep</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<span class="kt">void</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">sep</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="n">ostream</span> <span class="o">&amp;</span><span class="n">os</span><span class="p">;</span>  <span class="c1">// stream on which to write</span>
+<span class="kt">char</span> <span class="n">sep</span><span class="p">;</span>  <span class="c1">// character to print after each output</span>
+<span class="p">};</span>
 
-PrintString printer;  // uses the defaults; prints to cout
-printer(s);  // prints s followed by a space on cout
-PrintString errors(cerr, &#39;\n&#39;);
-errors(s);  // prints s followed by a newline on cerr
+<span class="n">PrintString</span> <span class="n">printer</span><span class="p">;</span>  <span class="c1">// uses the defaults; prints to cout</span>
+<span class="n">printer</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>  <span class="c1">// prints s followed by a space on cout</span>
+<span class="n">PrintString</span> <span class="nf">errors</span><span class="p">(</span><span class="n">cerr</span><span class="p">,</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="n">errors</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>  <span class="c1">// prints s followed by a newline on cerr</span>
 
-for_each(vs.begin(),vs.end(), PrintString(cerr, &#39;\n&#39;));
+<span class="n">for_each</span><span class="p">(</span><span class="n">vs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">vs</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">PrintString</span><span class="p">(</span><span class="n">cerr</span><span class="p">,</span> <span class="sc">&#39;\n&#39;</span><span class="p">));</span>
 </code></pre></div>
 <p><strong>Lambdas Are Function Objects</strong></p>
 
 <p>When we write a lambda, the compiler translates that expression into an unnamed object of an unnamed class.The classes generated from a lambda contain an overloaded function-call operator.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">// sort words by size, but maintain alphabetical order for words of the same size
-stable_sort(words.begin(), words.end(),
-[](const string &amp;a, const string &amp;b)
-{ return a.size() &lt; b.size();});
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="c1">// sort words by size, but maintain alphabetical order for words of the same size</span>
+<span class="n">stable_sort</span><span class="p">(</span><span class="n">words</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">words</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+<span class="p">[](</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span> <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">();});</span>
 
-class ShorterString {
-public:
-bool operator()(const string &amp;s1, const string &amp;s2) const
-{ return s1.size() &lt; s2.size(); }
-};
+<span class="k">class</span> <span class="nc">ShorterString</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s1</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s2</span><span class="p">)</span> <span class="k">const</span>
+<span class="p">{</span> <span class="k">return</span> <span class="n">s1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">s2</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="p">}</span>
+<span class="p">};</span>
 
-stable_sort(words.begin(),words.end(), ShorterString());
+<span class="n">stable_sort</span><span class="p">(</span><span class="n">words</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">words</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">ShorterString</span><span class="p">());</span>
 </code></pre></div>
 <p><strong>Classes Representing Lambdas with Captures</strong></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">// get an iterator to the first element whose size() is &gt;= sz
-auto wc = find_if(words.begin(), words.end(),[sz](const string &amp;a)
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="c1">// get an iterator to the first element whose size() is &gt;= sz</span>
+<span class="k">auto</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">find_if</span><span class="p">(</span><span class="n">words</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">words</span><span class="p">.</span><span class="n">end</span><span class="p">(),[</span><span class="n">sz</span><span class="p">](</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">)</span>
 
-class SizeComp {
-SizeComp(size_t n): sz(n) { } // parameter for each captured variable
-// call operator with the same return type, parameters, and body as the lambda
-bool operator()(const string &amp;s) const
-{ return s.size() &gt;= sz; }
-private:
-size_t sz; // a data member for each variable captured by value
-};
+<span class="k">class</span> <span class="nc">SizeComp</span> <span class="p">{</span>
+<span class="n">SizeComp</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span> <span class="n">sz</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span> <span class="c1">// parameter for each captured variable</span>
+<span class="c1">// call operator with the same return type, parameters, and body as the lambda</span>
+<span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="k">const</span>
+<span class="p">{</span> <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">sz</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="kt">size_t</span> <span class="n">sz</span><span class="p">;</span> <span class="c1">// a data member for each variable captured by value</span>
+<span class="p">};</span>
 
-// get an iterator to the first element whose size() is &gt;= sz
-auto wc = find_if(words.begin(), words.end(), SizeComp(sz));
+<span class="c1">// get an iterator to the first element whose size() is &gt;= sz</span>
+<span class="k">auto</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">find_if</span><span class="p">(</span><span class="n">words</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">words</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">SizeComp</span><span class="p">(</span><span class="n">sz</span><span class="p">));</span>
 </code></pre></div>
 <p><strong>Library-Defined Function Objects</strong></p>
 
 <p>The standard library defines a set of classes that represent the arithmetic, relational,and logical operators. Each class defines a call operator that applies the named operation. These classes are templates to which we supply a single type. That type specifies the parameter type for the call operator.</p>
 
 <p><img src="http://i.imgur.com/8UZnARL.jpg" alt=""></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">plus&lt;int&gt; intAdd;  // function object that can add two int values
-negate&lt;int&gt; intNegate;  // function object that can negate an int value
-// uses intAdd::operator(int, int) to add 10 and 20
-int sum = intAdd(10, 20);  // equivalent to sum = 30
-sum = intNegate(intAdd(10, 20));  // equivalent to sum = 30
-// uses intNegate::operator(int) to generate -10 as the second parameter
-// to intAdd::operator(int, int)
-sum = intAdd(10, intNegate(10));  // sum = 0
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="n">plus</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">intAdd</span><span class="p">;</span>  <span class="c1">// function object that can add two int values</span>
+<span class="n">negate</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">intNegate</span><span class="p">;</span>  <span class="c1">// function object that can negate an int value</span>
+<span class="c1">// uses intAdd::operator(int, int) to add 10 and 20</span>
+<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">intAdd</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>  <span class="c1">// equivalent to sum = 30</span>
+<span class="n">sum</span> <span class="o">=</span> <span class="n">intNegate</span><span class="p">(</span><span class="n">intAdd</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span>  <span class="c1">// equivalent to sum = 30</span>
+<span class="c1">// uses intNegate::operator(int) to generate -10 as the second parameter</span>
+<span class="c1">// to intAdd::operator(int, int)</span>
+<span class="n">sum</span> <span class="o">=</span> <span class="n">intAdd</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">intNegate</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>  <span class="c1">// sum = 0</span>
 </code></pre></div>
 <p><strong>Using a Library Function Object with the Algorithms</strong></p>
 
 <p>The function-object classes that represent operators are often used to override the default operator used by an algorithm. </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">// passes a temporary function object that applies the &lt; operator to two strings
-sort(svec.begin(), svec.end(), greater&lt;string&gt;());
-sort(svec.begin(), svec.end(), less&lt;string&gt;());
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="c1">// passes a temporary function object that applies the &lt; operator to two strings</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">svec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">svec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">greater</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">svec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">svec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">less</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">());</span>
 </code></pre></div>
 <p><strong>Callable Objects and function</strong></p>
 
@@ -423,22 +418,22 @@ signature</strong>. The call signature specifies the type returned by a call to 
 <p><strong>The Library function Type</strong></p>
 
 <p><strong>function</strong> is a template. As with other templates we’ve used, we must specify additional information when we create a function type. In this case, that information is the <strong>call signature</strong> of the objects that this particular function type can represent.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">// table of callable objects corresponding to each binary operator
-// all the callables must take two ints and return an int
-// an element can be a function pointer, function object, or lambda
-map&lt;string,function&lt;int(int, int)&gt;&gt; binops = {
-{&quot;+&quot;, add},  // function pointer
-{&quot;-&quot;, std::minus&lt;int&gt;()},  // library function object
-{&quot;/&quot;,  div()},  // user-defined function object
-{&quot;*&quot;, [](int i, int j) { return i * j; }}, // unnamed
-lambda
-{&quot;%&quot;, mod} };  // named lambda object
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="c1">// table of callable objects corresponding to each binary operator</span>
+<span class="c1">// all the callables must take two ints and return an int</span>
+<span class="c1">// an element can be a function pointer, function object, or lambda</span>
+<span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span><span class="o">&gt;&gt;</span> <span class="n">binops</span> <span class="o">=</span> <span class="p">{</span>
+<span class="p">{</span><span class="s">&quot;+&quot;</span><span class="p">,</span> <span class="n">add</span><span class="p">},</span>  <span class="c1">// function pointer</span>
+<span class="p">{</span><span class="s">&quot;-&quot;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">minus</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()},</span>  <span class="c1">// library function object</span>
+<span class="p">{</span><span class="s">&quot;/&quot;</span><span class="p">,</span>  <span class="n">div</span><span class="p">()},</span>  <span class="c1">// user-defined function object</span>
+<span class="p">{</span><span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">i</span> <span class="o">*</span> <span class="n">j</span><span class="p">;</span> <span class="p">}},</span> <span class="c1">// unnamed</span>
+<span class="n">lambda</span>
+<span class="p">{</span><span class="s">&quot;%&quot;</span><span class="p">,</span> <span class="n">mod</span><span class="p">}</span> <span class="p">};</span>  <span class="c1">// named lambda object</span>
 
-binops[&quot;+&quot;](10,5); // calls add(10, 5)
-binops[&quot;-&quot;](10, 5); // uses the call operator of the minus&lt;int&gt; object
-binops[&quot;/&quot;](10, 5); // uses the call operator of the div object
-binops[&quot;*&quot;](10, 5); // calls the lambda function object
-binops[&quot;%&quot;](10, 5); // calls the lambda function object
+<span class="n">binops</span><span class="p">[</span><span class="s">&quot;+&quot;</span><span class="p">](</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// calls add(10, 5)</span>
+<span class="n">binops</span><span class="p">[</span><span class="s">&quot;-&quot;</span><span class="p">](</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="c1">// uses the call operator of the minus&lt;int&gt; object</span>
+<span class="n">binops</span><span class="p">[</span><span class="s">&quot;/&quot;</span><span class="p">](</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="c1">// uses the call operator of the div object</span>
+<span class="n">binops</span><span class="p">[</span><span class="s">&quot;*&quot;</span><span class="p">](</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="c1">// calls the lambda function object</span>
+<span class="n">binops</span><span class="p">[</span><span class="s">&quot;%&quot;</span><span class="p">](</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span> <span class="c1">// calls the lambda function object</span>
 </code></pre></div>
 <p>The function class in the new library is not related to classes named
 unary<em>function and binary</em>function that were part of earlier versions
@@ -455,56 +450,55 @@ an array or a function type are not permitted. Conversions to pointer types—bo
 <p>Conversion operators have no explicitly stated return type and no parameters, and they must be defined as member functions. Conversion operations ordinarily should not change the object they are converting. As a result, conversion operators usually should be defined as const members.</p>
 
 <p><strong>Defining a Class with a Conversion Operator</strong></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class SmallInt {
-public:
-SmallInt(int i = 0): val(i)
-{
-if (i &lt; 0 || i &gt; 255)
-throw std::out_of_range(&quot;Bad SmallInt value&quot;);
-}
-operator int() const { return val; }
-private:
-std::size_t val;
-};
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">class</span> <span class="nc">SmallInt</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="n">SmallInt</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">)</span>
+<span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">out_of_range</span><span class="p">(</span><span class="s">&quot;Bad SmallInt value&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">operator</span> <span class="kt">int</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">val</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">val</span><span class="p">;</span>
+<span class="p">};</span>
 
-SmallIntsi;
-si = 4; // implicitly converts 4 to SmallInt then calls SmallInt::operator=
-si + 3; // implicitly converts si to int followed by integer addition
+<span class="n">SmallInt</span> <span class="n">si</span><span class="p">;</span>
+<span class="n">si</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// implicitly converts 4 to SmallInt then calls SmallInt::operator=</span>
+<span class="n">si</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// implicitly converts si to int followed by integer addition</span>
 </code></pre></div>
 <p><strong>Conversion Operators Can Yield Suprising Results</strong></p>
 
 <p>In practice, classes rarely provide conversion operators. Too often users are more likely to be surprised if a conversion happens automatically than to be helped by the existence of the conversion. However, there is one important exception to this rule of thumb: It is not uncommon for classes to define conversions to bool.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">int i = 42;
-cin &lt;&lt; i; // this code would be legal if the conversion to bool were not explicit!
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+<span class="n">cin</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// this code would be legal if the conversion to bool were not explicit!</span>
 </code></pre></div>
 <p>This program attempts to use the output operator on an input stream. There is no &lt;&lt; defined for istream, so the code is almost surely in error. However, this code could use the bool conversion operator to convert cin to bool. The resulting bool value would then be promoted to int and used as the left-hand operand to the built-in version of the left-shift operator. The promoted boolvalue (either 1 or 0) would be shifted left 42 positions.</p>
 
 <p><strong>explicit Conversion Operators</strong></p>
 
 <p>To prevent such problems, the new standard introduced explicit conversion operators.</p>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">class</span> <span class="nc">SmallInt</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="c1">// the compiler won&#39;t automatically apply this conversion</span>
+<span class="k">explicit</span> <span class="k">operator</span> <span class="kt">int</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">val</span><span class="p">;</span> <span class="p">}</span>
+<span class="c1">// other members as before</span>
+<span class="p">};</span>
 
-<p>class SmallInt {
-public:
-// the compiler won&#39;t automatically apply this conversion
-explicit operator int() const { return val; }
-// other members as before
-};</p>
-
-<p>SmallInt si = 3;  // ok: the SmallInt constructor is not explicit
-si + 3; // error: implicit is conversion required, but operator int is explicit
-static_cast<int>(si) + 3; // ok: explicitly request the conversion</p>
-
+<span class="n">SmallInt</span> <span class="n">si</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>  <span class="c1">// ok: the SmallInt constructor is not explicit</span>
+<span class="n">si</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// error: implicit is conversion required, but operator int is explicit</span>
+<span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">si</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// ok: explicitly request the conversion</span>
+</code></pre></div>
 <p>If the conversion operator is explicit, we can still do the conversion. However, with one exception, we must do so explicitly through a cast.
 The exception is that the compiler will apply an explicit conversion to an
 expression used as a <strong>condition</strong>. </p>
 
 <p><strong>Conversion to bool</strong></p>
 
-<p>In earlier versions of the library, the IO types defined a conversion to void*. They did so to avoid the kinds of problems illustrated above. Under the new standard, the IO library instead defines an explicit conversion to bool.</p>
-
-<p>while(std::cin &gt;&gt; value)</p>
-
-<p>The condition in the while executes the input operator, which reads into value and returns cin. To evaluate the condition, cin is implicitly converted by the istream operator bool conversion function. That function returns true if the conditionstate of cin is good, and false other wise.</p>
+<p>In earlier versions of the library, the IO types defined a conversion to void*. They did so to avoid the kinds of problems illustrated above. Under the new standard, the IO library instead defines an explicit conversion to bool.
+<code>C++
+while(std::cin &gt;&gt; value)
+</code>
+The condition in the while executes the input operator, which reads into value and returns cin. To evaluate the condition, cin is implicitly converted by the istream operator bool conversion function. That function returns true if the conditionstate of cin is good, and false other wise.</p>
 
 <p>Conversion to bool is usually intended for use in conditions. As a result,
 operator bool ordinarily should be defined as explicit.</p>
