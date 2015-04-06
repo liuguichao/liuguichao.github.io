@@ -4,12 +4,31 @@
   <title>My study notes</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-04-04T22:01:03+08:00</updated>
+  <updated>2015-04-06T20:56:34+08:00</updated>
   <id></id>
   <author>
     <name>liuguichao</name>
   </author>
 
+  
+  <entry>
+    <title>Reverse Words in a String</title>
+    <link href="/algorithms/2015-04/reverseWords.html"/>
+    <updated>2015-04-06T00:00:00+08:00</updated>
+    <id>/algorithms/2015-04/reverseWords</id>
+    <content type="html">6. Reverse Words in a String
+
+Code it now: https://oj.leetcode.com/problems/reverse-words-in-a-string/
+
+Question:
+
+Given an input string s, reverse the string word by word.
+For example, given s = &amp;quot;the sky is blue&amp;quot;, return &amp;quot;blue is sky the&amp;quot;.
+
+Solution:
+
+O(n) runtime, O(n) space...</content>
+  </entry>
   
   <entry>
     <title>string find</title>
