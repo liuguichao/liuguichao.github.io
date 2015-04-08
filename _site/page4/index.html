@@ -10,7 +10,7 @@
   <meta name="author" content="liuguichao">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="/favicon.png">
-  <link rel="canonical" href="/page2/index.html">
+  <link rel="canonical" href="/page4/index.html">
 
   <link rel="stylesheet" href="/assets/css/style.css" media="all">
 
@@ -81,29 +81,19 @@
         <div class="row clearfix">
           <div class="col-md-9">
   
-  <h3 class="title"><a href="/c++/2014-07/object-oriented-programming.html">Object-Oriented Programming</a></h3>
-  
-  The key ideas in object-oriented programming are data abstraction, inheritance,and dynamic binding. Using data abstraction, we can define classes that separate interface from implementation. Through inheritance, we can define classes that model the relationships among similar types. Through dynamic binding, we can use objects of these types while ignoring the...
+  <h3 class="title"><a href="/c++/2014-07/const-member-functions-zh.html">常成员函数</a></h3>
   
   
-  <h3 class="title"><a href="/c++/2014-07/overloaded-operations-and-conversions.html">Overloaded Operations and Conversions</a></h3>
-  
-  When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit) parameter than the number of operands. Calling an Overloaded Operator Function Directly // equivalent calls to a nonmember operator function data1 + data2; // normal expression operator+(data1, data2);...
-  
-  
-  <h3 class="title"><a href="/c++/2014-07/copy-control.html">Copy Control</a></h3>
-  
-  When we define a class,we specify—explicitly or implicitly—what happens when objects of that class type are copied, moved, assigned, and destroyed. A class controls these operations by defining five special member functions: copy constructor, copy-assignment operator, move constructor, move-assignment operator, and destructor. The copy and move constructors define what happens...
+常成员函数不能更新对象的数据成员。
+当一个对象被声明为常对象，则不能通过该对象调用该类中的非const成员函数，因为它可能企图修改常量的数据成员。但构造函数和析构函数对这个规则例外，他们从不定义为常量成员，但可被常量对象自动调用。它们也能给常对象的数据成员赋值，除非数据成员本身是常量。
+使用const修饰成员函数，可以提高程序可读性和可靠性。
+
+
   
   
-  <h3 class="title"><a href="/c++/2014-07/dynamic-memory.html">Dynamic Memory</a></h3>
+  <h3 class="title"><a href="/c++/2014-07/const-member-functions.html">const member functions</a></h3>
   
-  smart pointer To make using dynamic memory easier (and safer), the new library provides two smart pointer types that manage dynamic objects. A smart pointer acts like a regular pointer with the important exception that it automatically deletes the object to which it points. The new library defines two kinds...
-  
-  
-  <h3 class="title"><a href="/c++/2014-07/associative-containers.html">Associative Containers</a></h3>
-  
-  Associative and sequential containers differ from one another in a fundamental way: Elements in an associative container are stored and retrieved by a key. In contrast, elements in a sequential container are stored and accessed sequentially by their position in the container. The map and multimap types are defined in...
+  Introducing const Member Functions std::string isbn() const { return bookNo; } The other important part about the isbn function is the keyword const that follows the parameter list. The purpose of that const is to modify the type of the implicit this pointer. By default, the type of this is...
   
   
 
@@ -112,13 +102,13 @@
     
     
     <a class="btn btn-primary btn-sm" href="/">Home</a>
-    <a class="btn btn-primary btn-sm" href="/">&laquo; Prev</a>
+    <a class="btn btn-primary btn-sm" href="/page3/">&laquo; Prev</a>
     
     
-    <span><a class="btn btn-primary btn-sm disabled">Page: 2 of 4</a></span>
+    <span><a class="btn btn-primary btn-sm disabled">Page: 4 of 4</a></span>
     
-    <a class="btn btn-primary btn-sm" href="/page3/">Next &raquo;</a>
-    <a class="btn btn-primary btn-sm" href="/page4/">Last</a>
+    <span><a class="btn btn-primary btn-sm disabled">Next &raquo;</a></span>
+    <span><a class="btn btn-primary btn-sm disabled">Last</a></span>
     
   </div>
 </div>

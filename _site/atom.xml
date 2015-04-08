@@ -4,12 +4,27 @@
   <title>My study notes</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-04-06T20:56:34+08:00</updated>
+  <updated>2015-04-08T15:56:10+08:00</updated>
   <id></id>
   <author>
     <name>liuguichao</name>
   </author>
 
+  
+  <entry>
+    <title>Valid Number</title>
+    <link href="/algorithms/2015-04/valid-number.html"/>
+    <updated>2015-04-08T00:00:00+08:00</updated>
+    <id>/algorithms/2015-04/valid-number</id>
+    <content type="html">8. String to Integer (atoi)
+
+Code it now: https://oj.leetcode.com/problems/string-to-integer-atoi/
+
+Question:
+
+Implement atoi to convert a string to an integer.
+The atoi function first discards as many whitespace characters as necessary until the first non-whitespace character is found. Then, sta...</content>
+  </entry>
   
   <entry>
     <title>Reverse Words in a String</title>

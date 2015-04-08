@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Valid Number - My study notes</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="liuguichao">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="canonical" href="/algorithms/2015-04/valid-number.html">
+
+  <link rel="stylesheet" href="/assets/css/style.css" media="all">
+
+  <!-- atom & rss feed -->
+  <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="My study notes RSS Feed">
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="My study notes ATOM Feed">
+
+  <!-- fav and touch icons  -->
+  <!-- Update these with your own images
+  <link rel="shortcut icon" href="images/favicon.ico">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+  <meta name="renderer" content="webkit|ie-stand">
+
+  <meta name="baidu-site-verification" content="BvD3CNBzK6" />
+  <meta name="msvalidate.01" content="FE0D1D87A075E1003B82C7446EE360ED" />
+</head>
+
+
+  <body>
+    <div class="container">
+      <!--[if lt IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+  <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <div class="title"><a title="My study notes" href="/">My study notes</a></div>
+  <ul class="nav navbar-nav collapse navbar-collapse bs-navbar-collapse navbar-right">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories" rel="nofollow"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags" rel="nofollow"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/liuguichao" target="_blank" title="Github" rel="nofollow"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS" rel="nofollow"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <article class="wrapper">
+        <div id="search-loader" class="img-wrap">
+          <div class="loading">
+            <img src="/assets/img/loading.png">
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-12">
+<h2 class="title"> Valid Number <time class="small">2015.04.08</time></h2>
+<h4>8. String to Integer (atoi)</h4>
+
+<p>Code it now: <a href="https://oj.leetcode.com/problems/string-to-integer-atoi/">https://oj.leetcode.com/problems/string-to-integer-atoi/</a></p>
+
+<h6>Question:</h6>
+
+<p>Implement atoi to convert a string to an integer.
+The atoi function first discards as many whitespace characters as necessary until the first non-whitespace character is found. Then, starting from this character, takes an optional initial plus or minus sign followed by as many numerical digits as possible, and interprets them as a numerical value.</p>
+
+<p>The string can contain additional characters after those that form the integral number,which are ignored and have no effect on the behavior of this function.</p>
+
+<p>If the first sequence of non-whitespace characters in str is not a valid integral number, or if no such sequence exists because either str is empty or it contains only whitespace characters, no conversion is performed.
+If no valid conversion could be performed, a zero value is returned. If the correct value is out of the range of representable values, the maximum integer value (2147483647) or the
+minimum integer value (–2147483648) is returned.</p>
+
+<h6>Solution:</h6>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">const</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">maxDiv10</span><span class="o">=</span><span class="n">INT_MAX</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="nf">atoi</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="n">str</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">isblank</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">sign</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;+&#39;</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;-&#39;</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">sign</span><span class="o">=-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">num</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">isdigit</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">digit</span><span class="o">=</span><span class="n">str</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-</span><span class="sc">&#39;0&#39;</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">num</span><span class="o">&gt;</span><span class="n">maxDiv10</span><span class="o">||</span><span class="n">num</span><span class="o">==</span><span class="n">maxDiv10</span><span class="o">&amp;&amp;</span><span class="n">digit</span><span class="o">&gt;=</span><span class="mi">8</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">sign</span><span class="o">==</span><span class="mi">1</span><span class="o">?</span><span class="nl">INT_MAX</span><span class="p">:</span><span class="n">INT_MIN</span><span class="p">;</span>
+            <span class="n">num</span><span class="o">=</span><span class="n">num</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="n">digit</span><span class="p">;</span>
+            <span class="o">++</span><span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">sign</span><span class="o">*</span><span class="n">num</span><span class="p">;</span>
+
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<h4>9. Valid Number</h4>
+
+<p>Code it now: <a href="https://oj.leetcode.com/problems/valid-number/">https://oj.leetcode.com/problems/valid-number/</a></p>
+
+Question:</h6>
+
+<p>Validate if a given string is numeric.</p>
+
+<h6>Solution:</h6>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">bool</span> <span class="n">isNumber</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">isblank</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;+&#39;</span><span class="o">||</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;-&#39;</span><span class="p">))</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="n">isNumeric</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">isdigit</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+        <span class="p">{</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">isNumeric</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;.&#39;</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+             <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">isdigit</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+             <span class="p">{</span>
+                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+                <span class="n">isNumeric</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+             <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">isNumeric</span><span class="o">&amp;&amp;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;e&#39;</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">isNumeric</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;+&#39;</span><span class="o">||</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;-&#39;</span><span class="p">))</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">isdigit</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+            <span class="p">{</span>
+                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+                <span class="n">isNumeric</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">isblank</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">isNumeric</span><span class="o">&amp;&amp;</span><span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<ul class="pager">
+  
+  <li class="previous"><a  href="/algorithms/2015-04/reverseWords.html" title="Reverse Words in a String">&larr; Prev</a></li>
+  
+  
+  <li class="next disabled"><a href="#">Next &rarr;</a></li>
+  
+</ul>
+
+
+
+</div>
+
+        </div>
+      </article>
+
+      <footer class="footer text-center">
+  <p>&copy; 2015 <a href="" title="">liuguichao</a>. with Help from <a href="//jekyllrb.com/" title="Transform your plain text into static websites and blogs.">Jekyll</a> and <a href="//getbootstrap.com/" title="Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.">Bootstrap</a></p>
+  <p>Articles are licensed under <a href="//creativecommons.org/licenses/by/3.0/" title="CC BY 3.0 License">the CC BY 3.0</a></p>
+</footer>
+
+    </div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/webcore.js"></script>
+
+    
+
+    
+  </body>
+</html>
