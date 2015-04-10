@@ -4,12 +4,26 @@
   <title>My study notes</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-04-08T15:56:10+08:00</updated>
+  <updated>2015-04-10T15:07:54+08:00</updated>
   <id></id>
   <author>
     <name>liuguichao</name>
   </author>
 
+  
+  <entry>
+    <title>longest substring</title>
+    <link href="/algorithms/2015-04/longest-substring.html"/>
+    <updated>2015-04-10T00:00:00+08:00</updated>
+    <id>/algorithms/2015-04/longest-substring</id>
+    <content type="html">10. Longest Substring Without Repeating Characters
+
+Code it now:https://oj.leetcode.com/problems/longest-substring-without-repeating-characters/
+
+Question:
+
+Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating ...</content>
+  </entry>
   
   <entry>
     <title>Valid Number</title>
