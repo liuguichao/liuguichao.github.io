@@ -4,10 +4,44 @@
     <title>My study notes</title>
     <description></description>
     <link></link>
-    <lastBuildDate>Fri, 10 Apr 2015 15:07:54 +0800</lastBuildDate>
-    <pubDate>Fri, 10 Apr 2015 15:07:54 +0800</pubDate>
+    <lastBuildDate>Fri, 10 Apr 2015 15:32:03 +0800</lastBuildDate>
+    <pubDate>Fri, 10 Apr 2015 15:32:03 +0800</pubDate>
     <ttl>1800</ttl>
 
+    
+    <item>
+      <title><![CDATA[Missing Ranges]]></title>
+      <description>&lt;h4&gt;12. Missing Ranges&lt;/h4&gt;
+
+&lt;h6&gt;Question:&lt;/h6&gt;
+
+&lt;p&gt;Given a sorted integer array where the range of elements are [0, 99] inclusive, return its missing ranges.&lt;/p&gt;
+
+&lt;p&gt;For example, given [0, 1, 3, 50, 75], return [“2”, “4-&amp;gt;49”, “51-&amp;gt;74”, “76-&amp;gt;99”]&lt;/p&gt;
+
+&lt;h6&gt;Solution:&lt;/h6&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-C++&quot; data-lang=&quot;C++&quot;&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;makeRange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;-&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMissingRanges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ranges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ranges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;makeRange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ranges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      <link>/algorithms/2015-04/missing-ranges.html</link>
+      <guid>/algorithms/2015-04/missing-ranges</guid>
+      <pubDate>Fri, 10 Apr 2015 00:00:00 +0800</pubDate>
+    </item>
     
     <item>
       <title><![CDATA[longest substring]]></title>
@@ -1529,280 +1563,6 @@ can be called on an lvalue or an rvalue. The qualifier, &amp;amp;or &amp;amp;&am
       <link>/c++/2014-07/copy-control.html</link>
       <guid>/c++/2014-07/copy-control</guid>
       <pubDate>Wed, 16 Jul 2014 12:46:59 +0800</pubDate>
-    </item>
-    
-    <item>
-      <title><![CDATA[Dynamic Memory]]></title>
-      <description>&lt;p&gt;&lt;strong&gt;smart pointer&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;To make using dynamic memory easier (and safer), the new library provides two smart pointer types that manage dynamic objects. A smart pointer acts like a regular pointer with the important exception that it automatically deletes the object to which it points. The new library defines two kinds of smart pointers that differ in how
-they manage their underlying pointers: &lt;em&gt;shared_ptr&lt;/em&gt;, which allows multiple pointers to refer to the same object, and &lt;em&gt;unique_ptr&lt;/em&gt;, which “owns” the object to which it points.
-The library also defines a companion class named &lt;em&gt;weak_ptr&lt;/em&gt; that is a weak reference to an object managed by a shared_ptr. All three are defined in the memory header.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;The &lt;em&gt;shared_ptr&lt;/em&gt; Class&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Like vectors, smart pointers are templates. Therefore, when we create a smart pointer, we must supply additional information—in this case, the type to which the pointer can point. As with vector, we supply that type inside angle brackets that follow the name of the kind of smart pointer we are defining.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;shared_ptr&amp;lt;string&amp;gt;p1;  // shared_ptr that can point at a string
-shared_ptr&amp;lt;list&amp;lt;int&amp;gt;&amp;gt; p2; // shared_ptr that can point at a list of ints
-
-// if p1 is not null, check whether it&amp;#39;s the empty string
-if (p1 &amp;amp;&amp;amp; p1-&amp;gt;empty())
-*p1 = &amp;quot;hi&amp;quot;;  // if so, dereference p1 to assign a new value to that string
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/jrVh8xa.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;The make_shared Function&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The safest way to allocate and use dynamic memory is to call a library function named &lt;strong&gt;&lt;em&gt;make_shared&lt;/em&gt;&lt;/strong&gt;. This function allocates and initializes an object in dynamic memory and returns a shared&lt;em&gt;ptr that points to that object. Like the smart pointers,make&lt;/em&gt;shared is defined in the memory header.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// shared_ptr that points to an int with value 42
-shared_ptr&amp;lt;int&amp;gt; p3 = make_shared&amp;lt;int&amp;gt;(42);
-// p4 points to a string with value 9999999999
-shared_ptr&amp;lt;string&amp;gt; p4 = make_shared&amp;lt;string&amp;gt;(10, &amp;#39;9&amp;#39;);
-// p5 points to an int that is value initialized (§ 3.3.1 (p. 98)) to 0
-shared_ptr&amp;lt;int&amp;gt; p5 = make_shared&amp;lt;int&amp;gt;();
-// p6 points to a dynamically allocated, empty vector&amp;lt;string&amp;gt;
-auto p6 = make_shared&amp;lt;vector&amp;lt;string&amp;gt;&amp;gt;();
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Copying and Assigning shared_ptrs&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;When we copy or assign a shared&lt;em&gt;ptr, each shared&lt;/em&gt;ptr keeps track of how many other shared_ptrs point to the same object.&lt;/p&gt;
-
-&lt;p&gt;We can think of a shared&lt;em&gt;ptr as if it has an &lt;strong&gt;associated counter&lt;/strong&gt;, usually referred to as a &lt;strong&gt;reference count&lt;/strong&gt;. Whenever we copy a shared&lt;/em&gt;ptr, the count is incremented.
-For example, the counter associated with a shared&lt;em&gt;ptr is incremented when we use it to initialize another shared&lt;/em&gt;ptr, when we use it as the right-hand operand of an
-assignment, or when we pass it to or return it from a function by value . The counter is decremented when we assign a new value to the shared&lt;em&gt;ptrand when the shared&lt;/em&gt;ptr itself is destroyed, such as when a local
-shared&lt;em&gt;ptr goes out of scope.Once a shared&lt;/em&gt;ptr’s counter goes to zero, the shared_ptr automatically frees the object that it manages.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;auto p = make_shared&amp;lt;int&amp;gt;(42); // object to which p points has one user
-auto q(p); // p and q point to the same object
-// object to which p and q point has two users
-
-autor = make_shared&amp;lt;int&amp;gt;(42); // int to which r points has one user
-r = q;  // assign to r, making it point to a different address
-// increase the use count for the object to which q points
-// reduce the use count of the object to which r had pointed
-// the object r had pointed to has no users; that object is automatically freed
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;shared_ptrs Automatically Destroy Their Objects and Automatically Free the Associated Memory&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;When the last shared&lt;em&gt;ptr pointing to an object is destroyed, the shared&lt;/em&gt;ptr class automatically destroys the object to which that shared_ptr points. It does so
-through another special member function known as a &lt;strong&gt;destructor&lt;/strong&gt;. Analogous to its constructors, each class has a destructor. Just as a constructor controls initialization, the destructor controls what happens when objects of that class type are destroyed.&lt;/p&gt;
-
-&lt;p&gt;The destructor for shared&lt;em&gt;ptr decrements the reference count of the object to which that shared&lt;/em&gt;ptr points. If the count goes to zero, the shared&lt;em&gt;ptr destructor destroys the object to which the shared&lt;/em&gt;ptr points and frees the memory used by that object.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// factory returns a shared_ptr pointing to a dynamically allocated object
-shared_ptr&amp;lt;Foo&amp;gt; factory(T arg)
-{
-// process arg as appropriate
-// shared_ptr will take care of deleting this memory
-return make_shared&amp;lt;Foo&amp;gt;(arg);
-}
-
-void use_factory(T arg)
-{
-shared_ptr&amp;lt;Foo&amp;gt; p = factory(arg);
-// use p
-} // p goes out of scope; the memory to which p points is automatically freed
-
-shared_ptr&amp;lt;Foo&amp;gt;use_factory(T arg)
-{
-shared_ptr&amp;lt;Foo&amp;gt; p = factory(arg);
-// use p
-return p;  // reference count is incremented when we return p
-} // p goes out of scope; the memory to which p points is not freed
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Programs tend to use dynamic memory for one of three purposes:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;They don’t know how many objects they’ll need&lt;/li&gt;
-&lt;li&gt;They don’t know the precise type of the objects they need&lt;/li&gt;
-&lt;li&gt;They want to share data between several objects&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;Managing Memory Directly&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The language itself defines two operators that allocate and free dynamic memory. The &lt;strong&gt;new&lt;/strong&gt; operator allocates memory, and &lt;strong&gt;delete&lt;/strong&gt; frees memory allocated by new.&lt;/p&gt;
-
-&lt;p&gt;The new expression constructs an object of type T on the free store and returns a pointer to that object.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;int *pi = new int;  // pi points to a dynamically allocated,
-// unnamed, uninitialized int
-string *ps = new string;  // initialized to empty string
-int *pi = new int;  // pi points to an uninitialized int
-int*pi = new int(1024); // object to which pi points has value 1024
-string *ps = new string(10, &amp;#39;9&amp;#39;);  // *ps is &amp;quot;9999999999&amp;quot;
-// vector with ten elements with values from 0 to 9
-vector&amp;lt;int&amp;gt; *pv = new vector&amp;lt;int&amp;gt;{0,1,2,3,4,5,6,7,8,9};
-string*ps1 = new string;  // default initialized to the empty string
-string *ps = new string(); // value initialized to the empty string
-int *pi1 = new int;  // default initialized; *pi1 is undefined
-int *pi2 = new int();  // value initialized to 0; *pi2 is 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Memory Exhaustion&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// if allocation fails, new returns a null pointer
-int *p1 = new int; // if allocation fails, new throws std::bad_alloc
-int *p2 = new (nothrow) int; // if allocation fails, new returns a null pointer
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Freeing Dynamic Memory&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;delete p;  // p must point to a dynamically allocated object or be null&lt;/p&gt;
-
-&lt;p&gt;Like new, a delete expression performs two actions: It destroys the object to which its given pointer points, and it frees the corresponding memory.The pointer we pass to delete must either point to dynamically allocated memory or be a null pointer. Deleting a pointer to memory that was not allocated by new, or deleting the same pointer value more than once, is undefined.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Caution:Managing Dynamic Memory Is Error-Prone&lt;/strong&gt;
-There are three common problems with using new and delete to manage dynamic memory:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Forgetting to delete memory. Neglecting to delete dynamic memory is known as a “memory leak,” because the memory is never returned to the free store. Testing for memory leaks is difficult because they usually cannot
-be detected until the application is run for a long enough time to actually exhaust memory.&lt;/li&gt;
-&lt;li&gt;Using an object after it has been deleted. This error can sometimes be detected by making the pointer null after the delete.&lt;/li&gt;
-&lt;li&gt;Deleting the same memory twice. This error can happen when two pointers address the same dynamically allocated object. If delete is applied to one of the pointers, then the object’s memory is returned to the free store. If we subsequently delete the second pointer, then the free
-store may be corrupted.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;You can avoid all of these problems by using smart pointers exclusively.The smart pointer will take care of deleting the memory only when there are no remaining smart pointers pointing to that memory.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Resetting the Value of a Pointer after a delete Provides Only Limited Protection&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;In real systems, finding all the pointers that point to the same memory is surprisingly difficult.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;int *p(new int(42));  // p points to dynamic memory
-auto q = p;  // p and q point to the same memory
-delete p;  // invalidates both p and q
-p = nullptr; // indicates that p is no longer bound to an object
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;resetting p has no effect on q, which became invalid when we deleted the memory to which p(and q!) pointed.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Don’t Mix Ordinary Pointers and Smart Pointers&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;It is dangerous to use a built-in pointer to access an object owned by a smart pointer, because we may not know when that object is destroyed.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;int *x(new int(1024)); // dangerous: x is a plain pointer, not a smart
-pointer
-process(x);  // error: cannot convert int* to shared_ptr&amp;lt;int&amp;gt;
-process(shared_ptr&amp;lt;int&amp;gt;(x)); // legal, but the memory will be deleted!
-int j = *x;  // undefined: x is a dangling pointer!
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Don’t Use &lt;em&gt;get&lt;/em&gt; to Initialize or Assign Another Smart Pointer&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Use get only to pass access to the pointer to code that you know will not delete the pointer. In particular, never use get to initialize or assign to another smart pointer.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;shared_ptr&amp;lt;int&amp;gt;p(new int(42)); // reference count is 1
-int *q = p.get();  // ok: but don&amp;#39;t use q in any way that might delete its
-pointer
-{ // new block
-// undefined: two independent shared_ptrs point to the same memory
-shared_ptr&amp;lt;int&amp;gt;(q);
-} // block ends, q is destroyed, and the memory to which q points is freed
-int foo = *p; // undefined; the memory to which p points was freed
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Smart Pointers and Exceptions&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;When we use a smart pointer, the smart pointer class ensures that memory is freed when it is no longer needed even if the block is exited prematurely.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;void f()
-{
-shared_ptr&amp;lt;int&amp;gt; sp(new int(42)); // allocate a new object
-// code that throws an exception that is not caught inside f
-} // shared_ptr freed automatically when the function ends
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;In contrast, memory that we manage directly is not automatically freed when an exception occurs. If we use built-in pointers to manage memory and an exception
-occurs after a new but before the corresponding delete, then that memory won’t be freed.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;void f()
-{
-int *ip = new int(42);  // dynamically allocate a new object
-// code that throws an exception that is not caught inside f
-delete ip;  // free the memory before exiting
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;If an exception happens between the newand the delete, and is not caught inside f, then this memory can never be freed. There is no pointer to this memory outside
-the function f. Thus, there is no way to free this memory.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Using Our Own Deletion Code&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;void end_connection(connection *p) { disconnect(*p); }
-void f(destination &amp;amp;d /* other parameters*/)
-{
-connection c = connect(&amp;amp;d);
-shared_ptr&amp;lt;connection&amp;gt; p(&amp;amp;c, end_connection);
-// use the connection
-// when f exits, even if by an exception, the connection will be properly closed
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Caution:Smart Pointer Pitfalls&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Smart pointers can provide safety and convenience for handling dynamically allocated memory only when they are used properly. To use smart pointers correctly, we must adhere to a set of conventions:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Don’t use the same built-in pointer value to initialize (or reset) more than one smart pointer.&lt;/li&gt;
-&lt;li&gt;Don’t deletethe pointer returned from get().&lt;/li&gt;
-&lt;li&gt;Don’t use get()to initialize or reset another smart pointer.&lt;/li&gt;
-&lt;li&gt;If you use a pointer returned by get(), remember that the pointer will become invalid when the last corresponding smart pointer goes away.&lt;/li&gt;
-&lt;li&gt;If you use a smart pointer to manage a resource other than memory allocated by new, remember to pass a deleter.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;unique_ptr&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;A unique_ptr “owns” the object to which it points. Unlike shared_ptr, only one unique_ptr at a time can point to a given object. The object to which a unique_ptr points is destroyed when the unique_ptr is destroyed.&lt;/p&gt;
-
-&lt;p&gt;Because a unique_ptr owns the object to which it points, unique_ptr does not support ordinary copy or assignment.&lt;/p&gt;
-
-&lt;p&gt;Although we can’t copy or assign a unique_ptr, we can transfer ownership from one (nonconst) unique_ptr to another by calling &lt;strong&gt;release&lt;/strong&gt; or &lt;strong&gt;reset&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;The &lt;em&gt;release&lt;/em&gt; member returns the pointer currently stored in the unique_ptr and makes that unique_ptr null.&lt;/p&gt;
-
-&lt;p&gt;The &lt;em&gt;reset&lt;/em&gt; member takes an optional pointer and repositions the unique_ptr to point to the given pointer.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;unique_ptr&amp;lt;string&amp;gt;p1(new string(&amp;quot;Stegosaurus&amp;quot;));
-unique_ptr&amp;lt;string&amp;gt; p2(p1);  // error: no copy for unique_ptr
-unique_ptr&amp;lt;string&amp;gt; p3;
-p3 = p2;  // error: no assign for unique_ptr
-// transfers ownership from p1 (which points to the string Stegosaurus) to p2
-unique_ptr&amp;lt;string&amp;gt; p2(p1.release()); // release makes p1 null
-unique_ptr&amp;lt;string&amp;gt; p3(new string(&amp;quot;Trex&amp;quot;));
-// transfers ownership from p3 to p2
-p2.reset(p3.release()); // reset deletes the memory to which p2 had pointed
-p2.release();// WRONG: p2 won&amp;#39;t free the memory and we&amp;#39;ve lost the pointer
-auto p = p2.release(); // ok, but we must remember to delete(p)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Passing and Returning unique_ptrs&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;There is one exception to the rule that we cannot copy a unique_ptr:We can copy or assign a unique_ptr that is about to be destroyed. The most common example is
-when we return a unique_ptr from a function.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;weak_ptr&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;A weak_ptr is a smart pointer that does not control the lifetime of the object to which it points. Instead, a weak_ptr points to an object that is managed by a shared_ptr. Binding a weak_ptr to a shared_ptr does not change the reference count of that shared_ptr. Once the last shared_ptr pointing to the object goes away, the object itself will be deleted. That object will be deleted even if there are weak_ptrs pointing to it—hence the name weak_ptr, which captures the idea that a weak_ptr shares its object “weakly.”&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;The allocator Class&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;When we allocate a block of memory, we often plan to construct objects in that memory as needed. In this case, we’d like to decouple memory allocation from object
-construction. Decoupling construction from allocation means that we can allocate memory in large chunks and pay the overhead of constructing the objects only when
-we actually need to create them. In general, coupling allocation and construction can be wasteful. More importantly, classes that do not have default constructors cannot be dynamically allocated as an array.&lt;/p&gt;
-
-&lt;p&gt;The library &lt;strong&gt;allocator&lt;/strong&gt; class, which is defined in the &lt;strong&gt;memory&lt;/strong&gt; header, lets us separate allocation from construction. It provides type-aware allocation of raw, unconstructed,memory. &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;allocator&amp;lt;string&amp;gt;alloc;  // object that can allocate strings
-auto const p = alloc.allocate(n); // allocate n unconstructed strings
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;allocators Allocate Unconstructed Memory&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The memory an allocator allocates is unconstructed.We use this memory by constructing objects in that memory. In the new library the &lt;strong&gt;construct&lt;/strong&gt; member takes a pointer and zero or more additional arguments; it constructs an element at the given location. The additional arguments are used to initialize the object being constructed.&lt;/p&gt;
-
-&lt;p&gt;We must construct objects in order to use memory returned by allocate. Using unconstructed memory in other ways is undefined.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;auto q = p; // q will point to one past the last constructed element
-alloc.construct(q++);  // *q is the empty string
-alloc.construct(q++, 10, &amp;#39;c&amp;#39;);  // *q is cccccccccc
-alloc.construct(q++, &amp;quot;hi&amp;quot;);  // *q is hi!
-cout&amp;lt;&amp;lt; *p &amp;lt;&amp;lt; endl; // ok: uses the string output operator
-cout &amp;lt;&amp;lt; *q &amp;lt;&amp;lt; endl; // disaster: q points to unconstructed memory!
-while(q != p)
-alloc.destroy(--q);// free the  strings  we actually
-allocated
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Once the elements have been destroyed, we can either reuse the memory to hold other strings or return the memory to the system. We free the memory by calling deallocate:
-&lt;strong&gt;&lt;em&gt;alloc.deallocate(p,n);&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Algorithms to Copy and Fill Uninitialized Memory&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;// allocate twice as many elements as vi holds
-auto p = alloc.allocate(vi.size() * 2);
-// construct elements starting at p as copies of elements in vi
-auto q = uninitialized_copy(vi.begin(), vi.end(), p);
-// initialize the remaining elements to 42
-uninitialized_fill_n(q, vi.size(), 42);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
-      <link>/c++/2014-07/dynamic-memory.html</link>
-      <guid>/c++/2014-07/dynamic-memory</guid>
-      <pubDate>Mon, 14 Jul 2014 13:06:30 +0800</pubDate>
     </item>
     
   </channel>

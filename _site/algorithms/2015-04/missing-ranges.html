@@ -4,13 +4,13 @@
   <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Categories - My study notes</title>
+  <title>Missing Ranges - My study notes</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
   <meta name="author" content="liuguichao">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="/favicon.png">
-  <link rel="canonical" href="/categories.html">
+  <link rel="canonical" href="/algorithms/2015-04/missing-ranges.html">
 
   <link rel="stylesheet" href="/assets/css/style.css" media="all">
 
@@ -80,68 +80,43 @@
         </div>
         <div class="row clearfix">
           <div class="col-md-12">
-<h2 class="title">Categories</h2>
+<h2 class="title"> Missing Ranges <time class="small">2015.04.10</time></h2>
+<h4>12. Missing Ranges</h4>
 
-<!-- site_categories: c++,algorithms -->
+<h6>Question:</h6>
 
-<!-- category_words: algorithmsc++ -->
+<p>Given a sorted integer array where the range of elements are [0, 99] inclusive, return its missing ranges.</p>
 
-<ul class="tag-box">
+<p>For example, given [0, 1, 3, 50, 75], return [“2”, “4-&gt;49”, “51-&gt;74”, “76-&gt;99”]</p>
+
+<h6>Solution:</h6>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="n">string</span> <span class="nf">makeRange</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="kt">int</span> <span class="n">j</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="k">return</span> <span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="o">?</span><span class="n">to_string</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">:</span><span class="n">to_string</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;-&gt;&quot;</span><span class="o">+</span><span class="n">to_string</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">findMissingRanges</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vals</span><span class="p">,</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="kt">int</span> <span class="n">end</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">ranges</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">prev</span><span class="o">=</span><span class="n">start</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">vals</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">curr</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="n">vals</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">?</span><span class="nl">end</span><span class="p">:</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">curr</span><span class="o">-</span><span class="n">prev</span><span class="o">&gt;=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">ranges</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">makeRange</span><span class="p">(</span><span class="n">prev</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">curr</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+        <span class="n">prev</span><span class="o">=</span><span class="n">curr</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ranges</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul class="pager">
+  
+  <li class="previous"><a  href="/algorithms/2015-04/longest-substring.html" title="longest substring">&larr; Prev</a></li>
   
   
-  <li><a href="#algorithms" rel="nofollow">algorithms <sup>7</sup></a></li>
-  
-  
-  <li><a href="#c%2B%2B" rel="nofollow">c++ <sup>12</sup></a></li>
+  <li class="next disabled"><a href="#">Next &rarr;</a></li>
   
 </ul>
 
-
-
-<h4 id="algorithms">algorithms</h4>
-  
-  <ul><li>2015-04-10 &raquo; <a href="/algorithms/2015-04/missing-ranges.html">Missing Ranges</a></li></ul>
-  
-  <ul><li>2015-04-10 &raquo; <a href="/algorithms/2015-04/longest-substring.html">longest substring</a></li></ul>
-  
-  <ul><li>2015-04-08 &raquo; <a href="/algorithms/2015-04/valid-number.html">Valid Number</a></li></ul>
-  
-  <ul><li>2015-04-06 &raquo; <a href="/algorithms/2015-04/reverseWords.html">Reverse Words in a String</a></li></ul>
-  
-  <ul><li>2015-04-04 &raquo; <a href="/algorithms/2015-04/string-find.html">string find</a></li></ul>
-  
-  <ul><li>2015-04-01 &raquo; <a href="/algorithms/2015-04/TwoSum.html">Two Sum</a></li></ul>
-  
-  <ul><li>2014-07-10 &raquo; <a href="/algorithms/2014-07/fibonacci-sequence.html">fibonacci sequence</a></li></ul>
-  
-
-
-<h4 id="c%2B%2B">c++</h4>
-  
-  <ul><li>2014-07-20 &raquo; <a href="/c++/2014-07/templates-and-generic-programming.html">Templates and Generic Programming</a></li></ul>
-  
-  <ul><li>2014-07-18 &raquo; <a href="/c++/2014-07/object-oriented-programming.html">Object-Oriented Programming</a></li></ul>
-  
-  <ul><li>2014-07-18 &raquo; <a href="/c++/2014-07/overloaded-operations-and-conversions.html">Overloaded Operations and Conversions</a></li></ul>
-  
-  <ul><li>2014-07-16 &raquo; <a href="/c++/2014-07/copy-control.html">Copy Control</a></li></ul>
-  
-  <ul><li>2014-07-14 &raquo; <a href="/c++/2014-07/dynamic-memory.html">Dynamic Memory</a></li></ul>
-  
-  <ul><li>2014-07-13 &raquo; <a href="/c++/2014-07/associative-containers.html">Associative Containers</a></li></ul>
-  
-  <ul><li>2014-07-12 &raquo; <a href="/c++/2014-07/generic-algorithms.html">Generic Algorithms</a></li></ul>
-  
-  <ul><li>2014-07-11 &raquo; <a href="/c++/2014-07/sequential-containers.html">Sequential Containers</a></li></ul>
-  
-  <ul><li>2014-07-11 &raquo; <a href="/c++/2014-07/the-io-library.html">The IO Library</a></li></ul>
-  
-  <ul><li>2014-07-10 &raquo; <a href="/c++/2014-07/classes-concept.html">classes concept</a></li></ul>
-  
-  <ul><li>2014-07-09 &raquo; <a href="/c++/2014-07/const-member-functions-zh.html">常成员函数</a></li></ul>
-  
-  <ul><li>2014-07-09 &raquo; <a href="/c++/2014-07/const-member-functions.html">const member functions</a></li></ul>
-  
 
 
 </div>
