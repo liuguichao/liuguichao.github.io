@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Longest Palindromic Substring - My study notes</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="liuguichao">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="canonical" href="/algorithms/2015-04/longest-palindromic-substring.html">
+
+  <link rel="stylesheet" href="/assets/css/style.css" media="all">
+
+  <!-- atom & rss feed -->
+  <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="My study notes RSS Feed">
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="My study notes ATOM Feed">
+
+  <!-- fav and touch icons  -->
+  <!-- Update these with your own images
+  <link rel="shortcut icon" href="images/favicon.ico">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+  <meta name="renderer" content="webkit|ie-stand">
+
+  <meta name="baidu-site-verification" content="BvD3CNBzK6" />
+  <meta name="msvalidate.01" content="FE0D1D87A075E1003B82C7446EE360ED" />
+</head>
+
+
+  <body>
+    <div class="container">
+      <!--[if lt IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+  <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <div class="title"><a title="My study notes" href="/">My study notes</a></div>
+  <ul class="nav navbar-nav collapse navbar-collapse bs-navbar-collapse navbar-right">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories" rel="nofollow"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags" rel="nofollow"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/liuguichao" target="_blank" title="Github" rel="nofollow"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS" rel="nofollow"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <article class="wrapper">
+        <div id="search-loader" class="img-wrap">
+          <div class="loading">
+            <img src="/assets/img/loading.png">
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-12">
+<h2 class="title"> Longest Palindromic Substring <time class="small">2015.04.12</time></h2>
+<h4>13. Longest Palindromic Substring</h4>
+
+<p>Code it now: <a href="https://oj.leetcode.com/problems/longest-palindromic-substring/">https://oj.leetcode.com/problems/longest-palindromic-substring/</a></p>
+
+<h6>Question:</h6>
+
+<p>Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</p>
+
+<h6>Hint:</h6>
+
+<p>First, make sure you understand what a palindrome means. A palindrome is a string which reads the same in both directions. For example, “aba” is a palindome, “abc” is not.</p>
+
+<h6>Solution:</h6>
+
+<p><strong>O(n^2) runtime, O(1) space</strong></p>
+
+<blockquote>
+<p>We observe that a palindrome mirrors around its center. Therefore, a palindrome can be expanded from its center, and there are only 2n – 1 such centers.</p>
+
+<p>You might be asking why there are 2n – 1 but not n centers? The reason is the center of a palindrome can be in between two letters. Such palindromes have even number of letters (such as “abba”) and its center are between the two ‘b’s.</p>
+
+<p>Since expanding a palindrome around its center could take O(n) time, the overall complexity is O(n^2).</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">expandAroundCenter</span><span class="p">(</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">,</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span><span class="kt">int</span> <span class="n">right</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">L</span><span class="o">=</span><span class="n">left</span><span class="p">,</span><span class="n">R</span><span class="o">=</span><span class="n">right</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">L</span><span class="o">!=-</span><span class="mi">1</span><span class="o">&amp;&amp;</span><span class="n">R</span><span class="o">!=</span><span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">()</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">L</span><span class="p">]</span><span class="o">==</span><span class="n">s</span><span class="p">[</span><span class="n">R</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="n">L</span><span class="o">--</span><span class="p">;</span>
+            <span class="n">R</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">R</span><span class="o">-</span><span class="n">L</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">string</span> <span class="n">longestPalindrome</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+       <span class="kt">int</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+       <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">!=</span><span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+       <span class="p">{</span>
+         <span class="kt">int</span> <span class="n">len1</span><span class="o">=</span><span class="n">expandAroundCenter</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+         <span class="kt">int</span> <span class="n">len2</span><span class="o">=</span><span class="n">expandAroundCenter</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+         <span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">len1</span><span class="p">,</span><span class="n">len2</span><span class="p">);</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">len</span><span class="o">&gt;</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">)</span>
+         <span class="p">{</span>
+            <span class="n">start</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="p">(</span><span class="n">len</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+            <span class="n">end</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="n">len</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+       <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p><strong>O(n) runtime, O(n) space – Manacher’s algorithm</strong></p>
+
+<h4>14. One Edit Distance</h4>
+
+<h6>Question:</h6>
+
+<p>Given two strings S and T, determine if they are both one edit distance apart.</p>
+
+<h6>Hint:</h6>
+
+<blockquote>
+<ol>
+<li>If | n – m | is greater than 1, we know immediately both are not one-edit distance
+apart.</li>
+<li>It might help if you consider these cases separately, m == n and m ≠ n.</li>
+<li>Assume that m is always ≤ n, which greatly simplifies the conditional statements.
+If m &gt; n, we could just simply swap S and T.</li>
+<li>If m == n, it becomes finding if there is exactly one modified operation. If m ≠ n,
+you do not have to consider the delete operation. Just consider the insert operation
+in T.</li>
+</ol>
+</blockquote>
+
+<h6>Solution:</h6>
+
+<p>** O(n) runtime, O(1) space – Simple one-pass: **</p>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="kt">bool</span> <span class="nf">isOneEditDistance</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span><span class="n">string</span> <span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">m</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">(),</span><span class="n">n</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="o">&gt;</span><span class="n">n</span><span class="p">)</span> <span class="k">return</span> <span class="n">isOneEditDistance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">m</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">shift</span><span class="o">=</span><span class="n">n</span><span class="o">-</span><span class="n">m</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">!=</span><span class="n">m</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="n">m</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">shift</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">!=</span><span class="n">m</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">shift</span><span class="p">])</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">i</span><span class="o">==</span><span class="n">m</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul class="pager">
+  
+  <li class="previous"><a  href="/c++/2015-04/strings.html" title="Strings">&larr; Prev</a></li>
+  
+  
+  <li class="next disabled"><a href="#">Next &rarr;</a></li>
+  
+</ul>
+
+
+
+</div>
+
+        </div>
+      </article>
+
+      <footer class="footer text-center">
+  <p>&copy; 2015 <a href="" title="">liuguichao</a>. with Help from <a href="//jekyllrb.com/" title="Transform your plain text into static websites and blogs.">Jekyll</a> and <a href="//getbootstrap.com/" title="Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.">Bootstrap</a></p>
+  <p>Articles are licensed under <a href="//creativecommons.org/licenses/by/3.0/" title="CC BY 3.0 License">the CC BY 3.0</a></p>
+</footer>
+
+    </div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/webcore.js"></script>
+
+    
+
+    
+  </body>
+</html>

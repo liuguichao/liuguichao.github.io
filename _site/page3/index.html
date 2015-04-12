@@ -81,6 +81,16 @@
         <div class="row clearfix">
           <div class="col-md-9">
   
+  <h3 class="title"><a href="/c++/2014-07/overloaded-operations-and-conversions.html">Overloaded Operations and Conversions</a></h3>
+  
+  When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit) parameter than the number of operands. Calling an Overloaded Operator Function Directly // equivalent calls to a nonmember operator function data1 + data2; // normal expression operator+(data1, data2);...
+  
+  
+  <h3 class="title"><a href="/c++/2014-07/copy-control.html">Copy Control</a></h3>
+  
+  When we define a class,we specify—explicitly or implicitly—what happens when objects of that class type are copied, moved, assigned, and destroyed. A class controls these operations by defining five special member functions: copy constructor, copy-assignment operator, move constructor, move-assignment operator, and destructor. The copy and move constructors define what happens...
+  
+  
   <h3 class="title"><a href="/c++/2014-07/dynamic-memory.html">Dynamic Memory</a></h3>
   
   smart pointer To make using dynamic memory easier (and safer), the new library provides two smart pointer types that manage dynamic objects. A smart pointer acts like a regular pointer with the important exception that it automatically deletes the object to which it points. The new library defines two kinds...
@@ -96,16 +106,6 @@
   Iterators Make the Algorithms Container Independent, But Algorithms Do Depend on Element-Type Operations Algorithms Never Execute Container Operations Ordinarily it is best to use cbegin() and cend() with algorithms that read, but do not write, the elements. However, if you plan to use the iterator returned by the algorithm to...
   
   
-  <h3 class="title"><a href="/c++/2014-07/sequential-containers.html">Sequential Containers</a></h3>
-  
-  The Sequential Containers Iterator Ranges An iterator range is denoted by a pair of iterators each of which refers to an element, or to one past the last element,in the same container. These two iterators, often referred to as begin and end—or (somewhat misleadingly) as first and last—mark a range...
-  
-  
-  <h3 class="title"><a href="/c++/2014-07/the-io-library.html">The IO Library</a></h3>
-  
-  To support different kinds of IO processing,IO types are defined in three separate headers:iostream defines the basic types used to read from and write to a stream, fstream defines the types used to read and write named files, and sstream defines the types used to read and write in-memory strings....
-  
-  
 
   <!-- Pagination links -->
   <div class="pull-right">
@@ -115,10 +115,10 @@
     <a class="btn btn-primary btn-sm" href="/page2/">&laquo; Prev</a>
     
     
-    <span><a class="btn btn-primary btn-sm disabled">Page: 3 of 4</a></span>
+    <span><a class="btn btn-primary btn-sm disabled">Page: 3 of 5</a></span>
     
     <a class="btn btn-primary btn-sm" href="/page4/">Next &raquo;</a>
-    <a class="btn btn-primary btn-sm" href="/page4/">Last</a>
+    <a class="btn btn-primary btn-sm" href="/page5/">Last</a>
     
   </div>
 </div>
@@ -143,6 +143,10 @@
   <h3 class="title">Recently Posts</h3>
   <ul>
     
+    <li><a href="/algorithms/2015-04/longest-palindromic-substring.html" title="Longest Palindromic Substring">Longest Palindromic Substring</a></li>
+    
+    <li><a href="/c++/2015-04/strings.html" title="Strings">Strings</a></li>
+    
     <li><a href="/algorithms/2015-04/missing-ranges.html" title="Missing Ranges">Missing Ranges</a></li>
     
     <li><a href="/algorithms/2015-04/longest-substring.html" title="longest substring">longest substring</a></li>
@@ -158,10 +162,6 @@
     <li><a href="/c++/2014-07/templates-and-generic-programming.html" title="Templates and Generic Programming">Templates and Generic Programming</a></li>
     
     <li><a href="/c++/2014-07/object-oriented-programming.html" title="Object-Oriented Programming">Object-Oriented Programming</a></li>
-    
-    <li><a href="/c++/2014-07/overloaded-operations-and-conversions.html" title="Overloaded Operations and Conversions">Overloaded Operations and Conversions</a></li>
-    
-    <li><a href="/c++/2014-07/copy-control.html" title="Copy Control">Copy Control</a></li>
     
   </ul>
 </section>

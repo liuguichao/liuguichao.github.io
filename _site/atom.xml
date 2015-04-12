@@ -4,12 +4,42 @@
   <title>My study notes</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-04-10T15:32:03+08:00</updated>
+  <updated>2015-04-12T15:43:10+08:00</updated>
   <id></id>
   <author>
     <name>liuguichao</name>
   </author>
 
+  
+  <entry>
+    <title>Longest Palindromic Substring</title>
+    <link href="/algorithms/2015-04/longest-palindromic-substring.html"/>
+    <updated>2015-04-12T00:00:00+08:00</updated>
+    <id>/algorithms/2015-04/longest-palindromic-substring</id>
+    <content type="html">13. Longest Palindromic Substring
+
+Code it now: https://oj.leetcode.com/problems/longest-palindromic-substring/
+
+Question:
+
+Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring...</content>
+  </entry>
+  
+  <entry>
+    <title>Strings</title>
+    <link href="/c++/2015-04/strings.html"/>
+    <updated>2015-04-10T00:00:00+08:00</updated>
+    <id>/c++/2015-04/strings</id>
+    <content type="html">
+The.C.Plus.Plus.Standard.Library.A.Tutorial.and.Reference,.Nicolai.M..Josuttis,.2ed,.AW,.2012.pdf
+
+
+Chapter 13 Strings
+
+Note that with C++98 the type of string literals (such as &amp;quot;hello&amp;quot;) was changed into const char*. 
+
+The following statement searches for the first occurrence of a peri...</content>
+  </entry>
   
   <entry>
     <title>Missing Ranges</title>
