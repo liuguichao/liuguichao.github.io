@@ -4,12 +4,22 @@
   <title>My study notes</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-04-12T15:43:10+08:00</updated>
+  <updated>2015-04-14T22:15:14+08:00</updated>
   <id></id>
   <author>
     <name>liuguichao</name>
   </author>
 
+  
+  <entry>
+    <title>Elementary Sorts</title>
+    <link href="/algorithms/2015-04/elementary-sorts.html"/>
+    <updated>2015-04-14T00:00:00+08:00</updated>
+    <id>/algorithms/2015-04/elementary-sorts</id>
+    <content type="html">Selection sort
+
+One of the simplest sorting algorithms works as follows: First, find the smallest item in the array and exchange it with the first entry (itself if the first entry is already the smallest). Then, find the next smallest item and exchange it with the second entry. Continue in this w...</content>
+  </entry>
   
   <entry>
     <title>Longest Palindromic Substring</title>

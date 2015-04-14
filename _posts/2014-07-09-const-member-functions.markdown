@@ -7,7 +7,8 @@ category: C++
 tags: [const]
 ---
 #### Introducing const Member Functions 
-```c++
+
+``` C++
 std::string isbn() const
  { return bookNo; }
 ```
