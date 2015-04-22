@@ -4,12 +4,46 @@
   <title>My study notes</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-04-14T22:15:14+08:00</updated>
+  <updated>2015-04-22T22:09:30+08:00</updated>
   <id></id>
   <author>
     <name>liuguichao</name>
   </author>
 
+  
+  <entry>
+    <title>Evaluating Polynomials</title>
+    <link href="/algorithms/2015-04/evaluating-polynomials.html"/>
+    <updated>2015-04-22T00:00:00+08:00</updated>
+    <id>/algorithms/2015-04/evaluating-polynomials</id>
+    <content type="html">多项式求值
+
+问题
+
+给定一串实数an,an-1,...,a1,a0,以及一个实数x，计算多项式Pn(x)=anxn+an-1xn-1+...+a1x+a0的值。
+
+解法
+
+去掉第一个系数a0,则更小规模的问题变成了计算由系数
+an,an-1,...,a1表达的多项式，即
+Pn-1(x)=anxn-1+an-1xn-2+...+a1。
+显然 Pn(x)=xPn-1(x)+a0.
+
+完整的算法可用如下表达式来说明：(Horner规则)
+
+
+anxn+an-1xn-1+...+a1x+a0=((...)((anx+an-1)x+an-2)...)x+a1)x+a0
+
+int polynomi...</content>
+  </entry>
+  
+  <entry>
+    <title>Mergesort</title>
+    <link href="/algorithms/2015-04/mergesort.html"/>
+    <updated>2015-04-15T00:00:00+08:00</updated>
+    <id>/algorithms/2015-04/mergesort</id>
+    <content type="html"></content>
+  </entry>
   
   <entry>
     <title>Elementary Sorts</title>

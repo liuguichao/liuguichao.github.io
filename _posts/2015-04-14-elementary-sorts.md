@@ -75,5 +75,32 @@ void Insertion(Item a[],int l,int r)
 }
 ``` 
 #### Shellsort
-Insertion sort is slow for large unordered arrays because the only exchanges it does involve adjacent entries, so items
-can move through the array only one place at a time. Shellsort is a simple extension of insertion sort that gains speed by allowing exchanges of array entries that are far apart, to produce partially sorted arrays that can be efficiently sorted, eventually by insertion sort.
+Insertion sort is slow for large unordered arrays because the only exchanges it does involve adjacent entries, so items can move through the array only one place at a time. Shellsort is a simple extension of insertion sort that gains speed by allowing exchanges of array entries that are far apart, to produce partially sorted arrays that can be efficiently sorted, eventually by insertion sort.
+
+The idea is to rearrange the array to give it the property that taking every hth entry
+(starting anywhere) yields a sorted subsequence. Such an array is said to beh-sorted. Put
+another way, an h-sorted array is h independent sorted subsequences, interleaved
+together. By h-sorting for some large values of h, we can move items in the array
+long distances and thus make it easier to h-sort for smaller values of h. Using such
+a procedure for any sequence of values of h that ends in 1 will produce a sorted array: that is shellsort. 
+
+>Property E. The number of compares used by shellsort with the increments 1, 4,
+13, 40, 121, 364, . . . is bounded by a small multiple of N times the number of increments used.
+
+``` C++
+template<class Item>
+void ShellSort(Item a[],int l,int r)
+{
+	int h=1;
+	while(h<=(r-l)/3) h=h*3+1;
+	while(h>=1)
+	{
+		for(int i=l+h;i<=r;++i)
+		{			
+			for(int j=i;j>=h&&a[j]<a[j-h];j-=h)
+				exch(a[j],a[j-h]);
+		}		
+		h/=3;
+	}
+}
+```

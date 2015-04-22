@@ -69,6 +69,10 @@
 
     <li><a href="/rss.xml" target="_blank" title="RSS" rel="nofollow"><span class='fa fa-rss fa-2x'></span></a></li>
   </ul>
+
+  <script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 </header>
 
 
@@ -155,15 +159,41 @@ practice, even if they are huge.</strong></p>
 </code></pre></div>
 <h4>Shellsort</h4>
 
-<p>Insertion sort is slow for large unordered arrays because the only exchanges it does involve adjacent entries, so items
-can move through the array only one place at a time. Shellsort is a simple extension of insertion sort that gains speed by allowing exchanges of array entries that are far apart, to produce partially sorted arrays that can be efficiently sorted, eventually by insertion sort.</p>
+<p>Insertion sort is slow for large unordered arrays because the only exchanges it does involve adjacent entries, so items can move through the array only one place at a time. Shellsort is a simple extension of insertion sort that gains speed by allowing exchanges of array entries that are far apart, to produce partially sorted arrays that can be efficiently sorted, eventually by insertion sort.</p>
 
+<p>The idea is to rearrange the array to give it the property that taking every hth entry
+(starting anywhere) yields a sorted subsequence. Such an array is said to beh-sorted. Put
+another way, an h-sorted array is h independent sorted subsequences, interleaved
+together. By h-sorting for some large values of h, we can move items in the array
+long distances and thus make it easier to h-sort for smaller values of h. Using such
+a procedure for any sequence of values of h that ends in 1 will produce a sorted array: that is shellsort. </p>
+
+<blockquote>
+<p>Property E. The number of compares used by shellsort with the increments 1, 4,
+13, 40, 121, 364, . . . is bounded by a small multiple of N times the number of increments used.</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-C++" data-lang="C++"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Item</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">ShellSort</span><span class="p">(</span><span class="n">Item</span> <span class="n">a</span><span class="p">[],</span><span class="kt">int</span> <span class="n">l</span><span class="p">,</span><span class="kt">int</span> <span class="n">r</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">h</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">h</span><span class="o">&lt;=</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="n">h</span><span class="o">=</span><span class="n">h</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">h</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">l</span><span class="o">+</span><span class="n">h</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">r</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">{</span>           
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">;</span><span class="n">j</span><span class="o">&gt;=</span><span class="n">h</span><span class="o">&amp;&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="n">h</span><span class="p">];</span><span class="n">j</span><span class="o">-=</span><span class="n">h</span><span class="p">)</span>
+                <span class="n">exch</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="n">h</span><span class="p">]);</span>
+        <span class="p">}</span>       
+        <span class="n">h</span><span class="o">/=</span><span class="mi">3</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <ul class="pager">
   
   <li class="previous"><a  href="/algorithms/2015-04/longest-palindromic-substring.html" title="Longest Palindromic Substring">&larr; Prev</a></li>
   
   
-  <li class="next disabled"><a href="#">Next &rarr;</a></li>
+  <li class="next"><a href="/algorithms/2015-04/mergesort.html" title="Mergesort">Next &rarr;</a></li>
   
 </ul>
 

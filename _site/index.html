@@ -69,6 +69,10 @@
 
     <li><a href="/rss.xml" target="_blank" title="RSS" rel="nofollow"><span class='fa fa-rss fa-2x'></span></a></li>
   </ul>
+
+  <script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 </header>
 
 
@@ -80,6 +84,42 @@
         </div>
         <div class="row clearfix">
           <div class="col-md-9">
+  
+  <h3 class="title"><a href="/algorithms/2015-04/evaluating-polynomials.html">Evaluating Polynomials</a></h3>
+  
+  多项式求值
+
+问题
+
+给定一串实数an,an-1,...,a1,a0,以及一个实数x，计算多项式Pn(x)=anxn+an-1xn-1+...+a1x+a0的值。
+
+解法
+
+去掉第一个系数a0,则更小规模的问题变成了计算由系数
+an,an-1,...,a1表达的多项式，即
+Pn-1(x)=anxn-1+an-1xn-2+...+a1。
+显然 Pn(x)=xPn-1(x)+a0.
+
+完整的算法可用如下表达式来说明：(Horner规则)
+
+
+anxn+an-1xn-1+...+a1x+a0=((...)((anx+an-1)x+an-2)...)x+a1)x+a0
+
+int polynomialEvaluation(vector&lt;int&gt; a,int x)
+{
+    int n=a.size();
+    int p=a[n-1];
+    for(int i=0;i!=n-1;++i)
+        p=p*x+a[n-i-2];
+    return p;
+}
+
+  
+  
+  <h3 class="title"><a href="/algorithms/2015-04/mergesort.html">Mergesort</a></h3>
+  
+  
+  
   
   <h3 class="title"><a href="/algorithms/2015-04/elementary-sorts.html">Elementary Sorts</a></h3>
   
@@ -94,16 +134,6 @@
   <h3 class="title"><a href="/c++/2015-04/strings.html">Strings</a></h3>
   
   The.C.Plus.Plus.Standard.Library.A.Tutorial.and.Reference,.Nicolai.M..Josuttis,.2ed,.AW,.2012.pdf Chapter 13 Strings Note that with C++98 the type of string literals (such as &quot;hello&quot;) was changed into const char*. The following statement searches for the first occurrence of a period inside the string filename: string::size_type idx = filename.find(’.’); If the search fails, a special value is needed to...
-  
-  
-  <h3 class="title"><a href="/algorithms/2015-04/missing-ranges.html">Missing Ranges</a></h3>
-  
-  12. Missing Ranges Question: Given a sorted integer array where the range of elements are [0, 99] inclusive, return its missing ranges. For example, given [0, 1, 3, 50, 75], return [“2”, “4-&gt;49”, “51-&gt;74”, “76-&gt;99”] Solution: string makeRange(int i,int j) { return i==j?to_string(i):to_string(i)+&quot;-&gt;&quot;+to_string(j); } vector&lt;string&gt; findMissingRanges(vector&lt;int&gt; vals,int start,int end) {...
-  
-  
-  <h3 class="title"><a href="/algorithms/2015-04/longest-substring.html">longest substring</a></h3>
-  
-  10. Longest Substring Without Repeating Characters Code it now:https://oj.leetcode.com/problems/longest-substring-without-repeating-characters/ Question: Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for “abcabcbb” is “abc”, which the length is 3. For “bbbbb” the longest substring is “b”, with the length...
   
   
 
@@ -141,6 +171,10 @@
   <h3 class="title">Recently Posts</h3>
   <ul>
     
+    <li><a href="/algorithms/2015-04/evaluating-polynomials.html" title="Evaluating Polynomials">Evaluating Polynomials</a></li>
+    
+    <li><a href="/algorithms/2015-04/mergesort.html" title="Mergesort">Mergesort</a></li>
+    
     <li><a href="/algorithms/2015-04/elementary-sorts.html" title="Elementary Sorts">Elementary Sorts</a></li>
     
     <li><a href="/algorithms/2015-04/longest-palindromic-substring.html" title="Longest Palindromic Substring">Longest Palindromic Substring</a></li>
@@ -156,10 +190,6 @@
     <li><a href="/algorithms/2015-04/reverseWords.html" title="Reverse Words in a String">Reverse Words in a String</a></li>
     
     <li><a href="/algorithms/2015-04/string-find.html" title="string find">string find</a></li>
-    
-    <li><a href="/algorithms/2015-04/TwoSum.html" title="Two Sum">Two Sum</a></li>
-    
-    <li><a href="/c++/2014-07/templates-and-generic-programming.html" title="Templates and Generic Programming">Templates and Generic Programming</a></li>
     
   </ul>
 </section>
